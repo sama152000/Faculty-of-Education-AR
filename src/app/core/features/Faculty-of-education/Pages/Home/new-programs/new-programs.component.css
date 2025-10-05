@@ -1,0 +1,427 @@
+/* ========================================
+   NEW PROGRAMS SECTION
+======================================== */
+.new-programs-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+
+  position: relative;
+  padding: var(--section-padding);
+  overflow: hidden;
+}
+
+.new-programs-section::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  animation: rotate 30s linear infinite;
+}
+
+.new-programs-section::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  right: -15%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  animation: rotate 40s linear infinite reverse;
+}
+
+/* ========================================
+   SECTION HEADER
+======================================== */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  animation: slideInUp 0.8s ease-out 0.6s both;
+}
+
+.decoration-element {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-color), var(--dark-accent-color));
+  border-radius: 1px;
+}
+
+.decoration-icon {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* ========================================
+   PROGRAMS GRID
+======================================== */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem 2rem;
+  position: relative;
+  z-index: 2;
+  animation: slideInUp 1s ease-out 0.8s both;
+}
+
+/* ========================================
+   PROGRAM CARDS
+======================================== */
+.program-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 28px;
+  padding: 3rem;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.8s ease-out both;
+  box-shadow:
+    0 8px 32px rgba(230, 204, 47, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.program-card:hover {
+  transform: translateY(-16px) scale(1.02);
+  box-shadow: 
+    0 24px 48px rgba(230, 204, 47, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: rgba(230, 204, 47, 0.4);
+}
+
+/* ========================================
+   PROGRAM BADGE
+======================================== */
+.program-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, var(--accent-color), var(--dark-accent-color));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(230, 204, 47, 0.3);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.program-card:hover .program-badge {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(230, 204, 47, 0.4);
+}
+
+/* ========================================
+   CARD CONTENT
+======================================== */
+.card-content {
+  flex: 1;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.program-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--dark-primary-color);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.title-accent {
+  width: 50px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--dark-accent-color));
+  border-radius: 2px;
+  margin: 0 auto 1.5rem;
+  transition: width 0.5s ease;
+}
+
+.program-card:hover .title-accent {
+  width: 80px;
+}
+
+.program-description {
+  color: var(--dark-primary-color);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.program-features {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.feature-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(230, 204, 47, 0.15);
+  border: 1px solid rgba(230, 204, 47, 0.3);
+  border-radius: 16px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark-primary-color);
+  transition: all 0.3s ease;
+}
+
+.feature-tag:hover {
+  background: rgba(230, 204, 47, 0.25);
+  transform: translateY(-2px);
+}
+
+.feature-tag i {
+  font-size: 0.875rem;
+  color: var(--accent-color);
+}
+
+/* ========================================
+   CARD FOOTER
+======================================== */
+.card-footer {
+  margin-top: auto;
+}
+
+.explore-program-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
+  border: none;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(52, 74, 90, 0.3);
+}
+
+.explore-program-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(52, 74, 90, 0.4);
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.explore-program-btn:hover .btn-content {
+  transform: translateX(4px);
+}
+
+.btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.explore-program-btn:hover .btn-shine {
+  left: 100%;
+}
+
+/* ========================================
+   DECORATIVE ELEMENTS
+======================================== */
+.card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(230, 204, 47, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.program-card:hover .card-glow {
+  opacity: 1;
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  50% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .programs-grid {
+    gap: 2rem 1.5rem;
+  }
+
+  .program-card {
+    height: 250px;
+    padding: 2.5rem;
+  }
+
+  .program-badge {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-programs-section {
+    padding: 3rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .program-card {
+    height: auto;
+    min-height: 230px;
+    padding: 2rem;
+  }
+
+  .program-badge {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  .program-card {
+    padding: 1.75rem;
+    border-radius: 24px;
+    min-height: 210px;
+  }
+
+  .program-badge {
+    top: 0.25rem;
+    right: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .program-title {
+    font-size: 1.25rem;
+  }
+
+  .program-features {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+}

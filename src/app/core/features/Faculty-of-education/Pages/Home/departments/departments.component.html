@@ -1,0 +1,91 @@
+<section class="departments-section">
+  <div class="container-fluid">
+    <!-- رأس القسم -->
+    <div class="section-header">
+      <div class="header-content">
+        <h2 class="section-title">أقسام الكلية</h2>
+        <p class="section-subtitle">
+          أقسام أكاديمية متخصصة تدفع التميز التعليمي والابتكار
+        </p>
+      </div>
+    </div>
+
+    <!-- شريط الأقسام -->
+    <div class="departments-container">
+      <div class="departments-slider" #slider>
+        <!-- المجموعة الأولى من البطاقات -->
+        @for (department of departments; track department.id; let i = $index) {
+          <div class="department-card"
+               [style.animation-delay.ms]="i * 150">
+
+            <!-- رأس البطاقة -->
+            <div class="card-header">
+              <div class="department-number">
+                <span class="number-text">{{ department.order.toString().padStart(2, '0') }}</span>
+              </div>
+              <div class="department-icon">
+                <i [class]="department.icon"></i>
+                <div class="icon-glow"></div>
+              </div>
+            </div>
+
+            <!-- محتوى البطاقة -->
+            <div class="card-content">
+              <h4 class="department-title">{{ department.name }}</h4>
+              <div class="title-underline"></div>
+              <p class="department-description">{{ department.description }}</p>
+            </div>
+
+            <!-- تذييل البطاقة -->
+            <div class="card-footer">
+              <button class="explore-btn" type="button" (click)="navigateToDepartment(department.id)">
+                <span class="btn-text">استكشف</span>
+                <i class="pi pi-arrow-right btn-icon"></i>
+              </button>
+            </div>
+
+            <!-- العناصر الزخرفية -->
+            <div class="card-decoration top-left"></div>
+            <div class="card-decoration bottom-right"></div>
+          </div>
+        }
+        <!-- مجموعة مكررة للتمرير المستمر -->
+        @for (department of departments; track department.id; let i = $index) {
+          <div class="department-card"
+               [style.animation-delay.ms]="i * 150">
+
+            <!-- رأس البطاقة -->
+            <div class="card-header">
+              <div class="department-number">
+                <span class="number-text">{{ department.order.toString().padStart(2, '0') }}</span>
+              </div>
+              <div class="department-icon">
+                <i [class]="department.icon"></i>
+                <div class="icon-glow"></div>
+              </div>
+            </div>
+
+            <!-- محتوى البطاقة -->
+            <div class="card-content">
+              <h4 class="department-title">{{ department.name }}</h4>
+              <div class="title-underline"></div>
+              <p class="department-description">{{ department.description }}</p>
+            </div>
+
+            <!-- تذييل البطاقة -->
+            <div class="card-footer">
+              <button class="explore-btn" type="button">
+                <span class="btn-text">استكشف</span>
+                <i class="pi pi-arrow-right btn-icon"></i>
+              </button>
+            </div>
+
+            <!-- العناصر الزخرفية -->
+            <div class="card-decoration top-left"></div>
+            <div class="card-decoration bottom-right"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

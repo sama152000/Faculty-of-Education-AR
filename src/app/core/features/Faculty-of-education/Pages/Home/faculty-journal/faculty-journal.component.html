@@ -1,0 +1,102 @@
+<section class="faculty-journal-section">
+  <div class="container-fluid">
+    <!-- رأس القسم -->
+    <div class="section-header">
+      <div class="header-content">
+        <h2 class="section-title">مجلة الكلية</h2>
+        <p class="section-subtitle">
+          تعزيز البحث التعليمي والتميز العلمي من خلال المنشورات المراجعة من الأقران
+        </p>
+      </div>
+    </div>
+
+    <!-- بطاقة المجلة -->
+    <div class="journal-container">
+      <div class="journal-card">
+        <div class="card-background">
+          <div class="bg-pattern"></div>
+          <div class="bg-gradient"></div>
+        </div>
+
+        <div class="journal-content">
+          <div class="content-left">
+            <!-- رأس المجلة -->
+            <div class="journal-header">
+              <div class="journal-icon-wrapper">
+                <div class="journal-icon">
+                  <i [class]="journalInfo.icon"></i>
+                  <div class="icon-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- معلومات المجلة -->
+            <div class="journal-info">
+              <h3 class="journal-title">{{ journalInfo.title }}</h3>
+              <div class="title-underline"></div>
+              <p class="journal-description">{{ journalInfo.description }}</p>
+            </div>
+
+            <!-- إجراءات المجلة -->
+            <div class="journal-actions">
+              <button class="primary-btn" (click)="openJournal()" type="button">
+                <div class="btn-content">
+                  <i class="pi pi-external-link btn-icon"></i>
+                  <span class="btn-text">زيارة المجلة</span>
+                </div>
+                <div class="btn-glow"></div>
+              </button>
+              
+              <div class="journal-link-info">
+                <span class="link-label">الوصول المباشر:</span>
+                <a [href]="journalInfo.url" target="_blank" class="journal-url">
+                  {{ journalInfo.url }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-right">
+            <!-- معاينة المجلة -->
+            <div class="magazine-preview">
+              <div class="magazine-container">
+                <div class="magazine-cover">
+                  <img src="./assets/jornal.jpg" alt="غلاف مجلة الكلية" class="cover-image">
+                  <div class="cover-overlay">
+                    <div class="overlay-content">
+                      <h4 class="overlay-title">أحدث إصدار</h4>
+                      <p class="overlay-subtitle">الجزء 2024 • العدد 1</p>
+                      <div class="overlay-badge">
+                        <i class="pi pi-star"></i>
+                        <span>أبحاث مميزة</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+              <!-- مميزات المجلة
+              <div class="journal-features">
+                <div class="features-grid">
+                  <div class="feature-item" *ngFor="let feature of journalFeatures; let i = index" 
+                       [style.animation-delay.ms]="i * 100">
+                    <div class="feature-icon">
+                      <i [class]="feature.icon"></i>
+                    </div>
+                    <div class="feature-content">
+                      <h5 class="feature-title">{{ feature.title }}</h5>
+                      <p class="feature-description">{{ feature.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div> -->

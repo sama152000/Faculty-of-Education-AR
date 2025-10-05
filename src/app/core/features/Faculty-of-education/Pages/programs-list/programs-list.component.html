@@ -1,0 +1,98 @@
+<div class="programs-container">
+  <app-page-header
+    [title]="'البرامج الأكاديمية'"
+    [breadcrumbs]="[{label: 'البرامج الأكاديمية'}]">
+  </app-page-header>
+
+  <div class="content-wrapper">
+    <div class="main-content">
+      <div class="search-section">
+        <span class="p-input-icon-left search-input-wrapper">
+          <i class="pi pi-search"></i>
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            placeholder="ابحث عن البرامج..."
+            class="search-input" />
+        </span>
+      </div>
+
+      <div class="programs-grid">
+        @for (program of filteredPrograms; track program.id) {
+          <p-card
+            class="program-card"
+            [styleClass]="'custom-card'">
+            <ng-template pTemplate="header">
+              <div class="card-image-wrapper">
+                <img [src]="program.images[0]" [alt]="program.name" class="card-image" />
+                <div class="card-overlay"></div>
+              </div>
+            </ng-template>
+
+            <div class="card-content">
+              <h3 class="program-title">{{ program.name }}</h3>
+
+              <p-divider></p-divider>
+
+              <p class="program-description">{{ program.shortDescription }}</p>
+
+              <div class="program-meta">
+                <div class="meta-item">
+                  <i class="pi pi-clock"></i>
+                  <span>{{ program.duration }}</span>
+                </div>
+                <div class="meta-item">
+                  <i class="pi pi-graduation-cap"></i>
+                  <span>{{ program.degree }}</span>
+                </div>
+              </div>
+            </div>
+
+            <ng-template pTemplate="footer">
+              <div class="card-footer">
+                <p-button
+                  label="عرض التفاصيل"
+                  icon="pi pi-arrow-left"
+                  [routerLink]="['/programs', program.id]"
+                  styleClass="p-button-primary"
+                  [style]="{'width': '100%'}">
+                </p-button>
+              </div>
+            </ng-template>
+          </p-card>
+        }
+      </div>
+
+      @if (filteredPrograms.length === 0) {
+        <div class="no-results">
+          <i class="pi pi-search"></i>
+          <h3>لا توجد نتائج</h3>
+          <p>لا توجد برامج تطابق بحثك</p>
+        </div>
+      }
+    </div>
+
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <h3 class="sidebar-title">
+          <i class="pi pi-list"></i>
+          جميع البرامج
+        </h3>
+        <p-divider></p-divider>
+        <ul class="programs-list">
+          @for (program of programs; track program.id) {
+            <li class="program-item"
+                [class.active]="selectedProgram?.id === program.id">
+              <a [routerLink]="['/programs', program.id]" (click)="selectProgram(program)">
+                <i class="pi pi-angle-left"></i>
+                <span>{{ program.name }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>

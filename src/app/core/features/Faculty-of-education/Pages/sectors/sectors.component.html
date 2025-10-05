@@ -1,0 +1,185 @@
+<div class="sectors-container" *ngIf="!loading && currentSector">
+  <div class="container-fluid">
+    <!-- مسار التنقل -->
+    <nav aria-label="مسار التنقل" class="breadcrumb-nav mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/']">
+            الرئيسية
+          </a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/management']">
+            الإدارة العليا
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ getSectorTitle(currentSector) }}
+        </li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- المحتوى الرئيسي -->
+      <div class="col-lg-8 col-md-7">
+        <div class="sector-content">
+          <!-- رأس الحقل -->
+          <div class="sector-header mb-5">
+            <div class="header-icon mb-3">
+              <i class="pi pi-building"></i>
+            </div>
+            <h1 class="section-title mb-3">
+              {{ getSectorTitle(currentSector) }}
+            </h1>
+            <div class="vice-dean-info">
+              <div class="vice-dean-card">
+                <div class="vice-dean-avatar">
+                  <i class="pi pi-user"></i>
+                </div>
+                <div class="vice-dean-details">
+                  <h3 class="vice-dean-title">
+                    نائب العميد
+                  </h3>
+                  <p class="vice-dean-name">
+                    {{ getSectorViceDean(currentSector) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- قسم الأهداف -->
+          <div class="content-section mb-5">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="pi pi-target"></i>
+              </div>
+              <h2 class="section-subtitle">
+                أهداف الحقل
+              </h2>
+            </div>
+            <div class="objectives-list">
+              <div class="objective-item" *ngFor="let objective of getSectorObjectives(currentSector); let i = index">
+                <div class="objective-number">
+                  {{ i + 1 }}
+                </div>
+                <div class="objective-content">
+                  <p>{{ objective }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- قسم الخدمات -->
+          <div class="content-section mb-5">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="pi pi-cog"></i>
+              </div>
+              <h2 class="section-subtitle">
+                خدمات الحقل
+              </h2>
+            </div>
+            <div class="services-list">
+              <div class="service-item" *ngFor="let service of getSectorServices(currentSector)">
+                <div class="service-icon">
+                  <i class="pi pi-check-circle"></i>
+                </div>
+                <div class="service-content">
+                  <p>{{ service }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- أزرار التنقل -->
+          <div class="sector-navigation">
+            <button class="nav-btn prev-btn" 
+                    (click)="navigateToPrevious()" 
+                    *ngIf="navigation.previous"
+                    [title]="getSectorTitle(navigation.previous)">
+              <i class="pi pi-chevron-left me-2"></i>
+              <div class="nav-content">
+                <span class="nav-label">السابق</span>
+                <span class="nav-title">{{ getSectorTitle(navigation.previous) }}</span>
+              </div>
+            </button>
+
+            <button class="nav-btn next-btn"
+                    (click)="navigateToNext()"
+                    *ngIf="navigation.next"
+                    [title]="getSectorTitle(navigation.next)">
+              <div class="nav-content">
+                <span class="nav-label">التالي</span>
+                <span class="nav-title">{{ getSectorTitle(navigation.next) }}</span>
+              </div>
+              <i class="pi pi-chevron-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الشريط الجانبي -->
+      <div class="col-lg-4 col-md-5">
+        <div class="sidebar">
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">
+              جميع الحقول
+            </h3>
+            
+            <div class="sectors-list">
+              <div class="sector-item" 
+                   *ngFor="let sector of allSectors"
+                   [class.active]="isCurrentSector(sector)"
+                   (click)="navigateToSector(sector)">
+                <div class="sector-icon">
+                  <i class="pi pi-building"></i>
+                </div>
+                <div class="sector-info">
+                  <h4 class="sector-name">{{ getSectorTitle(sector) }}</h4>
+                  <p class="sector-dean">{{ getSectorViceDean(sector) }}</p>
+                </div>
+                <div class="sector-arrow">
+                  <i class="pi pi-chevron-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- التواصل السريع -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">
+              التواصل السريع
+            </h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="pi pi-phone"></i>
+                <span>01010577677</span>
+              </div>
+              <div class="contact-item">
+                <i class="pi pi-envelope"></i>
+                <span>waleed2507@yahoo.co.uk</span>
+              </div>
+              <div class="contact-item">
+                <i class="pi pi-map-marker"></i>
+                <span>مدينة التيبة الجديدة، الأقصر</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- حالة التحميل -->
+<div *ngIf="loading" class="loading-container">
+  <div class="container-fluid">
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">جارٍ التحميل...</span>
+      </div>
+      <p class="mt-3">جارٍ التحميل...</p>
+    </div>
+  </div>
+</div>

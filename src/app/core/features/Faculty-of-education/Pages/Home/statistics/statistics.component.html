@@ -1,0 +1,133 @@
+<section class="statistics-section">
+  <div class="container-fluid">
+    <!-- رأس القسم -->
+    <div class="section-header ">
+      <div class="header-content">
+        <h2 class="section-title">الإحصائيات الأكاديمية</h2>
+        <p class="section-subtitle">
+          نظرة شاملة على التسجيل الطلابي وإحصائيات البرامج
+        </p>
+      </div>
+    </div>
+
+    <!-- تنقل تبويب الإحصائيات -->
+    <div class="stats-tabs">
+      <div class="tabs-navigation">
+        <button 
+          *ngFor="let tab of statisticTabs; let i = index" 
+          class="tab-nav-button"
+          [class.active]="activeTab === tab.id"
+          (click)="setActiveTab(tab.id)">
+          <div class="tab-number">{{ i + 1 }}</div>
+          <div class="tab-info">
+            <span class="tab-label">{{ tab.title }}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- محتوى الإحصائيات النشط -->
+    <div class="statistics-content" *ngIf="getActiveTab() as activeTabData">
+      <div class="content-header">
+        <h3 class="content-title">{{ activeTabData.title }}</h3>
+        <div class="content-summary" *ngIf="activeTabData.id === 'enrolled-students'">
+          <div class="summary-card">
+            <div class="summary-icon">
+              <i class="pi pi-users"></i>
+            </div>
+            <div class="summary-info">
+              <div class="summary-number">{{ getTotalStudents(activeTabData.data) }}</div>
+              <div class="summary-label">إجمالي الطلاب</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- إحصائيات الطلاب المسجلين -->
+      <div class="statistics-grid" *ngIf="activeTabData.id === 'enrolled-students'">
+        <div 
+          class="stat-card department-card" 
+          *ngFor="let item of activeTabData.data; let i = index"
+          [style.animation-delay.ms]="i * 100">
+          <div class="card-header">
+            <div class="department-icon">
+              <i class="pi pi-bookmark"></i>
+            </div>
+            <h4 class="department-name">{{ item.label }}</h4>
+          </div>
+          <div class="card-body">
+            <div class="student-count">{{ item.value }}</div>
+            <div class="count-label">طلاب</div>
+          </div>
+          <div class="card-footer">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="(item.value / getTotalStudents(activeTabData.data)) * 100"></div>
+            </div>
+            <div class="percentage">{{ ((item.value / getTotalStudents(activeTabData.data)) * 100).toFixed(1) }}%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- إحصائيات الدراسات العليا -->
+      <div class="postgraduate-stats" *ngIf="activeTabData.id === 'postgraduate-diploma'">
+        <div class="tracks-overview">
+          <div 
+            class="track-card" 
+            *ngFor="let item of activeTabData.data; let i = index"
+            [style.animation-delay.ms]="i * 150">
+            <div class="track-header">
+              <div class="track-icon">
+                <i class="pi pi-graduation-cap"></i>
+              </div>
+              <h4 class="track-title">{{ item.label }}</h4>
+            </div>
+            
+            <div class="track-stats" *ngIf="item.value > 0">
+              <div class="total-students">
+                <div class="total-number">{{ item.value }}</div>
+                <div class="total-label">إجمالي الطلاب</div>
+              </div>
+              
+              <div class="gender-breakdown" *ngIf="item.subItems && item.subItems.length > 0">
+                <div class="gender-stats">
+                  <div class="gender-item male">
+                    <div class="gender-icon">
+                      <i class="pi pi-user"></i>
+                    </div>
+                    <div class="gender-info">
+                      <div class="gender-count">{{ item.subItems[0].male }}</div>
+                      <div class="gender-label">ذكور</div>
+                    </div>
+                  </div>
+                  <div class="gender-item female">
+                    <div class="gender-icon">
+                      <i class="pi pi-user"></i>
+                    </div>
+                    <div class="gender-info">
+                      <div class="gender-count">{{ item.subItems[0].female }}</div>
+                      <div class="gender-label">إناث</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="gender-chart">
+                  <div class="chart-segment male-segment" 
+                       [style.width.%]="(item.subItems[0].male / item.value) * 100"></div>
+                  <div class="chart-segment female-segment" 
+                       [style.width.%]="(item.subItems[0].female / item.value) * 100"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="track-placeholder" *ngIf="item.value === 0 && item.label !== 'Total Program Enrollment'">
+              <div class="placeholder-icon">
+                <i class="pi pi-clock"></i>
+              </div>
+              <div class="placeholder-text">قريبًا</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

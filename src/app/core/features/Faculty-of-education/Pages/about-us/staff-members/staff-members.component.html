@@ -1,0 +1,117 @@
+<app-page-header [title]="'أعضاء هيئة التدريس'" [breadcrumbs]="[{label: 'عن الكلية'}, {label: 'أعضاء هيئة التدريس'}]"></app-page-header>
+
+<section class="staff-members-section">
+  <div class="container-fluid">
+    <!-- عنوان فرعي للصفحة -->
+    <div class="page-subtitle">
+      <p>تعرف على فريقنا المكرس من المهنيين الملتزمين بالتميز التعليمي</p>
+    </div>
+
+    <!-- قسم الفلاتر -->
+    <div class="filters-section">
+      <div class="filters-container">
+        <!-- حقل البحث -->
+        <div class="search-container">
+          <div class="search-input-wrapper">
+            <i class="pi pi-search search-icon"></i>
+            <input 
+              type="text" 
+              class="search-input" 
+              placeholder="البحث بالاسم أو المنصب..."
+              (input)="onSearchChange($event)">
+          </div>
+        </div>
+
+        <!-- فلتر القسم -->
+        <div class="department-filter">
+          <div class="filter-label">تصفية حسب القسم:</div>
+          <div class="department-buttons">
+            <button 
+              class="dept-button"
+              [class.active]="selectedDepartment === 'all'"
+              (click)="filterByDepartment('all')">
+              جميع الأقسام
+            </button>
+            <button 
+              *ngFor="let dept of departments" 
+              class="dept-button"
+              [class.active]="selectedDepartment === dept"
+              [style.border-color]="getDepartmentColor(dept)"
+              (click)="filterByDepartment(dept)">
+              {{ dept }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- شبكة أعضاء هيئة التدريس -->
+    <div class="staff-grid">
+      <div class="results-header" *ngIf="filteredStaff.length !== staffMembers.length">
+        <div class="results-count">
+          يتم عرض {{ filteredStaff.length }} من {{ staffMembers.length }} أعضاء هيئة تدريس
+        </div>
+      </div>
+
+      <div class="members-grid">
+        <div 
+          class="staff-card" 
+          *ngFor="let member of filteredStaff; let i = index"
+          [style.animation-delay.ms]="i * 100">
+          
+          <!-- رأس البطاقة -->
+          <div class="card-header">
+            <div class="member-avatar">
+              <div class="avatar-circle" [style.background-color]="getDepartmentColor(member.department || 'عام')">
+                <span class="avatar-initials">{{ getInitials(member.name) }}</span>
+              </div>
+              <div class="member-id">#{{ member.id.toString().padStart(2, '0') }}</div>
+            </div>
+            <div class="department-badge" [style.background-color]="getDepartmentColor(member.department || 'عام')">
+              {{ member.department || 'عام' }}
+            </div>
+          </div>
+
+          <!-- جسم البطاقة -->
+          <div class="card-body">
+            <h3 class="member-name">{{ member.name }}</h3>
+            <p class="member-position">{{ member.position }}</p>
+          </div>
+
+          <!-- تذييل البطاقة -->
+          <div class="card-footer">
+            <div class="contact-info">
+              <div class="phone-info">
+                <i class="pi pi-phone contact-icon"></i>
+                <span class="phone-number">{{ member.phone }}</span>
+              </div>
+            </div>
+            <button 
+              class="call-button" 
+              (click)="callPhone(member.phone)"
+              title="اتصل بـ {{ member.name }}">
+              <i class="pi pi-phone"></i>
+              <span>اتصل</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- رسالة عدم وجود نتائج -->
+      <div class="no-results" *ngIf="filteredStaff.length === 0">
+        <div class="no-results-icon">
+          <i class="pi pi-search"></i>
+        </div>
+        <h3 class="no-results-title">لم يتم العثور على أعضاء هيئة تدريس</h3>
+        <p class="no-results-text">
+          حاول تعديل معايير البحث أو فلتر القسم
+        </p>
+        <button class="reset-button" (click)="filterByDepartment('all'); searchTerm = ''">
+          <i class="pi pi-refresh"></i>
+          إعادة تعيين الفلاتر
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

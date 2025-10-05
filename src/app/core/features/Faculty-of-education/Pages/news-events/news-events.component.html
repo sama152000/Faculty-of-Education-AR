@@ -1,0 +1,179 @@
+<section class="news-events-section">
+  <div class="container-fluid">
+    <!-- رأس الصفحة -->
+    <app-page-header
+      [title]="'الأخبار والفعاليات'"
+      [breadcrumbs]="[{ label: 'الأخبار والفعاليات' }]">
+    </app-page-header>
+
+    <!-- التبويبات يتم توفيرها من خلال إدخال tabs في page-header -->
+
+    <!-- قسم الفلاتر -->
+    <div class="filters-section mb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="filter-card">
+            <div class="row align-items-end">
+              <!-- تاريخ البداية -->
+              <div class="col-lg-3 col-md-6 mb-3">
+                <label class="filter-label">تاريخ البداية</label>
+                <input type="date" 
+                       class="form-control filter-input" 
+                       [(ngModel)]="dateFrom">
+              </div>
+
+              <!-- تاريخ النهاية -->
+              <div class="col-lg-3 col-md-6 mb-3">
+                <label class="filter-label">تاريخ النهاية</label>
+                <input type="date" 
+                       class="form-control filter-input" 
+                       [(ngModel)]="dateTo">
+              </div>
+
+              <!-- فلتر الفئة -->
+              <div class="col-lg-3 col-md-6 mb-3">
+                <label class="filter-label">الفئة</label>
+                <select class="form-select filter-input" 
+                        [(ngModel)]="selectedCategory">
+                  <option value="">جميع الفئات</option>
+                  <option *ngFor="let category of categories" [value]="category">
+                    {{ category }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- أزرار الفلتر -->
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="filter-buttons">
+                  <button class="btn btn-primary-custom me-2" 
+                          (click)="applyFilter()"
+                          [disabled]="loading">
+                    <i class="pi pi-search me-1"></i>
+                    تطبيق الفلتر
+                  </button>
+                  <button class="btn btn-outline-secondary" 
+                          (click)="clearFilter()"
+                          [disabled]="loading">
+                    <i class="pi pi-times me-1"></i>
+                    مسح
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- حالة التحميل -->
+    <div *ngIf="loading" class="loading-container text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">جارٍ التحميل...</span>
+      </div>
+      <p class="mt-3">جارٍ التحميل...</p>
+    </div>
+
+    <!-- بطاقات الأخبار والفعاليات -->
+    <div *ngIf="!loading" class="news-events-grid">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of newsEvents">
+          <div class="news-event-card">
+            <!-- صورة البطاقة -->
+            <div class="card-image-container">
+              <img [src]="item.images[0]" 
+                   [alt]="getItemTitle(item)" 
+                   class="card-image">
+              <div class="card-overlay">
+                <span class="item-type" [class.news-type]="item.type === 'news'" [class.event-type]="item.type === 'event'">
+                  <i [class]="item.type === 'news' ? 'pi pi-file-edit' : 'pi pi-calendar'" class="me-1"></i>
+                  {{ item.type === 'news' ? 'خبر' : 'فعالية' }}
+                </span>
+              </div>
+            </div>
+
+            <!-- محتوى البطاقة -->
+            <div class="card-content">
+              <!-- الفئة والتاريخ -->
+              <div class="card-meta mb-2">
+                <span class="category-badge" *ngIf="item.category">
+                  {{ getItemCategory(item) }}
+                </span>
+                <span class="date-badge">
+                  <i class="pi pi-calendar me-1"></i>
+                  {{ formatDate(item.date) }}
+                </span>
+              </div>
+
+              <!-- العنوان -->
+              <h3 class="card-title">
+                {{ getItemTitle(item) }}
+              </h3>
+
+              <!-- المقتطف -->
+              <p class="card-excerpt">
+                {{ getItemExcerpt(item) }}
+              </p>
+
+              <!-- زر قراءة المزيد -->
+              <div class="card-actions">
+                <a [routerLink]="['/news-events', item.id]" 
+                   class="btn btn-primary-custom">
+                  قراءة المزيد
+                  <i class="pi pi-arrow-right ms-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- عدم وجود نتائج -->
+      <div *ngIf="newsEvents.length === 0" class="no-results text-center py-5">
+        <i class="pi pi-info-circle display-1 text-muted mb-3"></i>
+        <h3>لم يتم العثور على عناصر</h3>
+        <p class="text-muted">
+          حاول تعديل الفلاتر أو تحقق لاحقًا من أجل محتوى جديد.
+        </p>
+      </div>
+    </div>
+
+    <!-- التنقل بين الصفحات -->
+    <div *ngIf="!loading && totalPages > 1" class="pagination-container">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <nav aria-label="تنقل الأخبار والفعاليات">
+            <ul class="pagination custom-pagination">
+              <!-- زر الصفحة السابقة -->
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <button class="page-link" 
+                        (click)="onPageChange(currentPage - 1)"
+                        [disabled]="currentPage === 1">
+                  <i class="pi pi-chevron-left"></i>
+                </button>
+              </li>
+
+              <!-- أرقام الصفحات -->
+              <li class="page-item" 
+                  *ngFor="let page of getPaginationArray()"
+                  [class.active]="page === currentPage">
+                <button class="page-link" (click)="onPageChange(page)">
+                  {{ page }}
+                </button>
+              </li>
+
+              <!-- زر الصفحة التالية -->
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <button class="page-link" 
+                        (click)="onPageChange(currentPage + 1)"
+                        [disabled]="currentPage === totalPages">
+                  <i class="pi pi-chevron-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

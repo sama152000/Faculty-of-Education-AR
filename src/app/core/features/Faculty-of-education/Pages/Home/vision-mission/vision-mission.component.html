@@ -1,0 +1,27 @@
+<section class="vision-mission-section" style="padding: var(--section-padding);">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="section-title text-primary-custom animate-fadeInUp">أساسياتنا</h2>
+        <p class="section-subtitle animate-fadeInUp">المبادئ التوجيهية التي تشكل رسالتنا التعليمية</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" *ngFor="let item of items; let i = index">
+        <div class="vision-card card-custom" 
+             [style.background]="item.gradient"
+             [class]="'animate-fadeInUp delay-' + (i + 1)">
+          <div class="card-icon">
+            <i [class]="item.icon"></i>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">{{ item.title }}</h3>
+            <!-- <p class="card-text">{{ item.content }}</p> -->
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

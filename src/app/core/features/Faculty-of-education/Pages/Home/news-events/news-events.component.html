@@ -1,0 +1,131 @@
+<section class="news-events-section">
+  <div class="container-fluid">
+    <!-- رأس القسم -->
+    <div class="section-header">
+      <div class="header-content">
+        <span class="section-badge">
+          <i class="pi pi-megaphone"></i>
+          آخر التحديثات
+        </span>
+        <h2 class="section-title">الأخبار والفعاليات</h2>
+        <p class="section-subtitle">
+          تابع آخر الأخبار والإعلانات والفعاليات القادمة من كليتنا
+        </p>
+      </div>
+    </div>
+
+    <!-- تنقل التبويب -->
+    <div class="tab-navigation">
+      <div class="tab-container">
+        <button class="tab-button" 
+                [class.active]="activeTab === 'all'"
+                (click)="switchTab('all')">
+          <i class="pi pi-list"></i>
+          <span>جميع التحديثات</span>
+          <div class="tab-indicator"></div>
+        </button>
+        <button class="tab-button" 
+                [class.active]="activeTab === 'news'"
+                (click)="switchTab('news')">
+          <i class="pi pi-info-circle"></i>
+          <span>أخبار</span>
+          <div class="tab-indicator"></div>
+        </button>
+        <button class="tab-button" 
+                [class.active]="activeTab === 'event'"
+                (click)="switchTab('event')">
+          <i class="pi pi-calendar"></i>
+          <span>فعاليات</span>
+          <div class="tab-indicator"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- حالة التحميل -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>جارٍ تحميل التحديثات...</p>
+      </div>
+    </div>
+
+    <!-- شبكة الأخبار والفعاليات -->
+    <div class="news-events-grid" *ngIf="!loading">
+      <div class="news-event-card" 
+           *ngFor="let item of filteredItems; let i = index"
+           [style.animation-delay.ms]="i * 150">
+        
+        <!-- رأس البطاقة -->
+        <div class="card-header">
+          <div class="card-image">
+            <img [src]="item.images[0]" [alt]="item.title" class="item-image">
+            <div class="image-overlay">
+              <div class="type-badge" [class]="item.type + '-badge'">
+                <i [class]="getTypeIcon(item.type)"></i>
+                <span>{{ getTypeLabel(item.type) }}</span>
+              </div>
+              <div class="featured-badge" *ngIf="item.featured">
+                <i class="pi pi-star"></i>
+                <span>مميز</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- محتوى البطاقة -->
+        <div class="card-content">
+          <div class="content-header">
+            <div class="date-info">
+              <i class="pi pi-calendar"></i>
+              <span>{{ formatDate(item.date) }}</span>
+            </div>
+            <div class="category-tag" *ngIf="item.category">
+              <span>{{ item.category }}</span>
+            </div>
+          </div>
+
+          <h4 class="item-title">{{ item.title }}</h4>
+          <p class="item-excerpt">{{ truncateText(item.excerpt, 120) }}</p>
+
+          <div class="card-footer">
+            <button class="read-more-btn">
+              <span>اقرأ المزيد</span>
+              <i class="pi pi-arrow-right"></i>
+            </button>
+            <div class="share-actions">
+              <button class="share-btn" title="مشاركة">
+                <i class="pi pi-share-alt"></i>
+              </button>
+              <button class="bookmark-btn" title="إضافة إلى المفضلة">
+                <i class="pi pi-bookmark"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- الزخارف البطاقة -->
+        <div class="card-glow"></div>
+      </div>
+    </div>
+
+    <!-- حالة الفراغ -->
+    <div class="empty-state" *ngIf="!loading && filteredItems.length === 0">
+      <div class="empty-icon">
+        <i class="pi pi-inbox"></i>
+      </div>
+      <h3 class="empty-title">لم يتم العثور على {{ activeTab === 'all' ? 'تحديثات' : activeTab }}</h3>
+      <p class="empty-description">
+        تحقق لاحقًا من أجل تحديثات {{ activeTab === 'all' ? 'أخبار وفعاليات' : activeTab }} جديدة.
+      </p>
+    </div>
+
+    <!-- زر عرض الكل -->
+    <div class="view-all-section" *ngIf="!loading && filteredItems.length > 0">
+      <button class="view-all-btn">
+        <span>عرض جميع {{ getTypeLabel(activeTab) }}</span>
+        <i class="pi pi-arrow-right"></i>
+        <div class="btn-glow"></div>
+      </button>
+    </div>
+  </div>
+</section>
