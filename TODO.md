@@ -1,0 +1,2 @@
+- [ ] Add @font-face declarations for Almarai font in styles.css
+- [ ] Update body font-family to 'Almarai' in styles.css
