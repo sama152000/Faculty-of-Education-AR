@@ -1,24 +1,12 @@
-<div class="programs-container">
-  <app-page-header
-    [title]="'البرامج الأكاديمية'"
-    [breadcrumbs]="[{label: 'البرامج الأكاديمية'}]">
-  </app-page-header>
-
-  <div class="content-wrapper">
-    <div class="main-content">
-      <div class="search-section">
-        <span class="p-input-icon-left search-input-wrapper">
-          <i class="pi pi-search"></i>
-          <input
-            type="text"
-            pInputText
-            [(ngModel)]="searchTerm"
-            (input)="onSearch()"
-            placeholder="ابحث عن البرامج..."
-            class="search-input" />
-        </span>
-      </div>
-
+<div class="programs-container col-lg-12">
+  
+  <div class="content-wrapper col-lg-12">
+    <div class="main-content col-lg-12">
+      
+      <app-page-header
+        [title]="'البرامج الأكاديمية'"
+        [breadcrumbs]="[{label: 'البرامج الأكاديمية'}]">
+      </app-page-header>
       <div class="programs-grid">
         @for (program of filteredPrograms; track program.id) {
           <p-card
@@ -27,12 +15,17 @@
             <ng-template pTemplate="header">
               <div class="card-image-wrapper">
                 <img [src]="program.images[0]" [alt]="program.name" class="card-image" />
-                <div class="card-overlay"></div>
+                <div class="card-overlay">
+                  <p-tag *ngIf="program.isNew" value="جديد" severity="success" styleClass="new-badge"></p-tag> <!-- بادج للبرامج الجديدة -->
+                </div>
               </div>
             </ng-template>
 
             <div class="card-content">
-              <h3 class="program-title">{{ program.name }}</h3>
+              <h3 class="program-title">
+                {{ program.name }}
+                <span *ngIf="program.isNew" class="new-text">(جديد)</span> <!-- نص "جديد" جنب العنوان -->
+              </h3>
 
               <p-divider></p-divider>
 
@@ -52,13 +45,12 @@
 
             <ng-template pTemplate="footer">
               <div class="card-footer">
-                <p-button
-                  label="عرض التفاصيل"
-                  icon="pi pi-arrow-left"
-                  [routerLink]="['/programs', program.id]"
-                  styleClass="p-button-primary"
-                  [style]="{'width': '100%'}">
-                </p-button>
+                <button
+                  class="view-details-btn"
+                  [routerLink]="['/programs', program.id]">
+                  <span>عرض التفاصيل</span>
+                  <i class="pi pi-arrow-left"></i>
+                </button>
               </div>
             </ng-template>
           </p-card>
@@ -88,6 +80,7 @@
               <a [routerLink]="['/programs', program.id]" (click)="selectProgram(program)">
                 <i class="pi pi-angle-left"></i>
                 <span>{{ program.name }}</span>
+                <p-tag *ngIf="program.isNew" value="جديد" severity="success" styleClass="new-badge sidebar-new-badge"></p-tag> <!-- بادج في الـ sidebar -->
               </a>
             </li>
           }
@@ -96,3 +89,5 @@
     </aside>
   </div>
 </div>
+
+<app-footer></app-footer>

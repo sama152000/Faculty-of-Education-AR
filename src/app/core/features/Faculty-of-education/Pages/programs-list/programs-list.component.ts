@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Program } from '../../model/program-page.model';
-import { ProgramsService } from '../../Services/programs-page.service';
+import { Program } from '../../model/program.model'; // الموديل الموحد
+import { UnifiedProgramsService } from '../../Services/program.service'; // السيرفيس الموحد
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
+import { TagModule } from 'primeng/tag';
+import { FooterComponent } from "../shared/footer/footer.component"; // لأجل البادج
 
 @Component({
   selector: 'app-programs-list',
@@ -21,8 +23,11 @@ import { DividerModule } from 'primeng/divider';
     InputTextModule,
     CardModule,
     ButtonModule,
-    DividerModule
-  ],
+    DividerModule,
+    TagModule // أضفنا TagModule للبادج
+    ,
+    FooterComponent
+],
   templateUrl: './programs-list.component.html',
   styleUrls: ['./programs-list.component.css']
 })
@@ -32,7 +37,7 @@ export class ProgramsListComponent implements OnInit {
   searchTerm: string = '';
   selectedProgram: Program | null = null;
 
-  constructor(private programsService: ProgramsService) { }
+  constructor(private programsService: UnifiedProgramsService) { }
 
   ngOnInit(): void {
     this.loadPrograms();

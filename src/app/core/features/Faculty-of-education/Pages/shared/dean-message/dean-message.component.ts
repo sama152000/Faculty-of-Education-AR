@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { DeanService } from '../../../Services/dean.service';
 import { DeanInfo, FacultyHistory } from '../../../model/dean.model';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-dean-message',
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent],
+  imports: [CommonModule, PageHeaderComponent, FooterComponent],
   templateUrl: './dean-message.component.html',
   styleUrls: ['./dean-message.component.css']
 })
@@ -22,9 +23,7 @@ export class DeanMessageComponent implements OnInit {
       this.deanInfo = info;
     });
 
-    this.deanService.getFacultyHistory().subscribe(history => {
-      this.facultyHistory = history;
-    });
+    
   }
 
   formatMessage(message: string): string[] {

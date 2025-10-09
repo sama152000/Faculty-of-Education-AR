@@ -2,13 +2,16 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   padding: var(--section-padding);
+  width: 100%;
+      padding-bottom: 4rem;
+
 }
 
 .content-wrapper {
   display: grid;
-  grid-template-columns: 1fr 350px;
+  grid-template-columns: 1fr 400px;
   gap: 2rem;
-  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -147,6 +150,33 @@
 .card-footer {
   padding: 1rem 1.5rem;
   background: #f8f9fa;
+}
+
+.view-details-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(119, 166, 199, 0.3);
+  width: 100%;
+}
+
+.view-details-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(119, 166, 199, 0.4);
+}
+
+.view-details-btn:hover i {
+  transform: translateX(4px);
 }
 
 .sidebar {
@@ -307,11 +337,38 @@
 }
 
 ::ng-deep .p-button-primary:hover {
-  background: var(--dark-primary-color);
+  background: var(--primary-color) !important;
+  border: var(--primary-color)!important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(52, 74, 90, 0.3);
 }
 
 ::ng-deep .p-divider {
   margin: 1rem 0;
+}
+/* إضافة ستايل للبادج */
+.new-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #28a745; /* أخضر من PrimeNG severity="success" */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.new-text {
+  font-size: 0.9rem;
+  color: #28a745;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+.sidebar-new-badge {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
 }

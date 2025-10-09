@@ -1,12 +1,11 @@
 .news-events-container {
-  padding: var(--section-padding);
+  padding: var(--section-padding) !important;
   background-color: var(--bg-light);
   min-height: 100vh;
 }
 
-/* Page Header */
-.page-header {
-  margin-bottom: 3rem;
+.header {
+  padding: var(--section-padding) !important;
 }
 
 .section-subtitle {
@@ -18,7 +17,7 @@
 
 /* Custom Tabs */
 .tabs-container {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .custom-tabs {
@@ -52,17 +51,16 @@
   color: white;
   box-shadow: var(--shadow-md);
 }
-
-/* Filters Section */
 .filters-section {
-  margin-bottom: 3rem;
+  padding: var(--section-padding, 3rem 1rem);
+  padding-bottom: 0.1rem;
 }
 
 .filter-card {
   background-color: var(--bg-white);
-  border-radius: var(--border-radius-lg);
+  border-radius: 1rem; /* مطابق لـ program-details و sectors */
   padding: 2rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* نفس الـ shadow */
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -71,25 +69,26 @@
   color: var(--dark-primary-color);
   margin-bottom: 0.5rem;
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.9rem; /* مطابق */
 }
 
 .filter-input {
   border: 2px solid #e9ecef;
-  border-radius: var(--border-radius-md);
+  border-radius: 0.75rem; /* مطابق لـ program-details */
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   transition: all 0.3s ease;
+  align-items: space-between;
 }
 
 .filter-input:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(119, 166, 199, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(119, 166, 199, 0.25); /* مطابق */
 }
 
 .filter-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem; /* زي navigation-buttons في program-details */
 }
 
 /* News & Events Grid */
@@ -218,6 +217,12 @@
   margin-top: auto;
 }
 
+.card-actions .btn {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.5rem 1rem;
+}
+
 /* Loading State */
 .loading-container {
   padding: 4rem 0;
@@ -247,14 +252,81 @@
 
 .custom-pagination {
   margin: 0;
+}/* Buttons */
+.btn-primary-custom {
+  background: var(--primary-color);
+  border: none;
+  border-radius: 0.75rem; /* مطابق */
+  padding: 0.875rem 1.5rem; /* مطابق */
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* للأيقونات */
 }
 
+.btn-primary-custom:hover {
+  background: var(--dark-primary-color);
+  transform: translateY(-2px); /* مطابق */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* مطابق */
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: 0.75rem; /* مطابق */
+  padding: 0.875rem 1.5rem; /* مطابق */
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* للأيقونات */
+}
+
+.btn-outline-secondary:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px); /* مطابق */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* مطابق */
+}
+
+/* Card Actions (Read More Button) */
+.view-details-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(119, 166, 199, 0.3);
+  width: 100%;
+}
+
+.view-details-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(119, 166, 199, 0.4);
+}
+
+.view-details-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* Pagination Buttons (إضافة لتعديل الستايل ليكون مشابه) */
 .custom-pagination .page-link {
   border: 2px solid #e9ecef;
   color: var(--dark-primary-color);
   padding: 0.75rem 1rem;
   margin: 0 0.25rem;
-  border-radius: var(--border-radius-md);
+  border-radius: 0.75rem; /* مطابق */
   font-weight: 600;
   transition: all 0.3s ease;
 }
@@ -263,21 +335,15 @@
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* مطابق */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* مطابق */
 }
 
 .custom-pagination .page-item.active .page-link {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
-  box-shadow: var(--shadow-md);
-}
-
-.custom-pagination .page-item.disabled .page-link {
-  background-color: #f8f9fa;
-  border-color: #e9ecef;
-  color: #6c757d;
-  cursor: not-allowed;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* مطابق */
 }
 
 /* Responsive Design */
@@ -285,11 +351,15 @@
   .news-events-container {
     padding: 2rem 1rem;
   }
-  
+
+  .filters-section {
+    padding: 2rem 1rem;
+  }
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .filter-card {
     padding: 1.5rem;
   }

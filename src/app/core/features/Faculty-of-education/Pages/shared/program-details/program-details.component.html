@@ -1,14 +1,15 @@
-<div class="program-details-container" *ngIf="program">
-  <app-page-header
-    [title]="program.name"
-    [breadcrumbs]="[
-      {label: 'البرامج الأكاديمية', url: '/programs'},
-      {label: program.name}
-    ]">
-  </app-page-header>
-
-  <div class="content-wrapper">
-    <div class="main-content">
+<div class="program-details-container col-md-12" *ngIf="program">
+  
+  <div class="content-wrapper col-md-12">
+    <div class="main-content col-md-12 ">
+      
+      <app-page-header
+        [title]="program.name"
+        [breadcrumbs]="[
+          {label: 'البرامج الأكاديمية', url: '/programs'},
+          {label: program.name}
+        ]">
+      </app-page-header>      
       <div class="image-section">
         <div class="program-image-wrapper">
           <img [src]="program.images[0]" [alt]="program.name" class="program-main-image" />
@@ -36,7 +37,7 @@
             <div class="meta-badge">
               <i class="pi pi-graduation-cap"></i>
               <div>
-                <span class="meta-label">الدرجة الأكاديمية</span>
+                <span class="meta-label">الدرجة العلمية</span>
                 <span class="meta-value">{{ program.degree }}</span>
               </div>
             </div>
@@ -54,29 +55,27 @@
 
           <h3 class="section-heading">
             <i class="pi pi-book"></i>
-            وصف البرنامج التفصيلي
+            وصف تفصيلي للبرنامج
           </h3>
           <p class="full-description">{{ program.fullDescription }}</p>
         </div>
 
-        <p-divider></p-divider>
-
         <div class="navigation-buttons">
           <p-button
-            label="البرنامج السابق"
-            icon="pi pi-arrow-right"
-            (onClick)="goToPreviousProgram()"
-            styleClass="p-button-outlined"
-            [style]="{'flex': '1'}">
-          </p-button>
-          <p-button
-            label="البرنامج التالي"
-            icon="pi pi-arrow-left"
-            iconPos="right"
-            (onClick)="goToNextProgram()"
-            styleClass="p-button-primary"
-            [style]="{'flex': '1'}">
-          </p-button>
+          icon="pi pi-arrow-left"
+          label="البرنامج التالي"
+          iconPos="right"
+          (onClick)="goToNextProgram()"
+          styleClass="p-button-primary"
+          [style]="{'flex': '1'}">
+        </p-button>
+        <p-button
+        label="البرنامج السابق"
+        (onClick)="goToPreviousProgram()"
+        icon="pi pi-arrow-right"
+          styleClass="p-button-outlined"
+          [style]="{'flex': '1'}">
+        </p-button>
         </div>
       </p-card>
     </div>
@@ -134,7 +133,4 @@
   </div>
 </div>
 
-<div class="loading-container" *ngIf="!program">
-  <i class="pi pi-spin pi-spinner loading-icon"></i>
-  <p>جارٍ تحميل البرنامج...</p>
-</div>
+<app-footer></app-footer>

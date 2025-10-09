@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { NewsEventService } from '../../../Services/news-event.service';
 import { NewsEvent, NewsEventFilter } from '../../../model/news-event.model';
 
@@ -16,7 +17,7 @@ export class NewsEventsComponent implements OnInit {
   activeTab: 'all' | 'news' | 'event' = 'all';
   loading = false;
 
-  constructor(private newsEventService: NewsEventService) {}
+  constructor(private newsEventService: NewsEventService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadNewsEvents();
@@ -31,7 +32,7 @@ export class NewsEventsComponent implements OnInit {
     this.newsEventService.getNewsEvents(filter).subscribe({
       next: (response) => {
         this.newsEvents = response.items;
-        this.filteredItems = response.items;
+        this.filteredItems = response.items.slice(0, 4);
         this.loading = false;
       },
       error: () => {
@@ -64,5 +65,13 @@ export class NewsEventsComponent implements OnInit {
   truncateText(text: string, limit: number): string {
     if (text.length <= limit) return text;
     return text.substring(0, limit) + '...';
+  }
+
+  navigateToDetails(id: string): void {
+    this.router.navigate(['news-events', id]);
+  }
+
+  navigateToNewsEvents(): void {
+    this.router.navigate(['news-events']);
   }
 }

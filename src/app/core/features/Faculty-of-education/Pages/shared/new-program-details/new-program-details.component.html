@@ -1,0 +1,138 @@
+<div class="program-details-container" *ngIf="program">
+  
+  <div class="content-wrapper">
+    <div class="main-content">
+      <app-page-header
+        [title]="program.name"
+        [breadcrumbs]="[
+          {label: 'البرامج الجديدة', url: '/new-programs'},
+          {label: program.name}
+        ]">
+      </app-page-header>
+      <div class="image-section">
+        <div class="program-image-wrapper">
+          <img [src]="program.images[0]" [alt]="program.name" class="program-main-image" />
+          <div class="image-overlay"></div>
+          <div class="image-badge">
+            <p-tag [value]="program.category" severity="info" styleClass="custom-tag"></p-tag>
+            <p-tag value="جديد" severity="success" styleClass="new-tag" *ngIf="program.isNew"></p-tag>  <!-- البادج الجديد -->
+          </div>
+        </div>
+      </div>
+
+      <p-card class="details-card">
+        <div class="program-header">
+          <div class="title-section">
+            <h1 class="program-title">{{ program.name }} <span class="new-badge" *ngIf="program.isNew">(جديد)</span></h1>  <!-- بادج هنا كمان -->
+          </div>
+
+          <div class="program-meta-info">
+            <div class="meta-badge">
+              <i class="pi pi-clock"></i>
+              <div>
+                <span class="meta-label">المدة</span>
+                <span class="meta-value">{{ program.duration }}</span>
+              </div>
+            </div>
+            <div class="meta-badge">
+              <i class="pi pi-graduation-cap"></i>
+              <div>
+                <span class="meta-label">الدرجة العلمية</span>
+                <span class="meta-value">{{ program.degree }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="description-section">
+          <h3 class="section-heading">
+            <i class="pi pi-info-circle"></i>
+            نظرة عامة على البرنامج
+          </h3>
+          <p class="short-description">{{ program.shortDescription }}</p>
+
+          <h3 class="section-heading">
+            <i class="pi pi-book"></i>
+            وصف تفصيلي للبرنامج
+          </h3>
+          <p class="full-description">{{ program.fullDescription }}</p>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="navigation-buttons">
+          <p-button
+            label="البرنامج التالي"
+            icon="pi pi-arrow-left"
+            iconPos="right"
+            (onClick)="goToNextProgram()"
+            styleClass="p-button-primary"
+            [style]="{'flex': '1'}">
+          </p-button>
+          <p-button
+            label="البرنامج السابق"
+            icon="pi pi-arrow-right"
+            (onClick)="goToPreviousProgram()"
+            styleClass="p-button-outlined"
+            [style]="{'flex': '1'}">
+          </p-button>
+        </div>
+      </p-card>
+    </div>
+
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <h3 class="sidebar-title">
+          <i class="pi pi-list"></i>
+          جميع البرامج الجديدة
+        </h3>
+        <p-divider></p-divider>
+        <ul class="programs-navigation-list">
+          <li *ngFor="let prog of allNewPrograms"
+              class="program-nav-item"
+              [class.active]="prog.id === program.id">
+            <a [routerLink]="['/new-programs', prog.id]">
+              <i class="pi pi-angle-left"></i>
+              <span>{{ prog.name }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card quick-info">
+        <h3 class="sidebar-title">
+          <i class="pi pi-info-circle"></i>
+          معلومات سريعة
+        </h3>
+        <p-divider></p-divider>
+        <div class="quick-info-list">
+          <div class="info-item">
+            <i class="pi pi-calendar"></i>
+            <div>
+              <span class="info-label">مدة الدراسة</span>
+              <span class="info-value">{{ program.duration }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="pi pi-award"></i>
+            <div>
+              <span class="info-label">الدرجة</span>
+              <span class="info-value">{{ program.degree }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="pi pi-tag"></i>
+            <div>
+              <span class="info-label">الفئة</span>
+              <span class="info-value">{{ program.category }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<app-footer></app-footer>

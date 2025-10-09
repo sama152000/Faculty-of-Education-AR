@@ -8,30 +8,30 @@ export class NavigationService {
   private mainNavItems: NavItem[] = [
     {
       id: 'home',
-      label: 'الرئيسية',
+      label: 'الصفحة الرئيسية',
       route: '/home'
-    },
-    {
-      id: 'contact',
-      label: 'اتصل بنا',
-      route: '/contact'
     },
     {
       id: 'About Us',
       label: 'عن الكلية',
       children: [
         {
-          id: 'dean word',
+          id: 'dean-word',
           label: 'كلمة العميد',
           route: '/about-us/dean-word'
         },
         {
+          id: 'Faculty-history',
+          label: 'تاريخ الكلية',
+          route: '/about-us/Faculty-history'
+        },
+        {
           id: 'vision-mission',
-          label: 'الرؤية والرسالة',
+          label: 'الرؤية والرسالة والأهداف',
           route: '/about-us/vision-mission'
         },
         {
-          id: 'Staff members',
+          id: 'staff-members',
           label: 'أعضاء هيئة التدريس',
           route: '/about-us/staff-members'
         }
@@ -52,7 +52,7 @@ export class NavigationService {
           children: [
             {
               id: 'computer-lab',
-              label: 'معمل الحاسوب',
+              label: 'معمل الحاسب الآلي',
               route: '/labs/computer'
             },
             {
@@ -62,7 +62,7 @@ export class NavigationService {
             },
             {
               id: 'micro-teaching-lab',
-              label: 'معمل التدريس المجهري',
+              label: 'معمل التدريس المصغر',
               route: '/labs/micro-teaching'
             },
             {
@@ -80,81 +80,81 @@ export class NavigationService {
       ]
     },
     {
-      id: 'faculty-journal',
-      label: 'مجلة الكلية',
-      external: true,
-      url: 'https://jedul.journals.ekb.eg/'
-    },
-    {
-      id: 'new-programs',
-      label: 'البرامج الجديدة',
+      id: 'programs',
+      label: 'البرامج الدراسية',
       children: [
         {
-          id: 'math-english',
-          label: 'برنامج تجهيز معلمي الرياضيات (باللغة الإنجليزية)',
-          route: '/programs/new/mathematics-english'
+          id: 'academic-programs',
+          label: 'البرامج الأكاديمية',
+          children: [
+            {
+              id: 'arabic',
+              label: 'إعداد معلمي اللغة العربية ',
+              route: '/programs/arabic'
+            },
+            {
+              id: 'english',
+              label: 'إعداد معلمي اللغة الإنجليزية ',
+              route: '/programs/english'
+            },
+            {
+              id: 'french',
+              label: 'إعداد معلمي اللغة الفرنسية ',
+              route: '/programs/french'
+            },
+            {
+              id: 'german',
+              label: 'إعداد معلمي اللغة الألمانية ',
+              route: '/programs/german'
+            },
+            {
+              id: 'math',
+              label: 'إعداد معلمي الرياضيات',
+              route: '/programs/math'
+            },
+            {
+              id: 'chemistry',
+              label: 'إعداد معلمي الكيمياء',
+              route: '/programs/chemistry'
+            },
+            {
+              id: 'biology',
+              label: 'إعداد معلمي العلوم البيولوجية',
+              route: '/programs/biology'
+            }
+          ]
         },
         {
-          id: 'biology-english',
-          label: 'برنامج تجهيز معلمي العلوم البيولوجية (باللغة الإنجليزية)',
-          route: '/programs/new/biology-english'
-        },
-        {
-          id: 'physics-english',
-          label: 'برنامج تجهيز معلمي الفيزياء (باللغة الإنجليزية)',
-          route: '/programs/new/physics-english'
-        },
-        {
-          id: 'chemistry-english',
-          label: 'برنامج تجهيز معلمي الكيمياء (باللغة الإنجليزية)',
-          route: '/programs/new/chemistry-english'
-        }
-      ]
-    },
-    {
-      id: 'academic-programs',
-      label: 'البرامج الأكاديمية',
-      children: [
-        {
-          id: 'arabic-program',
-          label: 'برنامج تجهيز معلمي اللغة العربية والأدب',
-          route: '/programs/academic/arabic'
-        },
-        {
-          id: 'english-program',
-          label: 'برنامج تجهيز معلمي اللغة الإنجليزية والأدب',
-          route: '/programs/academic/english'
-        },
-        {
-          id: 'french-program',
-          label: 'برنامج تجهيز معلمي اللغة الفرنسية والأدب',
-          route: '/programs/academic/french'
-        },
-        {
-          id: 'german-program',
-          label: 'برنامج تجهيز معلمي اللغة الألمانية والأدب',
-          route: '/programs/academic/german'
-        },
-        {
-          id: 'mathematics-program',
-          label: 'برنامج تجهيز معلمي الرياضيات',
-          route: '/programs/academic/mathematics'
-        },
-        {
-          id: 'chemistry-program',
-          label: 'برنامج تجهيز معلمي الكيمياء',
-          route: '/programs/academic/chemistry'
-        },
-        {
-          id: 'biology-program',
-          label: 'برنامج تجهيز معلمي العلوم البيولوجية',
-          route: '/programs/academic/biology'
+          id: 'new-programs',
+          label: 'البرامج الجديدة',
+          children: [
+            {
+              id: 'math-english',
+              label: 'إعداد معلمي الرياضيات (باللغة الإنجليزية)',
+              route: '/new-programs/math-english'
+            },
+            {
+              id: 'biology-english',
+              label: 'إعداد معلمي العلوم البيولوجية (باللغة الإنجليزية)',
+              route: '/new-programs/biology-english'
+            },
+            {
+              id: 'physics-english',
+              label: 'إعداد معلمي الفيزياء (باللغة الإنجليزية)',
+              route: '/new-programs/physics-english'
+            },
+            {
+              id: 'chemistry-english',
+              label: 'إعداد معلمي الكيمياء (باللغة الإنجليزية)',
+              route: '/new-programs/chemistry-english'
+            }
+          ]
         }
       ]
     },
     {
       id: 'faculty-administrations',
-      label: 'إدارات الكلية',
+      label: 'الإدارات الإدارية بالكلية',
       children: [
         {
           id: 'student-affairs',
@@ -191,60 +191,60 @@ export class NavigationService {
     {
       id: 'faculty-departments',
       label: 'أقسام الكلية',
-      route: '/department',
+      route: '',
       children: [
         {
           id: 'curricula-teaching',
-          label: 'المناهج وأساليب التدريس',
-          route: '/department/curricula-teaching'
+          label: 'المناهج وطرق التدريس',
+          route: '/department-details/curricula-teaching'
         },
         {
           id: 'foundations-education',
-          label: 'أسس التربية',
-          route: '/department/foundations-education'
+          label: 'أصول التربية',
+          route: '/department-details/foundations-education'
         },
         {
           id: 'mental-health',
           label: 'الصحة النفسية',
-          route: '/department/mental-health'
+          route: '/department-details/mental-health'
         },
         {
           id: 'psychology',
           label: 'علم النفس',
-          route: '/department/psychology'
+          route: '/department-details/psychology'
         },
         {
           id: 'comparative-education',
-          label: 'التعليم المقارن وإدارة التعليم',
-          route: '/department/comparative-education'
+          label: 'التربية المقارنة والإدارة التربوية',
+          route: '/department-details/comparative-education'
         }
       ]
     },
     {
-      id: 'top-management',
-      label: 'الإدارة العليا',
+      id: 'Sectors',
+      label: 'القطاعات',
       children: [
         {
-          id: 'dean',
-          label: 'عميد الكلية',
-          route: '/management/dean'
-        },
-        {
           id: 'vice-dean-education',
-          label: 'وكيل الكلية للتعليم وشؤون الطلاب',
+          label: 'شؤون التعليم والطلاب',
           route: '/management/vice-dean-education'
         },
         {
           id: 'vice-dean-postgraduate',
-          label: 'وكيل الكلية للدراسات العليا والبحث العلمي',
+          label: 'الدراسات العليا والبحوث',
           route: '/management/vice-dean-postgraduate'
         },
         {
           id: 'vice-dean-community',
-          label: 'وكيل الكلية لخدمة المجتمع وتنمية البيئة',
+          label: 'خدمة المجتمع وتنمية البيئة',
           route: '/management/vice-dean-community'
         }
       ]
+    },
+    {
+      id: 'contact',
+      label: 'تواصلوا معنا',
+      route: '/contact'
     }
   ];
 
@@ -270,7 +270,7 @@ export class NavigationService {
   ];
 
   private contactInfo: ContactInfo = {
-    address: 'كلية التربية – جامعة الأقصر – مدينة طيبة الجديدة، بجوار هيئة مدينة طيبة الجديدة',
+    address: 'كلية التربية - جامعة الأقصر - مدينة طيبة الجديدة، بجوار هيئة مدينة طيبة الجديدة',
     phone: '01010577677',
     emails: {
       dean: 'waleed2507@yahoo.co.uk',
@@ -280,7 +280,7 @@ export class NavigationService {
 
   private footerQuickLinks = [
     {
-      label: 'الجامعة الأم',
+      label: 'موقع جامعة الأقصر',
       url: 'http://www.luxor.edu.eg/#/',
       external: true
     },
@@ -322,37 +322,32 @@ export class NavigationService {
       {
         id: 'about-faculty',
         label: 'عن الكلية',
-        route: '/about'
+        route: '/about-us/Faculty-history'
       },
       {
         id: 'top-management-footer',
-        label: 'الإدارة العليا',
-        route: '/management'
+        label: 'كلمة العميد',
+        route: '/about-us/dean-word'
       },
       {
         id: 'faculty-departments-footer',
         label: 'أقسام الكلية',
-        route: '/department'
+        route: '/department-details'
       },
       {
         id: 'faculty-administrations-footer',
-        label: 'إدارات الكلية',
-        route: '/administrations'
+        label: 'الإدارات الإدارية بالكلية',
+        route: '/'
       },
       {
-        id: 'academic-programs-footer',
-        label: 'البرامج الأكاديمية',
-        route: '/programs/academic'
-      },
-      {
-        id: 'new-programs-footer',
-        label: 'البرامج الجديدة',
-        route: '/programs/new'
+        id: 'programs-footer',
+        label: 'البرامج الدراسية',
+        route: '/programs'
       },
       {
         id: 'units-labs-footer',
         label: 'الوحدات والمعامل',
-        route: '/units-labs'
+        route: '/'
       },
       {
         id: 'news-events-footer',
@@ -361,7 +356,7 @@ export class NavigationService {
       },
       {
         id: 'contact-footer',
-        label: 'اتصل بنا',
+        label: 'تواصلوا معنا',
         route: '/contact'
       }
     ];

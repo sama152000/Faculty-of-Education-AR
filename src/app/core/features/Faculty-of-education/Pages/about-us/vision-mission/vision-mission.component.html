@@ -1,21 +1,21 @@
 <section class="vision-mission-section">
   <div class="container-fluid">
-    <!-- رأس الصفحة -->
+    <!-- Page Header -->
     <app-page-header
       [title]="'الرؤية والرسالة والأهداف'"
-      [breadcrumbs]="[{ label: 'عن الكلية', url: '/about-us' }, { label: 'الرؤية والرسالة' }]">
+      [breadcrumbs]="[{ label: 'عن الكلية', url: '/about-us' }, { label: 'الرؤية والرسالة والأهداف' }]">
     </app-page-header>
 
-    <!-- بطاقات الرؤية والرسالة -->
+    <!-- Vision & Mission Cards -->
     <div class="vision-mission-grid">
-      <!-- بطاقة الرؤية -->
+      <!-- Vision Card -->
       <div class="vision-card strategic-card">
         <div class="card-header">
           <div class="card-icon vision-icon">
             <i class="pi pi-eye"></i>
           </div>
-          <h3 class="card-title">رؤيتنا</h3>
-          <div class="card-subtitle">التميز المستقبلي</div>
+          <h3 class="section-title">رؤيتنا</h3>
+          <div class="section-subtitle">التميز الموجه نحو المستقبل</div>
         </div>
         <div class="card-content">
           <p class="card-text">{{ visionMission.vision }}</p>
@@ -30,14 +30,14 @@
         </div>
       </div>
 
-      <!-- بطاقة الرسالة -->
+      <!-- Mission Card -->
       <div class="mission-card strategic-card">
         <div class="card-header">
           <div class="card-icon mission-icon">
             <i class="pi pi-flag"></i>
           </div>
-          <h3 class="card-title">رسالتنا</h3>
-          <div class="card-subtitle">التميز التعليمي</div>
+          <h3 class="section-title">رسالتنا</h3>
+          <div class="section-subtitle">التميز التعليمي</div>
         </div>
         <div class="card-content">
           <p class="card-text">{{ visionMission.mission }}</p>
@@ -53,11 +53,11 @@
       </div>
     </div>
 
-    <!-- قسم الأهداف -->
+    <!-- Objectives Section -->
     <div class="objectives-section">
       <div class="objectives-header">
-        <h3 class="objectives-title">الأهداف الاستراتيجية</h3>
-        <p class="objectives-subtitle">ستة أعمدة رئيسية تدفع رسالتنا التعليمية للأمام</p>
+        <h3 class="section-title">الأهداف الاستراتيجية</h3>
+        <p class="section-subtitle">ستة ركائز أساسية تدفع رسالتنا التعليمية إلى الأمام</p>
       </div>
 
       <div class="objectives-grid">
@@ -69,14 +69,14 @@
             <i [class]="objective.icon"></i>
           </div>
           <div class="objective-content">
-            <p class="objective-text">{{ objective.text }}</p>
+            <p class="section-content">{{ objective.text }}</p>
           </div>
           <div class="objective-glow"></div>
         </div>
       </div>
     </div>
 
-    <!-- الزخرفة السفلية -->
+    <!-- Bottom Decoration -->
     <div class="bottom-decoration">
       <div class="decoration-wave">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -88,3 +88,5 @@
     </div>
   </div>
 </section>
+
+<app-footer></app-footer>

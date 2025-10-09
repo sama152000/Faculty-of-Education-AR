@@ -8,11 +8,10 @@ export interface Department {
   subjects: string[];
   objectives: string[];
   services: string[];
+  route: string;
 }
 
 export interface DepartmentNavigation {
-  currentIndex: number;
-  totalDepartments: number;
-  previousDepartment?: Department;
-  nextDepartment?: Department;
+  previous: Department | null;
+  next: Department | null;
 }

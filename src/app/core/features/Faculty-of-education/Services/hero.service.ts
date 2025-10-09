@@ -13,7 +13,7 @@ export class HeroService {
         title: 'تجهيز معلمين متميزين لمستقبل تعليمي أفضل',
         description: 'كلية التربية – جامعة الأقصر، بيئة أكاديمية متكاملة لتجهيز المعلمين المستقبليين وفق أحدث معايير الجودة.',
         buttonText: 'اعرف المزيد',
-        buttonLink: '/about'
+        buttonLink: '/about-us/dean-word'
       },
       {
         id: '2',
@@ -29,7 +29,7 @@ export class HeroService {
         title: 'الابتكار في الأبحاث التعليمية',
         description: 'انضم إلى مجتمع أبحاثنا المكرس لتطوير الممارسات التعليمية من خلال البحث والتطوير المتطور.',
         buttonText: 'مركز الأبحاث',
-        buttonLink: '/research'
+        buttonLink: '/news-events'
       }
     ],
     autoSlideInterval: 5000

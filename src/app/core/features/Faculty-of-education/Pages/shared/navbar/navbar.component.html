@@ -9,18 +9,24 @@
             <img src="./assets/Picture1.png" alt="Faculty of Education Logo" class="logo-img">
           </div>
           <div class="faculty-info">
-            <h1 class="faculty-name">كلية التربية </h1>
-            <p class="university-name">جامعة الأقصر</p>
+            <h1 class="faculty-name">كلية التربية</h1>
+            <p class="university-name">جامعة الاقصر</p>
           </div>
         </div>
-        
+
         <!-- University Link -->
         <div class="university-actions">
-          <button class="btn-university" 
+          <button class="btn-university"
+                  (click)="navigateTojornal()"
+                  title="Visit Luxor University Website">
+                  <span>مجلة الكلية</span>
+                  <i class="pi pi-external-link"></i>
+          </button>
+          <button class="btn-university"
                   (click)="navigateToUniversity()"
                   title="Visit Luxor University Website">
-            <i class="pi pi-external-link"></i>
-            <span>موقع الجامعة</span>
+                  <span>زيارة موقع الجامعة</span>
+                  <i class="pi pi-external-link"></i>
           </button>
         </div>
       </div>
@@ -65,41 +71,60 @@
             <!-- Dropdown Menu -->
             @if (item.children && item.children.length > 0) {
               <div class="dropdown-menu"
-                   [class.show]="isDropdownOpen(item.id)">
+                   [class.show]="isDropdownOpen(item.id)"
+                   [class.programs-dropdown]="item.id === 'programs'"
+                   [class.vertical-dropdown]="item.id === 'faculty-departments'">
                 <div class="dropdown-content">
-                  <div class="dropdown-item-wrapper" *ngFor="let child of item.children">
-                    @if (child.children && child.children.length > 0) {
-                      <!-- Item with Sub-dropdown -->
-                      <div class="dropdown-item has-sub"
-                           [class.sub-open]="isDropdownOpen(child.id)">
-                        <a class="dropdown-link"
-                           (click)="toggleDropdown(child.id, $event)"
-                           [attr.aria-expanded]="isDropdownOpen(child.id)">
-                          <span>{{ child.label }}</span>
-                          <i class="pi pi-chevron-right sub-arrow"
-                             [class.rotated]="isDropdownOpen(child.id)"></i>
-                        </a>
-
-                        <div class="sub-dropdown-menu" [class.show]="isDropdownOpen(child.id)">
-                          <a class="sub-dropdown-link"
-                             *ngFor="let grandchild of child.children"
-                             [routerLink]="grandchild.route"
+                  <!-- Special handling for Programs dropdown -->
+                  @if (item.id === 'programs') {
+                    <!-- Render New Programs and Academic Programs horizontally -->
+                    <div class="programs-container">
+                      <div class="programs-row">
+                        <!-- Parent items in a horizontal row -->
+                        <ng-container *ngFor="let child of item.children">
+                          <div class="program-parent">
+                            <div class="program-header">{{ child.label }}</div>
+                            <div class="program-items-horizontal">
+                              <!-- Show all children horizontally -->
+                              <a class="program-link"
+                                 *ngFor="let grandchild of child.children"
+                                 [routerLink]="grandchild.route"
+                                 (click)="closeAllDropdowns()">
+                                {{ grandchild.label }}
+                              </a>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  } @else {
+                    <!-- Standard dropdown for other items -->
+                    <div class="dropdown-item-wrapper" *ngFor="let child of item.children">
+                      @if (child.children && child.children.length > 0) {
+                        <!-- Item with Sub-children - show all at once -->
+                        <div class="dropdown-item">
+                          <div class="program-header">{{ child.label }}</div>
+                          <div class="program-items-horizontal">
+                            <a class="program-link"
+                               *ngFor="let grandchild of child.children"
+                               [routerLink]="grandchild.route"
+                               (click)="closeAllDropdowns()">
+                              {{ grandchild.label }}
+                            </a>
+                          </div>
+                        </div>
+                      } @else {
+                        <!-- Simple Dropdown Item -->
+                        <div class="dropdown-item">
+                          <a class="dropdown-link"
+                             [routerLink]="child.route"
                              (click)="closeAllDropdowns()">
-                            <span>{{ grandchild.label }}</span>
+                            <span>{{ child.label }}</span>
                           </a>
                         </div>
-                      </div>
-                    } @else {
-                      <!-- Simple Dropdown Item -->
-                      <div class="dropdown-item">
-                        <a class="dropdown-link"
-                           [routerLink]="child.route"
-                           (click)="closeAllDropdowns()">
-                          <span>{{ child.label }}</span>
-                        </a>
-                      </div>
-                    }
-                  </div>
+                      }
+                    </div>
+                  }
                 </div>
               </div>
             }
@@ -112,7 +137,7 @@
               [class.dropdown-open]="isDropdownOpen(item.id)">
 
             <!-- Main Navigation Link -->
-             <a class="nav-link"
+            <a class="nav-link"
                [routerLink]="item.route || null"
                [class.external]="item.external"
                (click)="handleItemClick(item, $event)"
@@ -127,27 +152,20 @@
             <!-- Dropdown Menu -->
             @if (item.children && item.children.length > 0) {
               <div class="dropdown-menu"
-                   [class.show]="isDropdownOpen(item.id)">
+                    [class.show]="isDropdownOpen(item.id)"
+                    [class.sectors-dropdown]="item.id === 'Sectors'">
                 <div class="dropdown-content">
                   <div class="dropdown-item-wrapper" *ngFor="let child of item.children">
                     @if (child.children && child.children.length > 0) {
-                      <!-- Item with Sub-dropdown -->
-                      <div class="dropdown-item has-sub"
-                           [class.sub-open]="isDropdownOpen(child.id)">
-                        <a class="dropdown-link"
-                           (click)="toggleDropdown(child.id, $event)"
-                           [attr.aria-expanded]="isDropdownOpen(child.id)">
-                          <span>{{ child.label }}</span>
-                          <i class="pi pi-chevron-right sub-arrow"
-                             [class.rotated]="isDropdownOpen(child.id)"></i>
-                        </a>
-
-                        <div class="sub-dropdown-menu" [class.show]="isDropdownOpen(child.id)">
-                          <a class="sub-dropdown-link"
+                      <!-- Item with Sub-children - show all at once -->
+                      <div class="dropdown-item">
+                        <div class="program-header">{{ child.label }}</div>
+                        <div class="program-items-horizontal">
+                          <a class="program-link"
                              *ngFor="let grandchild of child.children"
                              [routerLink]="grandchild.route"
                              (click)="closeAllDropdowns()">
-                            <span>{{ grandchild.label }}</span>
+                            {{ grandchild.label }}
                           </a>
                         </div>
                       </div>
@@ -172,8 +190,8 @@
   </div>
 
   <!-- Mobile Overlay -->
-  <div class="mobile-overlay" 
-       [class.active]="isMenuOpen" 
+  <div class="mobile-overlay"
+       [class.active]="isMenuOpen"
        (click)="toggleMenu()"
        aria-hidden="true"></div>
 </nav>

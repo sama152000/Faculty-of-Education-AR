@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { SectorService } from '../../Services/sector.service';
 import { Sector, SectorNavigation } from '../../model/sector.model';
+import { FooterComponent } from "../shared/footer/footer.component";
+import { PageHeaderComponent } from "../shared/page-header/page-header.component";
 
 @Component({
   selector: 'app-sectors',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FooterComponent, PageHeaderComponent],
   templateUrl: './sectors.component.html',
   styleUrls: ['./sectors.component.css']
 })

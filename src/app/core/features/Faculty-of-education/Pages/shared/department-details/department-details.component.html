@@ -1,0 +1,178 @@
+<div class="department-page" *ngIf="!loading && currentDepartment">
+  <div class="container-fluid">
+    
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8 col-md-7">
+        <div class="department-content">
+          <app-page-header
+            [title]="getDepartmentTitle(currentDepartment)"
+            [breadcrumbs]="[{ label: 'الأقسام' }]">
+          </app-page-header>
+          <!-- Department Header -->
+          <div class="department-header mb-5">
+            <div class="vice-dean-info">
+              <div class="vice-dean-card">
+                <div class="vice-dean-avatar">
+                  <i class="pi pi-user"></i>
+                </div>
+                <div class="vice-dean-details">
+                  <h3 class="vice-dean-title">
+                    وكيل القسم
+                  </h3>
+                  <p class="vice-dean-name">
+                    {{ getDepartmentViceDean(currentDepartment) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subjects Section -->
+          <div class="content-section mb-5">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="pi pi-book"></i>
+              </div>
+              <h2 class="section-subtitle">
+                المواد الأكاديمية
+              </h2>
+            </div>
+            <div class="subjects-list">
+              <div class="subject-item" *ngFor="let subject of getDepartmentSubjects(currentDepartment); let i = index">
+                <div class="subject-number">
+                  {{ i + 1 }}
+                </div>
+                <div class="subject-content">
+                  <p>{{ subject }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Objectives Section -->
+          <div class="content-section mb-5">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="pi pi-target"></i>
+              </div>
+              <h2 class="section-subtitle">
+                أهداف القسم
+              </h2>
+            </div>
+            <div class="objectives-list">
+              <div class="objective-item" *ngFor="let objective of getDepartmentObjectives(currentDepartment); let i = index">
+                <div class="objective-number">
+                  {{ i + 1 }}
+                </div>
+                <div class="objective-content">
+                  <p>{{ objective }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services Section -->
+          <div class="content-section mb-5">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="pi pi-cog"></i>
+              </div>
+              <h2 class="section-subtitle">
+                خدمات القسم
+              </h2>
+            </div>
+            <div class="services-list">
+              <div class="service-item" *ngFor="let service of getDepartmentServices(currentDepartment)">
+                <div class="service-icon">
+                  <i class="pi pi-check-circle"></i>
+                </div>
+                <div class="service-content">
+                  <p>{{ service }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="department-navigation">
+            <button class="nav-btn prev-btn"
+                    (click)="navigateToPrevious()"
+                    *ngIf="navigation && navigation.previous"
+                    [title]="getDepartmentTitle(navigation.previous)">
+              <i class="pi pi-chevron-right me-2"></i>
+              <div class="nav-content">
+                <span class="nav-label">السابق</span>
+                <span class="nav-title">{{ getDepartmentTitle(navigation.previous) }}</span>
+              </div>
+            </button>
+
+            <button class="nav-btn next-btn"
+                    (click)="navigateToNext()"
+                    *ngIf="navigation && navigation.next"
+                    [title]="getDepartmentTitle(navigation.next)">
+              <div class="nav-content">
+                <span class="nav-label">التالي</span>
+                <span class="nav-title">{{ getDepartmentTitle(navigation.next) }}</span>
+              </div>
+              <i class="pi pi-chevron-left ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4 col-md-5">
+        <div class="sidebar">
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">
+              جميع الأقسام
+            </h3>
+          
+            <div class="departments-list">
+              <div class="department-item" 
+                   *ngFor="let department of allDepartments"
+                   [class.active]="isCurrentDepartment(department)"
+                   (click)="navigateToDepartment(department)">
+                <div class="department-icon">
+                  <i [class]="department.icon"></i>
+                </div>
+                <div class="department-info">
+                  <h4 class="department-name">{{ getDepartmentTitle(department) }}</h4>
+                  <p class="department-dean">{{ getDepartmentViceDean(department) }}</p>
+                </div>
+                <div class="department-arrow">
+                  <i class="pi pi-chevron-left"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Contact -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">
+              تواصل سريع
+            </h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="pi pi-phone"></i>
+                <span>01010577677</span>
+              </div>
+              <div class="contact-item">
+                <i class="pi pi-envelope"></i>
+                <span>waleed2507@yahoo.co.uk</span>
+              </div>
+              <div class="contact-item">
+                <i class="pi pi-map-marker"></i>
+                <span>مدينة طيبة الجديدة، الأقصر</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

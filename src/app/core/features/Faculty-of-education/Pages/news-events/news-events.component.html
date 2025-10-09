@@ -1,61 +1,56 @@
-<section class="news-events-section">
-  <div class="container-fluid">
-    <!-- رأس الصفحة -->
-    <app-page-header
-      [title]="'الأخبار والفعاليات'"
-      [breadcrumbs]="[{ label: 'الأخبار والفعاليات' }]">
-    </app-page-header>
-
-    <!-- التبويبات يتم توفيرها من خلال إدخال tabs في page-header -->
-
-    <!-- قسم الفلاتر -->
-    <div class="filters-section mb-5">
+<section class="news-events-section ">
+  <div class="container-fluid ">
+    <!-- Page Header -->
+    <!-- Filters Section -->
+    <div class="filters-section mb-6">
       <div class="row justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
+          <app-page-header
+            title="الأخبار والفعاليات"
+            [breadcrumbs]="breadcrumbs"
+          ></app-page-header>
           <div class="filter-card">
             <div class="row align-items-end">
-              <!-- تاريخ البداية -->
+              <!-- Date From -->
               <div class="col-lg-3 col-md-6 mb-3">
-                <label class="filter-label">تاريخ البداية</label>
+                <label class="filter-label">من تاريخ</label>
                 <input type="date" 
                        class="form-control filter-input" 
                        [(ngModel)]="dateFrom">
               </div>
 
-              <!-- تاريخ النهاية -->
+              <!-- Date To -->
               <div class="col-lg-3 col-md-6 mb-3">
-                <label class="filter-label">تاريخ النهاية</label>
+                <label class="filter-label">إلى تاريخ</label>
                 <input type="date" 
                        class="form-control filter-input" 
                        [(ngModel)]="dateTo">
               </div>
 
-              <!-- فلتر الفئة -->
-              <div class="col-lg-3 col-md-6 mb-3">
-                <label class="filter-label">الفئة</label>
-                <select class="form-select filter-input" 
+              <!-- Category Filter -->
+              <div class="col-lg-3 col-md-6 mb-3 ">
+                <label class="filter-label ">الفئة</label>
+                <select class="form-select filter-input"
                         [(ngModel)]="selectedCategory">
-                  <option value="">جميع الفئات</option>
+                  <option value=""> </option>
                   <option *ngFor="let category of categories" [value]="category">
                     {{ category }}
                   </option>
                 </select>
               </div>
 
-              <!-- أزرار الفلتر -->
+              <!-- Filter Buttons -->
               <div class="col-lg-3 col-md-6 mb-3">
                 <div class="filter-buttons">
-                  <button class="btn btn-primary-custom me-2" 
-                          (click)="applyFilter()"
-                          [disabled]="loading">
+                  <button class="btn btn-primary-custom me-2"
+                          (click)="applyFilter()">
                     <i class="pi pi-search me-1"></i>
                     تطبيق الفلتر
                   </button>
-                  <button class="btn btn-outline-secondary" 
-                          (click)="clearFilter()"
-                          [disabled]="loading">
+                  <button class="btn btn-outline-secondary"
+                          (click)="clearFilter()">
                     <i class="pi pi-times me-1"></i>
-                    مسح
+                    إزالة
                   </button>
                 </div>
               </div>
@@ -65,20 +60,12 @@
       </div>
     </div>
 
-    <!-- حالة التحميل -->
-    <div *ngIf="loading" class="loading-container text-center py-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">جارٍ التحميل...</span>
-      </div>
-      <p class="mt-3">جارٍ التحميل...</p>
-    </div>
-
-    <!-- بطاقات الأخبار والفعاليات -->
-    <div *ngIf="!loading" class="news-events-grid">
+    <!-- News & Events Cards -->
+    <div class="news-events-grid">
       <div class="row">
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of newsEvents">
           <div class="news-event-card">
-            <!-- صورة البطاقة -->
+            <!-- Card Image -->
             <div class="card-image-container">
               <img [src]="item.images[0]" 
                    [alt]="getItemTitle(item)" 
@@ -91,9 +78,9 @@
               </div>
             </div>
 
-            <!-- محتوى البطاقة -->
+            <!-- Card Content -->
             <div class="card-content">
-              <!-- الفئة والتاريخ -->
+              <!-- Category & Date -->
               <div class="card-meta mb-2">
                 <span class="category-badge" *ngIf="item.category">
                   {{ getItemCategory(item) }}
@@ -104,46 +91,47 @@
                 </span>
               </div>
 
-              <!-- العنوان -->
+              <!-- Title -->
               <h3 class="card-title">
                 {{ getItemTitle(item) }}
               </h3>
 
-              <!-- المقتطف -->
+              <!-- Excerpt -->
               <p class="card-excerpt">
                 {{ getItemExcerpt(item) }}
               </p>
 
-              <!-- زر قراءة المزيد -->
+              <!-- Read More Button -->
               <div class="card-actions">
-                <a [routerLink]="['/news-events', item.id]" 
-                   class="btn btn-primary-custom">
-                  قراءة المزيد
-                  <i class="pi pi-arrow-right ms-1"></i>
-                </a>
+                <button
+                  class="view-details-btn"
+                  [routerLink]="['/news-events', item.id]">
+                  <span>اقرأ المزيد</span>
+                  <i class="pi pi-arrow-left"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- عدم وجود نتائج -->
+      <!-- No Results -->
       <div *ngIf="newsEvents.length === 0" class="no-results text-center py-5">
         <i class="pi pi-info-circle display-1 text-muted mb-3"></i>
         <h3>لم يتم العثور على عناصر</h3>
         <p class="text-muted">
-          حاول تعديل الفلاتر أو تحقق لاحقًا من أجل محتوى جديد.
+          حاول تعديل الفلاتر أو تحقق لاحقاً لمعرفة محتوى جديد.
         </p>
       </div>
     </div>
 
-    <!-- التنقل بين الصفحات -->
-    <div *ngIf="!loading && totalPages > 1" class="pagination-container">
+    <!-- Pagination -->
+    <div *ngIf="totalPages > 1" class="pagination-container">
       <div class="row justify-content-center">
         <div class="col-auto">
-          <nav aria-label="تنقل الأخبار والفعاليات">
+          <nav aria-label="تصفح الأخبار والفعاليات">
             <ul class="pagination custom-pagination">
-              <!-- زر الصفحة السابقة -->
+              <!-- Previous Button -->
               <li class="page-item" [class.disabled]="currentPage === 1">
                 <button class="page-link" 
                         (click)="onPageChange(currentPage - 1)"
@@ -152,7 +140,7 @@
                 </button>
               </li>
 
-              <!-- أرقام الصفحات -->
+              <!-- Page Numbers -->
               <li class="page-item" 
                   *ngFor="let page of getPaginationArray()"
                   [class.active]="page === currentPage">
@@ -161,7 +149,7 @@
                 </button>
               </li>
 
-              <!-- زر الصفحة التالية -->
+              <!-- Next Button -->
               <li class="page-item" [class.disabled]="currentPage === totalPages">
                 <button class="page-link" 
                         (click)="onPageChange(currentPage + 1)"

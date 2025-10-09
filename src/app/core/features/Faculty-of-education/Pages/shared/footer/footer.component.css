@@ -3,10 +3,12 @@
 ======================================== */
 .footer-container {
   background: linear-gradient(135deg, var(--primary-color) 0, var(--dark-primary-color) 100%);
+  /* background-color: #04538c; */
   color: white;
   margin-top: auto;
   position: relative;
   overflow: hidden;
+
 }
 
 .footer-container::before {
@@ -30,13 +32,16 @@
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
+  gap: 4rem;
+  align-items:center;
+/* justify-content: center;
+text-align: center; */
 }
 
 .footer-section {
   display: flex;
   flex-direction: column;
+  min-height: 250px;
 }
 
 /* ========================================
@@ -56,7 +61,7 @@
 .footer-logo .logo-img {
   width: 100px;
   height: 100px;
-  object-fit: contain;
+  object-fit:cover;
   border-radius: 8px;
   padding: 6px;
 }
@@ -66,23 +71,24 @@
 }
 
 .faculty-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 600;
   color: white;
   margin: 0 0 0.25rem 0;
   line-height: 1.2;
 }
 
 .university-subtitle {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .footer-description {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  font-weight: 500;
   line-height: 1.6;
   margin-bottom: 2rem;
 }
@@ -123,18 +129,18 @@
 ======================================== */
 .section-title {
   color: var(--accent-color)!important;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
   margin-bottom: 1.5rem;
   position: relative;
   padding-bottom: 0.5rem;
 }
 
-.section-title::after {
+.section-title::before {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 0;
   width: 30px;
   height: 2px;
   background: var(--primary-color);
@@ -145,9 +151,20 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  
 }
 
 .footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.main-sections-links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-sections-links li {
+  flex: 0 0 calc(50% - 0.5rem);
   margin-bottom: 0.75rem;
 }
 
@@ -155,9 +172,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight:500;
   transition: all 0.3s ease;
   padding: 0.25rem 0;
 }
@@ -169,7 +187,7 @@
 }
 
 .link-icon {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: var(--primary-color);
   transition: transform 0.3s ease;
 }
@@ -179,10 +197,23 @@
 }
 
 /* ========================================
+   ADDITIONAL LINKS
+======================================= */
+.additional-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+    align-items:center;
+
+}
+
+/* ========================================
    CONTACT SECTION
 ======================================== */
 .contact-section {
   grid-column: span 1;
+  
 }
 
 .contact-info {
@@ -206,33 +237,37 @@
   background: var(--primary-color);
   border-radius: 50%;
   color: white;
-  font-size: 0.9rem;
+  font-size: 1rem;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .contact-details {
-  flex: 1;
+  flex:1;
+    align-items:center;
+
 }
 
 .contact-label {
   color: var(--accent-color);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   margin: 0 0 0.5rem 0;
 }
 
 .contact-text {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  font-weight: 500;
   line-height: 1.5;
   margin: 0;
 }
 
 .contact-link {
-  color: var(--primary-color);
+  color: rgba(255, 255, 255, 0.95);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
@@ -255,9 +290,9 @@
 }
 
 .email-role {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
 }
 
 /* ========================================
@@ -279,8 +314,9 @@
 }
 
 .copyright-text {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 600;
   margin: 0;
 }
 
@@ -291,9 +327,10 @@
 }
 
 .legal-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
   transition: color 0.3s ease;
 }
 
@@ -303,8 +340,9 @@
 }
 
 .divider {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 /* ========================================
@@ -314,9 +352,17 @@
   .footer-grid {
     gap: 2.5rem;
   }
-  
+
   .faculty-title {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
     font-size: 1.2rem;
+  }
+
+  .footer-link {
+    font-size: 1rem;
   }
 }
 
@@ -389,11 +435,11 @@
   }
 
   .faculty-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .university-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 
   .social-link {
@@ -403,15 +449,16 @@
   }
 
   .section-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .footer-link {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 
-  .contact-details {
-    font-size: 0.8rem;
+  .contact-text,
+  .contact-link {
+    font-size: 0.9rem;
   }
 
   .footer-legal {
@@ -421,5 +468,10 @@
 
   .divider {
     display: none;
+  }
+
+  .additional-links {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

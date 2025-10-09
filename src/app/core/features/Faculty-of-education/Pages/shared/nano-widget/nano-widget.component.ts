@@ -30,28 +30,28 @@ export class NanoWidgetComponent {
       id: 'about',
       icon: 'pi pi-info-circle',
       label: 'عن الكلية',
-      route: '/about',
+      route: '/about-us/vision-mission',
       color: 'var(--nano-color)'
     },
     {
-      id: 'departments',
+      id: 'programs',
       icon: 'pi pi-building',
-      label: 'الأقسام',
-      route: '/departments',
+      label: 'البرامج',
+      route: '/programs',
       color: 'var(--nano-color)'
     },
     {
       id: 'staff',
       icon: 'pi pi-users',
       label: 'الكوادر',
-      route: '/staff',
+      route: '/about-us/staff-members',
       color: 'var(--nano-color)'
     },
     {
       id: 'news',
       icon: 'pi pi-calendar',
       label: 'الأخبار',
-      route: '/news',
+      route: '/news-events',
       color: 'var(--nano-color)'
     },
     {

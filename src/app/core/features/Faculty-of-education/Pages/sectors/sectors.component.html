@@ -1,36 +1,22 @@
 <div class="sectors-container" *ngIf="!loading && currentSector">
   <div class="container-fluid">
-    <!-- مسار التنقل -->
-    <nav aria-label="مسار التنقل" class="breadcrumb-nav mb-4">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a [routerLink]="['/']">
-            الرئيسية
-          </a>
-        </li>
-        <li class="breadcrumb-item">
-          <a [routerLink]="['/management']">
-            الإدارة العليا
-          </a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-          {{ getSectorTitle(currentSector) }}
-        </li>
-      </ol>
-    </nav>
-
+    
     <div class="row">
-      <!-- المحتوى الرئيسي -->
+      <!-- Main Content -->
       <div class="col-lg-8 col-md-7">
+        <app-page-header
+          [title]="getSectorTitle(currentSector)"
+          [breadcrumbs]="[{ label: 'الإدارة العليا' }]">
+        </app-page-header>
         <div class="sector-content">
-          <!-- رأس الحقل -->
+          <!-- Sector Header -->
           <div class="sector-header mb-5">
-            <div class="header-icon mb-3">
+            <!-- <div class="header-icon mb-3">
               <i class="pi pi-building"></i>
-            </div>
-            <h1 class="section-title mb-3">
+            </div> -->
+            <!-- <h1 class="section-title mb-3">
               {{ getSectorTitle(currentSector) }}
-            </h1>
+            </h1> -->
             <div class="vice-dean-info">
               <div class="vice-dean-card">
                 <div class="vice-dean-avatar">
@@ -38,7 +24,7 @@
                 </div>
                 <div class="vice-dean-details">
                   <h3 class="vice-dean-title">
-                    نائب العميد
+                    وكيل القطاع
                   </h3>
                   <p class="vice-dean-name">
                     {{ getSectorViceDean(currentSector) }}
@@ -48,57 +34,63 @@
             </div>
           </div>
 
-          <!-- قسم الأهداف -->
-          <div class="content-section mb-5">
-            <div class="section-header">
-              <div class="section-icon">
-                <i class="pi pi-target"></i>
-              </div>
-              <h2 class="section-subtitle">
-                أهداف الحقل
-              </h2>
-            </div>
-            <div class="objectives-list">
-              <div class="objective-item" *ngFor="let objective of getSectorObjectives(currentSector); let i = index">
-                <div class="objective-number">
-                  {{ i + 1 }}
+          <div class="row">
+            <!-- Objectives Section -->
+            <div class="col-md-12">
+              <div class="content-section mb-5">
+                <div class="section-header">
+                  <div class="section-icon">
+                    <i class="pi pi-target"></i>
+                  </div>
+                  <h2 class="section-subtitle">
+                    أهداف القطاع
+                  </h2>
                 </div>
-                <div class="objective-content">
-                  <p>{{ objective }}</p>
+                <div class="objectives-list">
+                  <div class="objective-item" *ngFor="let objective of getSectorObjectives(currentSector); let i = index">
+                    <div class="objective-number">
+                      {{ i + 1 }}
+                    </div>
+                    <div class="objective-content">
+                      <p>{{ objective }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Services Section -->
+            <div class="col-md-12">
+              <div class="content-section mb-5">
+                <div class="section-header">
+                  <div class="section-icon">
+                    <i class="pi pi-cog"></i>
+                  </div>
+                  <h2 class="section-subtitle">
+                    خدمات القطاع
+                  </h2>
+                </div>
+                <div class="services-list">
+                  <div class="service-item" *ngFor="let service of getSectorServices(currentSector)">
+                    <div class="service-icon">
+                      <i class="pi pi-check-circle"></i>
+                    </div>
+                    <div class="service-content">
+                      <p>{{ service }}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- قسم الخدمات -->
-          <div class="content-section mb-5">
-            <div class="section-header">
-              <div class="section-icon">
-                <i class="pi pi-cog"></i>
-              </div>
-              <h2 class="section-subtitle">
-                خدمات الحقل
-              </h2>
-            </div>
-            <div class="services-list">
-              <div class="service-item" *ngFor="let service of getSectorServices(currentSector)">
-                <div class="service-icon">
-                  <i class="pi pi-check-circle"></i>
-                </div>
-                <div class="service-content">
-                  <p>{{ service }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- أزرار التنقل -->
+          <!-- Navigation Buttons -->
           <div class="sector-navigation">
             <button class="nav-btn prev-btn" 
                     (click)="navigateToPrevious()" 
                     *ngIf="navigation.previous"
                     [title]="getSectorTitle(navigation.previous)">
-              <i class="pi pi-chevron-left me-2"></i>
+              <i class="pi pi-chevron-right me-2"></i>
               <div class="nav-content">
                 <span class="nav-label">السابق</span>
                 <span class="nav-title">{{ getSectorTitle(navigation.previous) }}</span>
@@ -113,20 +105,20 @@
                 <span class="nav-label">التالي</span>
                 <span class="nav-title">{{ getSectorTitle(navigation.next) }}</span>
               </div>
-              <i class="pi pi-chevron-right ms-2"></i>
+              <i class="pi pi-chevron-left ms-2"></i>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- الشريط الجانبي -->
+      <!-- Sidebar -->
       <div class="col-lg-4 col-md-5">
         <div class="sidebar">
           <div class="sidebar-section">
             <h3 class="sidebar-title">
-              جميع الحقول
+              جميع القطاعات
             </h3>
-            
+          
             <div class="sectors-list">
               <div class="sector-item" 
                    *ngFor="let sector of allSectors"
@@ -140,16 +132,16 @@
                   <p class="sector-dean">{{ getSectorViceDean(sector) }}</p>
                 </div>
                 <div class="sector-arrow">
-                  <i class="pi pi-chevron-right"></i>
+                  <i class="pi pi-chevron-left"></i>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- التواصل السريع -->
+          <!-- Quick Contact -->
           <div class="sidebar-section">
             <h3 class="sidebar-title">
-              التواصل السريع
+              تواصل سريع
             </h3>
             <div class="contact-info">
               <div class="contact-item">
@@ -162,7 +154,7 @@
               </div>
               <div class="contact-item">
                 <i class="pi pi-map-marker"></i>
-                <span>مدينة التيبة الجديدة، الأقصر</span>
+                <span>مدينة طيبة الجديدة، الأقصر</span>
               </div>
             </div>
           </div>
@@ -172,14 +164,6 @@
   </div>
 </div>
 
-<!-- حالة التحميل -->
-<div *ngIf="loading" class="loading-container">
-  <div class="container-fluid">
-    <div class="text-center py-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">جارٍ التحميل...</span>
-      </div>
-      <p class="mt-3">جارٍ التحميل...</p>
-    </div>
-  </div>
-</div>
+
+
+<app-footer></app-footer>

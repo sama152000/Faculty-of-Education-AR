@@ -1,26 +1,26 @@
 <section class="contact-us-section">
   <div class="container-fluid">
-    <!-- رأس الصفحة -->
+    <!-- Page Header -->
     <app-page-header
       [title]="'تواصل معنا'"
-      [breadcrumbs]="[{ label: 'تواصل', url: '/contact' }]">
+      [breadcrumbs]="[{ label: 'اتصل بنا', url: '/contact' }]">
     </app-page-header>
 
-    <!-- محتوى التواصل -->
+    <!-- Contact Content -->
     <div class="contact-content">
-      <!-- معلومات الاتصال -->
+      <!-- Contact Information -->
       <div class="contact-info-section">
         <div class="info-card">
           <div class="card-header">
             <div class="header-icon">
               <i class="pi pi-map-marker"></i>
             </div>
-            <h3 class="card-title">معلومات الاتصال</h3>
-            <p class="card-subtitle">تواصل معنا عبر أي من هذه القنوات</p>
+            <h3 class="section-title2">معلومات التواصل</h3>
+            <p class="section-subtitle">تواصلوا معنا عبر أي من هذه القنوات</p>
           </div>
 
           <div class="contact-details">
-            <!-- العنوان -->
+            <!-- Address -->
             <div class="contact-item">
               <div class="item-icon">
                 <i class="pi pi-map-marker"></i>
@@ -34,7 +34,7 @@
               </div>
             </div>
 
-            <!-- البريد الإلكتروني -->
+            <!-- Email -->
             <div class="contact-item">
               <div class="item-icon">
                 <i class="pi pi-envelope"></i>
@@ -48,13 +48,13 @@
               </div>
             </div>
 
-            <!-- الهاتف -->
+            <!-- Phone -->
             <div class="contact-item">
               <div class="item-icon">
                 <i class="pi pi-phone"></i>
               </div>
               <div class="item-content">
-                <h4 class="item-title">الهاتف</h4>
+                <h4 class="item-title">رقم الهاتف</h4>
                 <a [href]="'tel:' + contactInfo.phone" class="item-link">{{ contactInfo.phone }}</a>
                 <button class="copy-btn" (click)="copyToClipboard(contactInfo.phone)" title="نسخ رقم الهاتف">
                   <i class="pi pi-copy"></i>
@@ -63,7 +63,7 @@
             </div>
           </div>
 
-          <!-- وسائل التواصل الاجتماعي -->
+          <!-- Social Media -->
           <div class="social-media-section">
             <h4 class="social-title">تابعنا</h4>
             <div class="social-links">
@@ -80,27 +80,27 @@
         </div>
       </div>
 
-      <!-- نموذج التواصل -->
+      <!-- Contact Form -->
       <div class="contact-form-section">
         <div class="form-card">
           <div class="form-header">
             <div class="header-icon">
               <i class="pi pi-send"></i>
             </div>
-            <h3 class="form-title">أرسل لنا رسالة</h3>
-            <p class="form-subtitle">يسعدنا سماع منك. أرسل لنا رسالة وسنرد عليك في أقرب وقت ممكن.</p>
+            <h3 class="section-title2">أرسل رسالة</h3>
+            <p class="section-subtitle">يسعدنا تواصلكم معنا. أرسلوا رسالتكم وسنرد في أقرب وقت ممكن.</p>
           </div>
 
-          <!-- رسالة النجاح -->
+          <!-- Success Message -->
           <div class="success-message" *ngIf="submitSuccess">
             <div class="success-icon">
               <i class="pi pi-check-circle"></i>
             </div>
             <h4>تم إرسال الرسالة بنجاح!</h4>
-            <p>شكرًا لتواصلك معنا. سنتواصل معك قريبًا.</p>
+            <p>شكرًا لتواصلكم معنا. سنرد عليكم قريبًا.</p>
           </div>
 
-          <!-- نموذج التواصل -->
+          <!-- Contact Form -->
           <form class="contact-form" (ngSubmit)="onSubmit()" *ngIf="!submitSuccess">
             <div class="form-row">
               <div class="form-group">
@@ -120,14 +120,14 @@
               <div class="form-group">
                 <label for="email" class="form-label">
                   <i class="pi pi-envelope"></i>
-                  عنوان البريد الإلكتروني
+                  البريد الإلكتروني
                 </label>
                 <input type="email" 
                        id="email" 
                        class="form-input" 
                        [(ngModel)]="contactForm.email"
                        name="email"
-                       placeholder="أدخل عنوان بريدك الإلكتروني"
+                       placeholder="أدخل بريدك الإلكتروني"
                        required>
               </div>
             </div>
@@ -178,11 +178,11 @@
       </div>
     </div>
 
-    <!-- الروابط المهمة -->
+    <!-- Important Links -->
     <div class="important-links-section">
       <div class="links-header">
-        <h3 class="links-title">الروابط والخدمات المهمة</h3>
-        <p class="links-subtitle">الوصول السريع إلى الموارد والخدمات الأساسية للجامعة</p>
+        <h3 class="section-title">روابط وخدمات هامة</h3>
+        <p class="section-subtitle">الوصول السريع إلى الموارد والخدمات الجامعية الأساسية</p>
       </div>
 
       <div class="links-grid">
@@ -192,7 +192,7 @@
             <i [class]="link.icon"></i>
           </div>
           <div class="link-content">
-            <h4 class="link-title">{{ link.title }}</h4>
+            <h4 class="section-title2">{{ link.title }}</h4>
             <p class="link-description">{{ link.description }}</p>
             <a [href]="link.url" 
                target="_blank" 
@@ -207,3 +207,5 @@
     </div>
   </div>
 </section>
+
+<app-footer></app-footer>

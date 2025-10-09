@@ -34,7 +34,7 @@
               <a [routerLink]="currentSlide.buttonLink"
                  class="btn btn-primary-custom btn-lg hero-btn">
                 {{ currentSlide.buttonText }}
-                <i class="pi pi-arrow-right ms-2"></i>
+                <i class="pi pi-arrow-left ms-2"></i>
               </a>
 
           
@@ -52,7 +52,7 @@
             (click)="prevSlide()" 
             [disabled]="isTransitioning"
             title="Previous slide">
-      <i class="pi pi-chevron-left"></i>
+      <i class="pi pi-chevron-right"></i>
     </button>
 
     <!-- Next Button -->
@@ -60,7 +60,7 @@
             (click)="nextSlide()" 
             [disabled]="isTransitioning"
             title="Next slide">
-      <i class="pi pi-chevron-right"></i>
+      <i class="pi pi-chevron-left"></i>
     </button>
   </div>
 

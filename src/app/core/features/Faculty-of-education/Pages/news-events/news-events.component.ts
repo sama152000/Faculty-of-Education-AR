@@ -19,8 +19,12 @@ import { Subscription } from 'rxjs';
 export class NewsEventsComponent implements OnInit {
   newsEvents: NewsEvent[] = [];
   activeTab: 'all' | 'news' | 'event' = 'all';
-  loading = false;
-  
+
+  breadcrumbs: Array<{ label: string, url?: string }> = [
+    { label: 'الاخبار والفاعليات' }
+  ];
+
+
   // Filter properties
   filter: NewsEventFilter = {
     type: 'all'
@@ -73,8 +77,6 @@ export class NewsEventsComponent implements OnInit {
   }
 
   loadNewsEvents(): void {
-    this.loading = true;
-
     // Prepare filter
     const filter: NewsEventFilter = {
       type: this.activeTab === 'all' ? undefined : this.activeTab,
@@ -89,14 +91,12 @@ export class NewsEventsComponent implements OnInit {
           this.newsEvents = response.items;
           this.totalItems = response.total;
           this.totalPages = Math.ceil(this.totalItems / this.pageSize);
-          this.loading = false;
         },
         error: (error) => {
           console.error('Error loading news events:', error);
           this.newsEvents = [];
           this.totalItems = 0;
           this.totalPages = 0;
-          this.loading = false;
         }
       });
   }

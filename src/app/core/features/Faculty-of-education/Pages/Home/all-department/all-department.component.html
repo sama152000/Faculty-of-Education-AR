@@ -1,24 +1,22 @@
 <section class="departments-section">
   <div class="container-fluid">
-    <!-- رأس القسم -->
+    <!-- Section Header -->
     <div class="section-header">
       <div class="header-content">
-        <h2 class="section-title">أقسام الكلية</h2>
+        <h2 class="section-title">أقسام الكلية </h2>
         <p class="section-subtitle">
-          أقسام أكاديمية متخصصة تدفع التميز التعليمي والابتكار
-        </p>
+الاقسام الاكاديمية المتخصصة التي تدفع التميز والابتكار في التعليم
       </div>
     </div>
 
-    <!-- شريط الأقسام -->
+    <!-- Departments Slider -->
     <div class="departments-container">
-      <div class="departments-slider" #slider>
-        <!-- المجموعة الأولى من البطاقات -->
+      <div class="departments-slider">
+        <!-- First set of cards -->
         @for (department of departments; track department.id; let i = $index) {
           <div class="department-card"
                [style.animation-delay.ms]="i * 150">
-
-            <!-- رأس البطاقة -->
+            <!-- Card Header -->
             <div class="card-header">
               <div class="department-number">
                 <span class="number-text">{{ department.order.toString().padStart(2, '0') }}</span>
@@ -29,32 +27,31 @@
               </div>
             </div>
 
-            <!-- محتوى البطاقة -->
+            <!-- Card Content -->
             <div class="card-content">
               <h4 class="department-title">{{ department.name }}</h4>
               <div class="title-underline"></div>
               <p class="department-description">{{ department.description }}</p>
             </div>
 
-            <!-- تذييل البطاقة -->
+            <!-- Card Footer -->
             <div class="card-footer">
-              <button class="explore-btn" type="button" (click)="navigateToDepartment(department.id)">
-                <span class="btn-text">استكشف</span>
-                <i class="pi pi-arrow-right btn-icon"></i>
+              <button class="explore-btn" type="button" (click)="navigateToDepartment(department)">
+                <span class="btn-text">اكتشف المزيد </span>
+                <i class="pi pi-arrow-left btn-icon"></i>
               </button>
             </div>
 
-            <!-- العناصر الزخرفية -->
+            <!-- Decorative Elements -->
             <div class="card-decoration top-left"></div>
             <div class="card-decoration bottom-right"></div>
           </div>
         }
-        <!-- مجموعة مكررة للتمرير المستمر -->
+        <!-- Duplicate set for continuous sliding -->
         @for (department of departments; track department.id; let i = $index) {
           <div class="department-card"
                [style.animation-delay.ms]="i * 150">
-
-            <!-- رأس البطاقة -->
+            <!-- Card Header -->
             <div class="card-header">
               <div class="department-number">
                 <span class="number-text">{{ department.order.toString().padStart(2, '0') }}</span>
@@ -65,22 +62,22 @@
               </div>
             </div>
 
-            <!-- محتوى البطاقة -->
+            <!-- Card Content -->
             <div class="card-content">
               <h4 class="department-title">{{ department.name }}</h4>
               <div class="title-underline"></div>
               <p class="department-description">{{ department.description }}</p>
             </div>
 
-            <!-- تذييل البطاقة -->
+            <!-- Card Footer -->
             <div class="card-footer">
-              <button class="explore-btn" type="button">
-                <span class="btn-text">استكشف</span>
-                <i class="pi pi-arrow-right btn-icon"></i>
+              <button class="explore-btn" type="button" (click)="navigateToDepartment(department)">
+                <span class="btn-text">اكتشف المزيد </span>
+                <i class="pi pi-arrow-left btn-icon"></i>
               </button>
             </div>
 
-            <!-- العناصر الزخرفية -->
+            <!-- Decorative Elements -->
             <div class="card-decoration top-left"></div>
             <div class="card-decoration bottom-right"></div>
           </div>

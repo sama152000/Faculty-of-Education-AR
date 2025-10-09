@@ -36,6 +36,8 @@
   font-style: normal;
 }
 
+
+
 /* Global Color Variables for Faculty of Education - Luxor University */
 :root {
   /* Main Colors from Logo */
@@ -89,6 +91,7 @@
 }
 
 /* General Button Styles */
+
 .btn-primary-custom {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
@@ -224,7 +227,7 @@
 }
 
 body {
-  font-family: 'Almarai'!important;
+  font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-light);
   line-height: 1.6;
     color: var(--text-dark);
@@ -253,10 +256,6 @@ a {
   transition: all 0.3s ease;
 }
 
-a:hover {
-  color: var(--primary-hover);
-  text-decoration: none;
-}
 
 .container-fluid {
   padding-left: var(--padding-lg);
@@ -286,9 +285,6 @@ html {
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-hover);
-}
 
 /* Animation Classes */
 @keyframes fadeInUp {
@@ -379,9 +375,44 @@ html {
   }
 }
 
+
 .section-title {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 800;
+  color: var(--dark-primary-color);
   margin-bottom: 1rem;
-  color:var(--dark-primary-color) !important;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+    font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+.section-title2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--dark-primary-color);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+    font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.section-subtitle {
+  font-size: 1.5rem;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+    font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.section-content {
+  font-size: 1.2rem;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+    font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }

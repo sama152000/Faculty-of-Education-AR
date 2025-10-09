@@ -62,8 +62,11 @@ export class NavbarComponent implements OnInit {
     window.open('http://www.luxor.edu.eg/#/', '_blank');
   }
 
+  navigateTojornal():void{
+    window.open('https://jedul.journals.ekb.eg/', '_blank');
+  }
+
   handleItemClick(item: NavItem, event?: Event): void {
-    // Only intercept clicks for external links or dropdown parents.
     if (item.external && item.url) {
       if (event) {
         event.preventDefault();
@@ -78,11 +81,17 @@ export class NavbarComponent implements OnInit {
         event.preventDefault();
         event.stopPropagation();
       }
-      this.toggleDropdown(item.id);
+      // For the 'programs' menu we want children visible immediately when opened
+      // and avoid toggling inner sub-dropdowns on parent click.
+      if (item.id === 'programs') {
+        // open only the main programs dropdown (close others)
+        this.openDropdowns.clear();
+        this.openDropdowns.add(item.id);
+      } else {
+        this.toggleDropdown(item.id);
+      }
       return;
     }
-
-    // For simple items without children, allow the routerLink/default navigation to proceed.
   }
 
   @HostListener('document:click', ['$event'])

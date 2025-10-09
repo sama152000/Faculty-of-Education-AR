@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgIf, NgForOf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { NewsEventService } from '../../../Services/news-event.service';
 import { NewsEvent } from '../../../model/news-event.model';
 import { FooterComponent } from "../footer/footer.component";
+import { PageHeaderComponent } from "../page-header/page-header.component";
 
 @Component({
   selector: 'app-news-events-details',
   standalone: true,
-  imports: [CommonModule, NgIf, NgForOf, RouterModule, FooterComponent],
+  imports: [CommonModule, RouterModule, FooterComponent, PageHeaderComponent],
   templateUrl: './news-events-details.component.html',
   styleUrls: ['./news-events-details.component.css']
 })

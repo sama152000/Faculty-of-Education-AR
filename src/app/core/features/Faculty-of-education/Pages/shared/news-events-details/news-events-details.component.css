@@ -1,7 +1,8 @@
 .news-details-container {
-  padding: var(--section-padding);
   background-color: var(--bg-light);
   min-height: 100vh;
+      padding: var(--section-padding);
+
 }
 
 /* Breadcrumb */
@@ -12,7 +13,6 @@
 .breadcrumb {
   background-color: var(--bg-white);
   border-radius: var(--border-radius-md);
-  padding: 1rem 1.5rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -38,6 +38,7 @@
   padding: 2.5rem;
   box-shadow: var(--shadow-sm);
   margin-bottom: 2rem;
+
 }
 
 /* Article Header */
@@ -280,7 +281,7 @@
 
 .nav-btn {
   flex: 1;
-  max-width: 300px;
+  max-width: 400px;
   background-color: var(--bg-light);
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius-lg);
@@ -411,14 +412,13 @@
 
 /* Loading State */
 .loading-container {
-  padding: var(--section-padding);
   background-color: var(--bg-light);
   min-height: 100vh;
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
-  .news-details-container {
+  .page-header-container {
     padding: 2rem 1rem;
   }
   
@@ -572,4 +572,46 @@
   .related-item:hover {
     transform: none;
   }
+}
+
+/* Back to News Button Styles */
+.btn-outline-primary-custom {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.btn-outline-primary-custom i {
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.btn-outline-primary-custom:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(119, 166, 199, 0.3);
+}
+
+/* RTL Support for Back Button */
+[dir="rtl"] .btn-outline-primary-custom i {
+  margin-left: 0;
+  margin-right: 0.5rem;
 }

@@ -6,30 +6,7 @@
   position: relative;
   padding: var(--section-padding);
   overflow: hidden;
-}
-
-.vision-mission-section::before {
-  content: '';
-  position: absolute;
-  top: -40%;
-  left: -30%;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(119, 166, 199, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: float 25s ease-in-out infinite;
-}
-
-.vision-mission-section::after {
-  content: '';
-  position: absolute;
-  bottom: -50%;
-  right: -25%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(52, 74, 90, 0.06) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: float 30s ease-in-out infinite reverse;
+  padding-bottom: 7rem;
 }
 
 /* ========================================
@@ -132,7 +109,7 @@
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
   border-radius: 32px 32px 0 0;
 }
 
@@ -143,7 +120,7 @@
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, #10b981, #047857);
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-color));
   border-radius: 32px 32px 0 0;
 }
 
@@ -171,11 +148,11 @@
 }
 
 .vision-icon {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
 }
 
 .mission-icon {
-  background: linear-gradient(135deg, #10b981, #047857);
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-color));
 }
 
 .strategic-card:hover .card-icon {

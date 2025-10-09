@@ -1,16 +1,16 @@
 <section class="faculty-journal-section">
   <div class="container-fluid">
-    <!-- رأس القسم -->
+    <!-- Section Header -->
     <div class="section-header">
       <div class="header-content">
         <h2 class="section-title">مجلة الكلية</h2>
         <p class="section-subtitle">
-          تعزيز البحث التعليمي والتميز العلمي من خلال المنشورات المراجعة من الأقران
+          تعزيز البحث التربوي والتميز العلمي من خلال المنشورات المحكمة
         </p>
       </div>
     </div>
 
-    <!-- بطاقة المجلة -->
+    <!-- Journal Card -->
     <div class="journal-container">
       <div class="journal-card">
         <div class="card-background">
@@ -20,7 +20,7 @@
 
         <div class="journal-content">
           <div class="content-left">
-            <!-- رأس المجلة -->
+            <!-- Journal Header -->
             <div class="journal-header">
               <div class="journal-icon-wrapper">
                 <div class="journal-icon">
@@ -34,14 +34,14 @@
               </div>
             </div>
 
-            <!-- معلومات المجلة -->
+            <!-- Journal Info -->
             <div class="journal-info">
               <h3 class="journal-title">{{ journalInfo.title }}</h3>
               <div class="title-underline"></div>
               <p class="journal-description">{{ journalInfo.description }}</p>
             </div>
 
-            <!-- إجراءات المجلة -->
+            <!-- Journal Actions -->
             <div class="journal-actions">
               <button class="primary-btn" (click)="openJournal()" type="button">
                 <div class="btn-content">
@@ -61,15 +61,14 @@
           </div>
 
           <div class="content-right">
-            <!-- معاينة المجلة -->
+            <!-- Magazine Preview -->
             <div class="magazine-preview">
               <div class="magazine-container">
                 <div class="magazine-cover">
                   <img src="./assets/jornal.jpg" alt="غلاف مجلة الكلية" class="cover-image">
                   <div class="cover-overlay">
                     <div class="overlay-content">
-                      <h4 class="overlay-title">أحدث إصدار</h4>
-                      <p class="overlay-subtitle">الجزء 2024 • العدد 1</p>
+                      <h4 class="overlay-title">آخر إصدار</h4>
                       <div class="overlay-badge">
                         <i class="pi pi-star"></i>
                         <span>أبحاث مميزة</span>
@@ -85,18 +84,18 @@
     </div>
   </div>
 </section>
-              <!-- مميزات المجلة
-              <div class="journal-features">
-                <div class="features-grid">
-                  <div class="feature-item" *ngFor="let feature of journalFeatures; let i = index" 
-                       [style.animation-delay.ms]="i * 100">
-                    <div class="feature-icon">
-                      <i [class]="feature.icon"></i>
-                    </div>
-                    <div class="feature-content">
-                      <h5 class="feature-title">{{ feature.title }}</h5>
-                      <p class="feature-description">{{ feature.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+<!-- Journal Features
+<div class="journal-features">
+  <div class="features-grid">
+    <div class="feature-item" *ngFor="let feature of journalFeatures; let i = index" 
+         [style.animation-delay.ms]="i * 100">
+      <div class="feature-icon">
+        <i [class]="feature.icon"></i>
+      </div>
+      <div class="feature-content">
+        <h5 class="feature-title">{{ feature.title }}</h5>
+        <p class="feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</div> -->

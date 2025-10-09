@@ -1,0 +1,123 @@
+<section class="programs-section">
+  <div class="container-fluid">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="header-content">
+        <span class="section-badge">
+          <i class="pi pi-book"></i>
+          البرامج الأكاديمية
+        </span>
+        <h2 class="section-title">جميع البرامج</h2>
+        <p class="section-subtitle">
+          استكشف مجموعتنا الشاملة من البرامج التعليمية
+        </p>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+      <div class="tab-container">
+        <button class="tab-button" 
+                [class.active]="activeTab === 'all'"
+                (click)="switchTab('all')">
+          <i class="pi pi-list"></i>
+          <span>جميع البرامج</span>
+          <div class="tab-indicator"></div>
+        </button>
+        <button class="tab-button" 
+                [class.active]="activeTab === 'new'"
+                (click)="switchTab('new')">
+          <i class="pi pi-star"></i>
+          <span>البرامج الجديدة</span>
+          <div class="tab-indicator"></div>
+        </button>
+        <button class="tab-button" 
+                [class.active]="activeTab === 'old'"
+                (click)="switchTab('old')">
+          <i class="pi pi-book"></i>
+          <span>البرامج الحالية</span>
+          <div class="tab-indicator"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>جارٍ تحميل البرامج...</p>
+      </div>
+    </div>
+
+    <!-- Programs Grid -->
+    <div class="programs-grid" *ngIf="!loading">
+      <div class="program-card" 
+           *ngFor="let program of filteredItems; let i = index"
+           [style.animation-delay.ms]="i * 150">
+        
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="card-image">
+            <img [src]="program.images[0]" [alt]="program.name" class="item-image">
+            <div class="image-overlay">
+              <div class="type-badge" [class]="program.category + '-badge'">
+                <i [class]="program.icon || 'pi pi-book'"></i>
+                <span>{{ program.category }}</span>
+              </div>
+              <div class="new-badge" *ngIf="program.isNew">
+                <i class="pi pi-star"></i>
+                <span>جديد</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Content -->
+        <div class="card-content">
+          <div class="content-header">
+            <div class="duration-info">
+              <i class="pi pi-clock"></i>
+              <span>{{ program.duration }}</span>
+            </div>
+            <div class="category-tag" *ngIf="program.category">
+              <span>{{ program.category }}</span>
+            </div>
+          </div>
+
+          <h4 class="item-title">{{ program.name }}</h4>
+          <p class="item-excerpt">{{ truncateText(program.shortDescription || program.description || '', 120) }}</p>
+
+          <div class="card-footer">
+            <button class="read-more-btn" (click)="router.navigate(['/programs', program.id])">
+              <span>عرض التفاصيل</span>
+              <i class="pi pi-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Decorations -->
+        <div class="card-glow"></div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!loading && filteredItems.length === 0">
+      <div class="empty-icon">
+        <i class="pi pi-inbox"></i>
+      </div>
+      <h3 class="empty-title">لم يتم العثور على برامج</h3>
+      <p class="empty-description">
+        تحقق لاحقاً لمعرفة البرامج الجديدة.
+      </p>
+    </div>
+
+    <!-- View All Button -->
+    <div class="view-all-section" *ngIf="!loading && filteredItems.length > 0">
+      <button class="view-all-btn" (click)="navigateToPrograms()">
+        <span>عرض جميع البرامج</span>
+        <i class="pi pi-arrow-left"></i>
+        <div class="btn-glow"></div>
+      </button>
+    </div>
+  </div>
+</section>

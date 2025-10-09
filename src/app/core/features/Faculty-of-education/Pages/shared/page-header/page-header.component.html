@@ -1,31 +1,33 @@
-<div *ngIf="title" class="page-title">
-  <h1>{{ title }}</h1>
-</div>
+<div class="page-header-container">
+  <div *ngIf="title" class="page-title">
+    <h1>{{ title }}</h1>
+  </div>
 
-<nav aria-label="breadcrumb" class="breadcrumb-nav">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a [routerLink]="['/']">الرئيسية
-      </a>
-    </li>
-    <li *ngFor="let crumb of breadcrumbs; let last = last" class="breadcrumb-item" [class.active]="last">
-      <a *ngIf="!last && crumb.url" [routerLink]="crumb.url" routerLinkActive="active">{{ crumb.label }}</a>
-      <span *ngIf="last || !crumb.url">{{ crumb.label }}</span>
-    </li>
-    <li *ngIf="currentPage && (!breadcrumbs || breadcrumbs.length === 0)" class="breadcrumb-item active" aria-current="page">
-      {{ currentPage }}
-    </li>
-  </ol>
-</nav>
-
-<div *ngIf="tabs && tabs.length > 0" class="page-tabs">
-  <nav class="nav nav-tabs">
-    <a *ngFor="let tab of tabs"
-       class="nav-link"
-       [class.active]="tab.route === activeTab"
-       [routerLink]="[tab.route]"
-       routerLinkActive="active">
-      {{ tab.label }}
-    </a>
+  <nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']"> 
+الرئيسية /         </a>
+      </li>
+      <li *ngFor="let crumb of breadcrumbs; let last = last" class="breadcrumb-item" [class.active]="last">
+        <a *ngIf="!last && crumb.url" [routerLink]="crumb.url" routerLinkActive="active">{{ crumb.label }}</a>
+        <span *ngIf="last || !crumb.url">{{ crumb.label }}</span>
+      </li>
+      <li *ngIf="currentPage && (!breadcrumbs || breadcrumbs.length === 0)" class="breadcrumb-item active" aria-current="page">
+        {{ currentPage }}
+      </li>
+    </ol>
   </nav>
+
+  <div *ngIf="tabs && tabs.length > 0" class="page-tabs">
+    <nav class="nav nav-tabs">
+      <a *ngFor="let tab of tabs"
+         class="nav-link"
+         [class.active]="tab.route === activeTab"
+         [routerLink]="[tab.route]"
+         routerLinkActive="active">
+        {{ tab.label }}
+      </a>
+    </nav>
+  </div>
 </div>

@@ -12,7 +12,7 @@
   content: '';
   position: absolute;
   top: -40%;
-  left: -30%;
+right: -30%;
   width: 800px;
   height: 600px;
   background: radial-gradient(circle, rgba(119, 166, 199, 0.08) 0%, transparent 70%);
@@ -24,7 +24,7 @@
   content: '';
   position: absolute;
   bottom: -50%;
-  right: -25%;
+  left: -25%;
   width: 600px;
   height: 600px;
   background: radial-gradient(circle, rgba(52, 74, 90, 0.06) 0%, transparent 70%);
@@ -230,6 +230,11 @@
   margin-bottom: 1rem;
   line-height: 1.3;
   letter-spacing: -0.01em;
+    font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    align-items: right;
+    text-align: right;
+    direction: rtl;
+    justify-content: right;
 }
 
 .title-underline {
@@ -250,6 +255,11 @@
   line-height: 1.7;
   font-size: 1rem;
   margin: 0;
+   font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    align-items: right;
+    text-align: right;
+    direction: rtl;
+    justify-content: right;
 }
 
 /* ========================================
@@ -382,8 +392,8 @@
 }
 
 .cover-image {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
@@ -411,6 +421,10 @@
   font-weight: 800;
   margin-bottom: 0.5rem;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+color: white;
+ font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ 
+
 }
 
 .overlay-subtitle {

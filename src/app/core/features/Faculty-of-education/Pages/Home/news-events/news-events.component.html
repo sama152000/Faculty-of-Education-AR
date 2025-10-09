@@ -88,18 +88,11 @@
           <p class="item-excerpt">{{ truncateText(item.excerpt, 120) }}</p>
 
           <div class="card-footer">
-            <button class="read-more-btn">
+            <button class="read-more-btn" (click)="navigateToDetails(item.id)">
               <span>اقرأ المزيد</span>
-              <i class="pi pi-arrow-right"></i>
+              <i class="pi pi-arrow-left"></i>
             </button>
-            <div class="share-actions">
-              <button class="share-btn" title="مشاركة">
-                <i class="pi pi-share-alt"></i>
-              </button>
-              <button class="bookmark-btn" title="إضافة إلى المفضلة">
-                <i class="pi pi-bookmark"></i>
-              </button>
-            </div>
+           
           </div>
         </div>
 
@@ -120,10 +113,12 @@
     </div>
 
     <!-- زر عرض الكل -->
+    <!-- View All Button -->
     <div class="view-all-section" *ngIf="!loading && filteredItems.length > 0">
-      <button class="view-all-btn">
-        <span>عرض جميع {{ getTypeLabel(activeTab) }}</span>
-        <i class="pi pi-arrow-right"></i>
+      <button class="view-all-btn" (click)="navigateToNewsEvents()">
+        <span>عرض كل اللاخبار والفاعليات </span>
+        <!-- <span>عرض كل {{ getTypeLabel(activeTab) }}</span> -->
+        <i class="pi pi-arrow-left"></i>
         <div class="btn-glow"></div>
       </button>
     </div>

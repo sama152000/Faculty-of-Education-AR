@@ -10,8 +10,8 @@ export class FacultyDataService {
     return [
       {
         id: 'prospective',
-        title: 'الطلاب الراغبين في الالتحاق',
-        description: 'دعم شامل للطلاب الذين يفكرون في التسجيل',
+        title: 'الطلاب المستقبليين',
+        description: 'دعم شامل للطلاب الراغبين في التسجيل',
         icon: 'pi pi-users',
         services: [
           {
@@ -22,50 +22,50 @@ export class FacultyDataService {
           {
             id: 'technical-support',
             title: 'الدعم الفني',
-            description: 'دعم فني أثناء عملية التقديم عبر الإنترنت'
+            description: 'الدعم الفني أثناء عملية التقديم عبر الإنترنت'
           },
           {
             id: 'inquiries',
             title: 'استفسارات القبول',
-            description: 'الرد على الاستفسارات حول متطلبات القبول'
+            description: 'الرد على استفسارات متطلبات القبول'
           }
         ],
         deliveryMethods: [
-          { id: 'booklets', method: 'كتيبات الإرشاد', icon: 'pi pi-book' },
-          { id: 'online', method: 'المنصات الإلكترونية', icon: 'pi pi-desktop' },
+          { id: 'booklets', method: 'كتيبات إرشادية', icon: 'pi pi-book' },
+          { id: 'online', method: 'منصات إلكترونية', icon: 'pi pi-desktop' },
           { id: 'reception', method: 'مكاتب الاستقبال والمعلومات', icon: 'pi pi-building' }
         ]
       },
       {
         id: 'current',
         title: 'الطلاب الحاليين',
-        description: 'خدمات أساسية للطلاب الجامعيين',
+        description: 'خدمات أساسية لطلاب البكالوريوس',
         icon: 'pi pi-graduation-cap',
         services: [
           {
             id: 'registration',
             title: 'تسجيل المقررات',
-            description: 'إدارة تسجيل المقررات وجدولة الحصص'
+            description: 'تسجيل المقررات وإدارة الجداول الدراسية'
           },
           {
             id: 'counseling',
-            title: 'الإرشاد الأكاديمي',
+            title: 'الإرشاد الأكاديمي والنفسي',
             description: 'خدمات الإرشاد الأكاديمي والنفسي'
           },
           {
             id: 'health',
-            title: 'خدمات الصحة',
-            description: 'خدمات الصحة والعلاج الطبي للطلاب'
+            title: 'الخدمات الصحية',
+            description: 'الخدمات الصحية والطبية للطلاب'
           },
           {
             id: 'activities',
-            title: 'أنشطة الطلاب',
-            description: 'أنشطة ثقافية ورياضية واجتماعية'
+            title: 'الأنشطة الطلابية',
+            description: 'الأنشطة الثقافية والرياضية والاجتماعية'
           },
           {
             id: 'financial',
             title: 'الدعم المالي',
-            description: 'صندوق التضامن وبرامج المساعدات الطلابية'
+            description: 'صندوق التكافل وبرامج مساعدة الطلاب'
           }
         ],
         deliveryMethods: [
@@ -76,29 +76,29 @@ export class FacultyDataService {
       },
       {
         id: 'postgraduate',
-        title: 'الطلاب الدراسات العليا',
-        description: 'دعم متخصص لطلاب البحث العلمي الخريجين',
+        title: 'طلاب الدراسات العليا',
+        description: 'دعم متخصص لطلاب البحث في الدراسات العليا',
         icon: 'pi pi-star',
         services: [
           {
             id: 'research-registration',
-            title: 'تسجيل البحث',
-            description: 'تسجيل ومتابعة خطط البحث'
+            title: 'تسجيل الأبحاث',
+            description: 'تسجيل ومتابعة خطط الأبحاث'
           },
           {
             id: 'supervision',
             title: 'الإشراف الأكاديمي',
-            description: 'الإشراف الأكاديمي ودعم البحث'
+            description: 'الإشراف الأكاديمي ودعم الأبحاث'
           },
           {
             id: 'publishing',
             title: 'النشر العلمي',
-            description: 'تسهيل النشر العلمي ومشاركة المؤتمرات'
+            description: 'تسهيل النشر العلمي والمشاركة في المؤتمرات'
           },
           {
             id: 'training',
             title: 'ورش التدريب',
-            description: 'توفير ورش تدريبية ومنصات'
+            description: 'توفير ورش تدريب ومنصات تعليمية'
           }
         ],
         deliveryMethods: [
@@ -121,35 +121,39 @@ export class FacultyDataService {
           { label: 'الفيزياء', value: 22 },
           { label: 'الكيمياء', value: 37 },
           { label: 'الرياضيات', value: 52 },
-          { label: 'الأحياء', value: 36 }
+          { label: 'العلوم البيولوجية', value: 36 }
         ]
       },
       {
         id: 'postgraduate-diploma',
-        title: 'دبلوم التربية العليا (نظام الساعات المعتمدة) – 2024/2025',
+        title: 'دبلوم الدراسات العليا في التربية (نظام الساعات المعتمدة) – 2024/2025',
         data: [
           {
-            label: 'مسار معلم الصف (المراحل 1-3)',
+            label: 'مسار معلم الصف (الصفوف 1-3)',
             value: 89,
             subItems: [
               { label: 'إجمالي الطلاب', male: 14, female: 75, total: 89 }
             ]
           },
           {
-            label: 'مسار معلم المرحلة الابتدائية العليا (المراحل 4-6)',
-            value: 0,
-            subItems: []
+            label: 'مسار معلم المرحلة الابتدائية العليا (الصفوف 4-6)',
+            value: 34,
+            subItems: [
+              { label: 'إجمالي الطلاب', male: 9, female: 25, total: 34 }
+            ]
           },
           {
-            label: 'مسار معلم المادة (المراحل 7-12)',
-            value: 0,
-            subItems: []
+            label: 'مسار معلم المواد (الصفوف 7-12)',
+            value: 248,
+            subItems: [
+              { label: 'إجمالي الطلاب', male: 45, female: 203, total: 248 }
+            ]
           },
           {
             label: 'إجمالي التسجيل في البرنامج',
             value: 248,
             subItems: [
-              { label: 'كل المسارات مجتمعة', male: 45, female: 203, total: 248 }
+              { label: 'جميع المسارات مجتمعة', male: 45, female: 203, total: 248 }
             ]
           }
         ]
@@ -162,63 +166,63 @@ export class FacultyDataService {
       {
         id: 1,
         name: 'د. محمد عطا نجدي',
-        position: 'أستاذ لغوي أول',
+        position: 'مدرب لغة أول',
         phone: '01095953313',
         department: 'اللغات'
       },
       {
         id: 2,
         name: 'محمود محمد إبراهيم',
-        position: 'أمين الكلية',
+        position: 'سكرتير الكلية',
         phone: '01006820901',
         department: 'الإدارة'
       },
       {
         id: 3,
         name: 'سامح محمد رمضان',
-        position: 'شؤون الدراسات العليا + مسؤول بصمة',
+        position: 'شؤون الدراسات العليا + مسئول البصمة',
         phone: '01023425622',
         department: 'الدراسات العليا'
       },
       {
         id: 4,
-        name: 'عبد الله عبد الجليل علي',
-        position: 'مسؤول المكتبة + كاتب',
+        name: 'عبدالله عبد الجليل علي',
+        position: 'مسئول المكتبة + كاتب',
         phone: '01004212220',
         department: 'خدمات المكتبة'
       },
       {
         id: 5,
-        name: 'حسن يوسف حصب الله',
-        position: 'مسؤول شؤون الشباب',
+        name: 'حسن يوسف حسب الله',
+        position: 'مسئول رعاية الشباب',
         phone: '01069310171',
         department: 'شؤون الطلاب'
       },
       {
         id: 6,
         name: 'حمدي محمد عطا',
-        position: 'ممثل الدفعات',
+        position: 'مندوب الدفع',
         phone: '01091450814',
         department: 'المالية'
       },
       {
         id: 7,
         name: 'كريمة سيد علي',
-        position: 'مسؤولة شؤون الطلاب',
+        position: 'مسئولة شؤون الطلاب',
         phone: '01099164895',
         department: 'شؤون الطلاب'
       },
       {
         id: 8,
         name: 'فاطمة عثمان جابر',
-        position: 'مسؤولة الموارد البشرية',
+        position: 'مسئولة الموارد البشرية',
         phone: '01013638940',
         department: 'الموارد البشرية'
       },
       {
         id: 9,
         name: 'أسماء عبد الرحيم زكي',
-        position: 'أمينة المخازن',
+        position: 'سكرتيرة المخازن',
         phone: '01010929621',
         department: 'الإدارة'
       },
@@ -232,7 +236,7 @@ export class FacultyDataService {
       {
         id: 11,
         name: 'فايزة أحمد حساني',
-        position: 'مساعدة الخدمات',
+        position: 'مساعدة خدمات',
         phone: '01005758697',
         department: 'الخدمات العامة'
       }

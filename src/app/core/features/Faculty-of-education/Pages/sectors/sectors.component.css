@@ -2,6 +2,9 @@
   padding: var(--section-padding);
   background-color: var(--bg-light);
   min-height: 100vh;
+
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 /* Breadcrumb */
@@ -138,8 +141,8 @@
 
 /* Objectives List */
 .objectives-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
@@ -182,8 +185,8 @@
 
 /* Services List */
 .services-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
@@ -233,7 +236,7 @@
 
 .nav-btn {
   flex: 1;
-  max-width: 300px;
+  max-width: 450px;
   background-color: var(--bg-light);
   border: 2px solid #e9ecef;
   border-radius: 0.75rem;
@@ -283,6 +286,8 @@
 /* Sidebar */
 .sidebar {
   padding-left: 2rem;
+  position: sticky;
+  top: 20px;
 }
 
 .sidebar-section {
@@ -440,39 +445,44 @@
   .sector-content {
     padding: 1.5rem;
   }
-  
+
   .sidebar-section {
     padding: 1.5rem;
   }
-  
+
   .section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-  
+
   .section-subtitle {
     font-size: 1.5rem;
   }
-  
+
   .sector-navigation {
     flex-direction: column;
   }
-  
+
   .nav-btn {
     max-width: none;
   }
-  
+
   .nav-btn.next-btn {
     text-align: left;
   }
-  
+
+  .objectives-list,
+  .services-list {
+    grid-template-columns: 1fr;
+  }
+
   .objective-item,
   .service-item {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .objective-number {
     align-self: center;
   }

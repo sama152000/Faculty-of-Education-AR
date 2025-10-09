@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Program } from '../../../model/program-page.model';
-import { ProgramsService } from '../../../Services/programs-page.service';
+import { Program } from '../../../model/program.model'; // الموديل الموحد
+import { UnifiedProgramsService } from '../../../Services/program.service'; // السيرفيس الموحد
 import { PageHeaderComponent } from '../page-header/page-header.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { GalleriaModule } from 'primeng/galleria';
 import { TagModule } from 'primeng/tag';
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-program-details',
@@ -21,8 +22,9 @@ import { TagModule } from 'primeng/tag';
     ButtonModule,
     DividerModule,
     GalleriaModule,
-    TagModule
-  ],
+    TagModule,
+    FooterComponent
+],
   templateUrl: './program-details.component.html',
   styleUrls: ['./program-details.component.css']
 })
@@ -35,7 +37,7 @@ export class ProgramDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private programsService: ProgramsService
+    private programsService: UnifiedProgramsService
   ) {
     this.responsiveOptions = [
       {
@@ -56,12 +58,12 @@ export class ProgramDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllPrograms();
     this.route.params.subscribe(params => {
-      const id = +params['id'];
+      const id = params['id']; // string
       this.loadProgram(id);
     });
   }
 
-  loadProgram(id: number): void {
+  loadProgram(id: string): void {
     this.programsService.getProgramById(id).subscribe(data => {
       this.program = data;
       if (this.program) {
@@ -72,7 +74,8 @@ export class ProgramDetailsComponent implements OnInit {
 
   loadAllPrograms(): void {
     this.programsService.getAllPrograms().subscribe(data => {
-      this.allPrograms = data;
+      this.allPrograms = data; // مرتبة حسب السيرفيس (قديم أولاً)
+      // لو عايزة sort حسب ID أبجدي: this.allPrograms = data.sort((a, b) => a.id.localeCompare(b.id));
     });
   }
 

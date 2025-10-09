@@ -1,25 +1,25 @@
-<section class="dean-message-section">
+<section class="dean-message-section col-md-12">
   <div class="container-fluid">
-    <!-- رأس الصفحة -->
+    <!-- Page Header -->
     <app-page-header
-      [title]="'رسالة ترحيب العميد'"
-      [breadcrumbs]="[{ label: 'عن الكلية', url: '/about-us' }, { label: 'رسالة العميد' }]">
+      [title]="'كلمة عميد الكلية '"
+      [breadcrumbs]="[{ label: 'عن الكلية', url: '/about-us' }, { label: 'كلمة العميد' }]">
     </app-page-header>
     <div class="dean-message-container">
 
       <div class="dean-card">
+        <div class="dean-profile">
+          <div class="dean-photo-wrapper">
+            <img [src]="deanInfo.photo" [alt]="deanInfo.name" class="dean-photo">
+            <div class="photo-frame"></div>
         <div class="dean-content">
-          <div class="dean-profile">
-            <div class="dean-photo-wrapper">
-              <img [src]="deanInfo.photo" [alt]="deanInfo.name" class="dean-photo">
-              <div class="photo-frame"></div>
             </div>
             <div class="dean-info">
               <h3 class="dean-name">{{ deanInfo.name }}</h3>
               <p class="dean-title">{{ deanInfo.title }}</p>
               <div class="dean-badge">
                 <i class="pi pi-star"></i>
-                <span>عميد</span>
+                <span>العميد</span>
               </div>
             </div>
           </div>
@@ -43,60 +43,8 @@
       </div>
     </div>
 
-    <!-- تاريخ الكلية -->
-    <div class="history-section">
-      <div class="history-header">
-        <h2 class="section-title">تاريخ الكلية</h2>
-      </div>
-
-      <div class="history-timeline">
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <i class="pi pi-calendar"></i>
-          </div>
-          <div class="timeline-content">
-            <div class="timeline-card">
-              <h4 class="timeline-title">التأسيس</h4>
-              <p class="timeline-description">{{ facultyHistory.description }}</p>
-              
-              <div class="history-details">
-                <div class="detail-item">
-                  <i class="pi pi-file"></i>
-                  <span><strong>المرسوم:</strong> {{ facultyHistory.decree }}</span>
-                </div>
-                <div class="detail-item">
-                  <i class="pi pi-calendar"></i>
-                  <span><strong>التاريخ:</strong> {{ facultyHistory.establishmentDate }}</span>
-                </div>
-                <div class="detail-item">
-                  <i class="pi pi-graduation-cap"></i>
-                  <span><strong>العام الدراسي:</strong> {{ facultyHistory.academicYear }}</span>
-                </div>
-              </div>
-
-              <div class="programs-section">
-                <h5 class="programs-title">البرامج الأكاديمية</h5>
-                <div class="programs-list">
-                  <div class="program-item" *ngFor="let program of facultyHistory.programs">
-                    <i class="pi pi-check-circle"></i>
-                    <span>{{ program }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="facilities-section">
-                <h5 class="facilities-title">المرافق الحديثة</h5>
-                <div class="facilities-grid">
-                  <div class="facility-item" *ngFor="let facility of facultyHistory.facilities">
-                    <i class="pi pi-verified"></i>
-                    <span>{{ facility }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
   </div>
 </section>
+
+
+<app-footer></app-footer>

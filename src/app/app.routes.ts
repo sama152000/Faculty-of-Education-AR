@@ -10,8 +10,9 @@ import { ContactUsComponent } from './core/features/Faculty-of-education/Pages/c
 import { DeanMessageComponent } from './core/features/Faculty-of-education/Pages/shared/dean-message/dean-message.component';
 import { VisionMissionComponent } from './core/features/Faculty-of-education/Pages/about-us/vision-mission/vision-mission.component';
 import { SectorsComponent } from './core/features/Faculty-of-education/Pages/sectors/sectors.component';
-import { DepartmentsComponent } from './core/features/Faculty-of-education/Pages/Home/departments/departments.component';
-
+import { DepartmentDetailsComponent } from './core/features/Faculty-of-education/Pages/shared/department-details/department-details.component';
+import { NewProgramDetailsComponent } from './core/features/Faculty-of-education/Pages/shared/new-program-details/new-program-details.component';
+import { FacultyHistoryComponent } from './core/features/Faculty-of-education/Pages/about-us/Faculty-History/Faculty-History.component';
 export const routes: Routes = [
 
  {
@@ -22,11 +23,19 @@ export const routes: Routes = [
       {path:'about-us/staff-members', component : StaffMembersComponent},
       { path: 'news-events', component: NewsEventsComponent },
       {path :'news-events/:id', component : NewsEventsDetailsComponent},
-        { path: 'programs', component: ProgramsListComponent },
-  { path: 'programs/:id', component: ProgramDetailsComponent },
+    // ... استيراد الكومبوننتس
+
+
+  { path: 'programs', component: ProgramsListComponent },  // قائمة كل البرامج
+  { path: 'programs/:id', component: ProgramDetailsComponent },  // تفاصيل أي برنامج (قديم أو جديد، بس حسب ID)
+  { path: 'new-programs', component: ProgramsListComponent },  // قائمة البرامج الجديدة (أنشئي الكومبوننت إذا لزم، أو استخدمي ProgramsListComponent مع فلتر)
+  { path: 'new-programs/:id', component: NewProgramDetailsComponent },  // تفاصيل البرامج الجديدة
+
+
     { path: 'contact', component: ContactUsComponent },
     { path: 'about-us/dean-word', component: DeanMessageComponent },
     { path: 'about-us/vision-mission', component: VisionMissionComponent },
+    { path: 'about-us/Faculty-history', component: FacultyHistoryComponent },
 
     { path: 'units', component: HomeComponent },
     { path: 'labs/computer', component: HomeComponent },
@@ -38,6 +47,9 @@ export const routes: Routes = [
     { path: 'programs/new/physics-english', component: HomeComponent },
     { path: 'programs/new/chemistry-english', component: HomeComponent },
     { path: 'programs/academic/arabic', component: HomeComponent },
+    { path: 'programs/academic/arabic/id', component: HomeComponent },
+
+
     { path: 'programs/academic/english', component: HomeComponent },
     { path: 'programs/academic/french', component: HomeComponent },
     { path: 'programs/academic/german', component: HomeComponent },
@@ -50,9 +62,15 @@ export const routes: Routes = [
     { path: 'administrations/youth-welfare', component: HomeComponent },
     { path: 'administrations/labs', component: HomeComponent },
     { path: 'administrations/stores', component: HomeComponent },
-  // Departments list page
-  { path: 'department', component: DepartmentsComponent },
-  { path: 'management/dean', component: HomeComponent },
+   // Departments routes
+ { path: 'department-details', component: HomeComponent },
+      { path: 'department-details/:id', component: DepartmentDetailsComponent },
+
+
+
+  { path: 'management/vice-dean-community/:id', component: SectorsComponent },
+
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'management/vice-dean-education', component: SectorsComponent },
   { path: 'management/vice-dean-education/:id', component: SectorsComponent },
   { path: 'management/vice-dean-postgraduate', component: SectorsComponent },
