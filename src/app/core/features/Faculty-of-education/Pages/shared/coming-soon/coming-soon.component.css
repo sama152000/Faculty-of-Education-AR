@@ -1,0 +1,245 @@
+/* ========================================
+   COMING SOON SECTION
+======================================== */
+.coming-soon-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.coming-soon-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(119, 166, 199, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 20s ease-in-out infinite reverse;
+}
+
+.coming-soon-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -15%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(52, 74, 90, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+.container-fluid {
+  position: relative;
+  z-index: 2;
+}
+
+/* ========================================
+   COMING SOON CONTENT
+======================================== */
+.coming-soon-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.coming-soon-icon {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto 2rem;
+  box-shadow: 0 12px 35px rgba(119, 166, 199, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.coming-soon-icon i {
+  font-size: 3rem;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.icon-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s ease;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.coming-soon-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--dark-primary-color);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  position: relative;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.coming-soon-title::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
+  border-radius: 2px;
+  animation: expand 1s ease-out 1s both;
+}
+
+.coming-soon-subtitle {
+  font-size: 1.25rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+  animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(0); }
+  50% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expand {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 768px) {
+  .coming-soon-section {
+    padding: 4rem 0;
+    min-height: 50vh;
+  }
+
+  .coming-soon-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .coming-soon-icon i {
+    font-size: 2.5rem;
+  }
+
+  .coming-soon-title {
+    font-size: 3rem;
+  }
+
+  .coming-soon-subtitle {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .coming-soon-section {
+    padding: 3rem 0;
+  }
+
+  .coming-soon-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .coming-soon-icon i {
+    font-size: 2rem;
+  }
+
+  .coming-soon-title {
+    font-size: 2.5rem;
+  }
+
+  .coming-soon-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   RTL SUPPORT
+======================================== */
+[dir="rtl"] .coming-soon-content {
+  text-align: center;
+}
+
+/* ========================================
+   HIGH CONTRAST MODE SUPPORT
+======================================== */
+@media (prefers-contrast: high) {
+  .coming-soon-icon {
+    border: 2px solid var(--dark-primary-color);
+  }
+  
+  .coming-soon-title {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ========================================
+   REDUCED MOTION SUPPORT
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .coming-soon-icon,
+  .icon-glow,
+  .coming-soon-title,
+  .coming-soon-subtitle {
+    animation: none;
+  }
+  
+  .coming-soon-icon {
+    animation: none;
+  }
+  
+  .coming-soon-title::after {
+    animation: none;
+  }
+}

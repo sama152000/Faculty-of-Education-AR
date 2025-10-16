@@ -13,6 +13,7 @@ import { SectorsComponent } from './core/features/Faculty-of-education/Pages/sec
 import { DepartmentDetailsComponent } from './core/features/Faculty-of-education/Pages/shared/department-details/department-details.component';
 import { NewProgramDetailsComponent } from './core/features/Faculty-of-education/Pages/shared/new-program-details/new-program-details.component';
 import { FacultyHistoryComponent } from './core/features/Faculty-of-education/Pages/about-us/Faculty-History/Faculty-History.component';
+import { ComingSoonComponent } from './core/features/Faculty-of-education/Pages/shared/coming-soon/coming-soon.component';
 export const routes: Routes = [
 
  {
@@ -24,6 +25,8 @@ export const routes: Routes = [
       { path: 'news-events', component: NewsEventsComponent },
       {path :'news-events/:id', component : NewsEventsDetailsComponent},
     // ... استيراد الكومبوننتس
+      {path :'comming-soon', component : ComingSoonComponent},
+
 
 
   { path: 'programs', component: ProgramsListComponent },  // قائمة كل البرامج

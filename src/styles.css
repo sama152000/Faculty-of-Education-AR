@@ -416,3 +416,21 @@ html {
     font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
+
+/* الغاء أي خلفية رمادية داخل أي dropdown */
+.dropdown-menu,
+.p-menu,
+.p-tieredmenu,
+.p-submenu-list,
+.main-navbar .dropdown-menu {
+  background: white !important;
+}
+
+/* الغاء الخلفية الرمادية عند الـ hover */
+.dropdown-item:hover,
+.p-menuitem-link:hover,
+.p-tieredmenu .p-menuitem-link:hover {
+  background: transparent !important;
+   color: var(--dark-primary-color) !important;
+
+}

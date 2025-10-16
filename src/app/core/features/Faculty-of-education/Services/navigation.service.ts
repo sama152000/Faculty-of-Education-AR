@@ -53,29 +53,39 @@ export class NavigationService {
             {
               id: 'computer-lab',
               label: 'معمل الحاسب الآلي',
-              route: '/labs/computer'
+              // route: '/labs/computer'
+                            route:'/comming-soon'
+
             },
             {
               id: 'mental-health-lab',
               label: 'معمل الصحة النفسية',
-              route: '/labs/mental-health'
+              // route: '/labs/mental-health'
+                            route:'/comming-soon'
+
             },
             {
               id: 'micro-teaching-lab',
               label: 'معمل التدريس المصغر',
-              route: '/labs/micro-teaching'
+              // route: '/labs/micro-teaching'
+                            route:'/comming-soon'
+
             },
             {
               id: 'science-lab',
               label: 'معمل العلوم',
-              route: '/labs/science'
+              // route: '/labs/science'
+                            route:'/comming-soon'
+
             }
           ]
         },
         {
           id: 'units',
           label: 'الوحدات',
-          route: '/units'
+          // route: '/units'
+                        route:'/comming-soon'
+
         }
       ]
     },
@@ -159,32 +169,44 @@ export class NavigationService {
         {
           id: 'student-affairs',
           label: 'إدارة شؤون الطلاب',
-          route: '/administrations/student-affairs'
+          // route: '/administrations/student-affairs'
+                        route:'/comming-soon'
+
         },
         {
           id: 'postgraduate',
           label: 'إدارة الدراسات العليا',
-          route: '/administrations/postgraduate'
+          // route: '/administrations/postgraduate'
+                        route:'/comming-soon'
+
         },
         {
           id: 'hr',
           label: 'إدارة الموارد البشرية',
-          route: '/administrations/hr'
+          // route: '/administrations/hr'
+                        route:'/comming-soon'
+
         },
         {
           id: 'youth-welfare',
           label: 'إدارة رعاية الشباب',
-          route: '/administrations/youth-welfare'
+          // route: '/administrations/youth-welfare'
+                        route:'/comming-soon'
+
         },
         {
           id: 'labs-admin',
           label: 'إدارة المعامل',
-          route: '/administrations/labs'
+          // route: '/administrations/labs'
+                        route:'/comming-soon'
+
         },
         {
           id: 'stores',
           label: 'إدارة المخازن',
-          route: '/administrations/stores'
+          // route: '/administrations/stores'
+                        route:'/comming-soon'
+
         }
       ]
     },
@@ -337,7 +359,7 @@ export class NavigationService {
       {
         id: 'faculty-administrations-footer',
         label: 'الإدارات الإدارية بالكلية',
-        route: '/'
+              route:'/comming-soon'
       },
       {
         id: 'programs-footer',
@@ -347,7 +369,7 @@ export class NavigationService {
       {
         id: 'units-labs-footer',
         label: 'الوحدات والمعامل',
-        route: '/'
+              route:'/comming-soon'
       },
       {
         id: 'news-events-footer',

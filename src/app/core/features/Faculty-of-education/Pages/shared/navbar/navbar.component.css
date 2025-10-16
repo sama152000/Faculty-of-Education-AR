@@ -158,7 +158,7 @@
 
 .nav-link:hover,
 .nav-link.router-link-active {
-  color: var(--primary-color);
+    color: var(--dark-primary-color) !important;
   background: var(--nano-color, rgba(0, 0, 0, 0.05));
 }
 
@@ -166,6 +166,8 @@
 .nav-link:active {
   outline: none !important;
   box-shadow: none !important;
+      color: var(--dark-primary-color) !important;
+
 }
 
 .nav-link:hover::before,
@@ -219,7 +221,7 @@
 .main-navbar .nav-link:focus,
 .main-navbar .dropdown-item.active {
   background-color: transparent !important;
-  color: inherit !important;
+    color: var(--dark-primary-color) !important;
   outline: none !important;
   box-shadow: none !important;
 }
@@ -343,7 +345,7 @@
 
 .program-link:hover {
   background: var(--nano-color, rgba(0, 0, 0, 0.05));
-  color: var(--primary-color);
+    color: var(--dark-primary-color) !important;
   transform: translateX(-4px);
 }
 
@@ -376,7 +378,7 @@
 .dropdown-link:hover,
 .dropdown-link:active {
   background: var(--nano-color, rgba(0, 0, 0, 0.05));
-  color: var(--primary-color);
+    color: var(--dark-primary-color) !important;
   transform: translateX(-4px);
 }
 
@@ -426,7 +428,7 @@
 .sub-dropdown-link:hover,
 .sub-dropdown-link:active {
   background: var(--nano-color, rgba(0, 0, 0, 0.05));
-  color: var(--primary-color);
+    color: var(--dark-primary-color) !important;
   transform: translateX(-4px);
 }
 
@@ -457,7 +459,7 @@
 .program-link:active {
   outline: none !important;
   box-shadow: none !important;
-  color: inherit !important;
+    color: var(--dark-primary-color) !important;
 }
 
 /* In case the browser applies a selection highlight to the container, make selection transparent */
