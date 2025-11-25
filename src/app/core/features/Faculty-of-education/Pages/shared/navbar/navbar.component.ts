@@ -66,6 +66,9 @@ export class NavbarComponent implements OnInit {
     window.open('https://jedul.journals.ekb.eg/', '_blank');
   }
 
+   languageswitcher():void{
+    window.open('https://faculty-of-education-en-943s.vercel.app/home/', '_blank');
+  }
   handleItemClick(item: NavItem, event?: Event): void {
     if (item.external && item.url) {
       if (event) {

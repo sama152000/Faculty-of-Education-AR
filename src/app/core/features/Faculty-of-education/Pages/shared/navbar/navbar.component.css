@@ -678,4 +678,21 @@
     width: 280px;
     padding: 1.25rem 1rem;
   }
+    .btn-university span {
+    display: inline !important;
+  }
+
+  /* Ensure buttons have stable size and wrap text properly */
+  .btn-university {
+    min-width: 140px !important;
+    padding: 0.625rem 1rem !important;
+    font-size: 0.85rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+  }
 }
