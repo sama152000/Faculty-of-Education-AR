@@ -37,8 +37,8 @@
                  [target]="link.external ? '_blank' : '_self'"
                  class="footer-link"
                  [rel]="link.external ? 'noopener noreferrer' : ''">
-                <i class="pi pi-angle-right link-icon"></i>
-                <span>{{ link.label }}</span>
+               <i class="pi pi-angle-left link-icon"></i>
+               <span>{{ link.label }}</span>
               </a>
             </li>
           </ul>
@@ -50,7 +50,7 @@
           <ul class="footer-links main-sections-links">
             <li *ngFor="let item of footerNavItems">
               <a [routerLink]="item.route" class="footer-link">
-                <i class="pi pi-angle-right link-icon"></i>
+                <i class="pi pi-angle-left link-icon"></i>
                 <span>{{ item.label }}</span>
               </a>
             </li>

@@ -33,6 +33,10 @@ export class NavbarComponent implements OnInit {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  closeMenu(): void {
+    this.isMenuOpen = false;
+  }
+
   toggleDropdown(itemId: string, event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -56,6 +60,7 @@ export class NavbarComponent implements OnInit {
 
   closeAllDropdowns(): void {
     this.openDropdowns.clear();
+    this.closeMenu();
   }
 
   navigateToUniversity(): void {
@@ -65,10 +70,11 @@ export class NavbarComponent implements OnInit {
   navigateTojornal():void{
     window.open('https://jedul.journals.ekb.eg/', '_blank');
   }
-
    languageswitcher():void{
     window.open('https://faculty-of-education-en-943s.vercel.app/home/', '_blank');
   }
+
+
   handleItemClick(item: NavItem, event?: Event): void {
     if (item.external && item.url) {
       if (event) {
@@ -76,6 +82,7 @@ export class NavbarComponent implements OnInit {
         event.stopPropagation();
       }
       window.open(item.url, '_blank');
+      this.closeMenu();
       return;
     }
 
@@ -95,6 +102,9 @@ export class NavbarComponent implements OnInit {
       }
       return;
     }
+
+    // Close menu after navigation for regular links
+    this.closeMenu();
   }
 
   @HostListener('document:click', ['$event'])

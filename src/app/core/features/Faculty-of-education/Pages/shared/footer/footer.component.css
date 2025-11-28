@@ -8,16 +8,19 @@
   margin-top: auto;
   position: relative;
   overflow: hidden;
-
+  direction: rtl;
 }
 
-.footer-container::before {
+.faculty-title {
+  position: relative;
+}
+
+.faculty-title::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
+  bottom: -5px;
+ left: 0;
+  height: 0px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
@@ -182,7 +185,7 @@ text-align: center; */
 
 .footer-link:hover {
   color: var(--primary-color);
-  transform: translateX(4px);
+  transform: translateX(-4px);
   text-decoration: none;
 }
 
@@ -193,7 +196,7 @@ text-align: center; */
 }
 
 .footer-link:hover .link-icon {
-  transform: translateX(2px);
+  transform: translateX(-2px);
 }
 
 /* ========================================
@@ -349,8 +352,14 @@ text-align: center; */
    RESPONSIVE DESIGN
 ======================================== */
 @media (max-width: 1199px) {
+  .section-title::before {
+ 
+  right: 200px;
+ 
+}
   .footer-grid {
     gap: 2.5rem;
+    padding: 1rem;
   }
 
   .faculty-title {
@@ -364,6 +373,13 @@ text-align: center; */
   .footer-link {
     font-size: 1rem;
   }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+   justify-content: center !important;
+   text-align: center !important;
+   align-items: center !important;
+}
 }
 
 @media (max-width: 991px) {
@@ -379,6 +395,13 @@ text-align: center; */
   .contact-section {
     grid-column: span 2;
   }
+    .contact-info {
+    display: flex;
+    flex-direction: column;
+   justify-content: center !important;
+   text-align: center !important;
+   align-items: center !important;
+}
 }
 
 @media (max-width: 768px) {
@@ -410,9 +433,22 @@ text-align: center; */
     justify-content: center;
   }
 
-  .contact-item {
+  .main-sections-links li {
+    flex: 0 0 100%;
+  }
+
+  .footer-link {
+    padding: 0.5rem 0;
     justify-content: center;
-    text-align: left;
+  }
+
+ 
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
     max-width: 300px;
     margin: 0 auto;
   }
@@ -422,6 +458,13 @@ text-align: center; */
     gap: 1rem;
     text-align: center;
   }
+    .contact-info {
+    display: flex;
+    flex-direction: column;
+   justify-content: center !important;
+   text-align: center !important;
+   align-items: center !important;
+}
 }
 
 @media (max-width: 576px) {
@@ -474,4 +517,11 @@ text-align: center; */
     flex-direction: column;
     gap: 0.5rem;
   }
+    .contact-info {
+    display: flex;
+    flex-direction: column;
+   justify-content: center !important;
+   text-align: center !important;
+   align-items: center !important;
+}
 }

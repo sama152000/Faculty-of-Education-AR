@@ -541,6 +541,9 @@
   .mobile-menu-toggle {
     display: flex;
   }
+   .mobile-menu-toggle.active {
+    display: none;
+  }
 
   .navbar-nav {
     position: fixed;
