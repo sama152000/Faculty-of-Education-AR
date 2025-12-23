@@ -2,21 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { SectorService } from '../../Services/sector.service';
-import { Sector, SectorNavigation } from '../../model/sector.model';
-import { FooterComponent } from "../shared/footer/footer.component";
-import { PageHeaderComponent } from "../shared/page-header/page-header.component";
+import { FooterComponent } from '../shared/footer/footer.component';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 @Component({
   selector: 'app-sectors',
   standalone: true,
   imports: [CommonModule, RouterModule, FooterComponent, PageHeaderComponent],
   templateUrl: './sectors.component.html',
-  styleUrls: ['./sectors.component.css']
+  styleUrls: ['./sectors.component.css'],
 })
 export class SectorsComponent implements OnInit {
-  currentSector: Sector | null = null;
-  allSectors: Sector[] = [];
-  navigation: SectorNavigation = { previous: null, next: null };
+  currentSector: any | null = null;
+  allSectors: any[] = [];
+  navigation: any = { previous: null, next: null };
   currentLanguage = 'en';
   loading = true;
 
@@ -28,22 +27,23 @@ export class SectorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAllSectors();
-    
-    this.route.url.subscribe(urlSegments => {
-      const fullPath = urlSegments.map(segment => segment.path).join('/');
+
+    this.route.url.subscribe((urlSegments) => {
+      const fullPath = urlSegments.map((segment) => segment.path).join('/');
       this.loadSectorByRoute(fullPath);
     });
   }
 
   loadAllSectors(): void {
-    this.sectorService.getAllSectors().subscribe(sectors => {
+    this.sectorService.getAllSectors().subscribe((sectors) => {
       this.allSectors = sectors;
     });
   }
 
   loadSectorByRoute(route: string): void {
     this.loading = true;
-    const tryRoute = (r: string) => this.sectorService.getSectorByRoute(r).toPromise();
+    const tryRoute = (r: string) =>
+      this.sectorService.getSectorByRoute(r).toPromise();
 
     (async () => {
       try {
@@ -105,12 +105,12 @@ export class SectorsComponent implements OnInit {
   }
 
   loadNavigation(sectorId: string): void {
-    this.sectorService.getSectorNavigation(sectorId).subscribe(navigation => {
+    this.sectorService.getSectorNavigation(sectorId).subscribe((navigation) => {
       this.navigation = navigation;
     });
   }
 
-  navigateToSector(sector: Sector): void {
+  navigateToSector(sector: any): void {
     this.router.navigate([sector.route]);
   }
 
@@ -126,23 +126,23 @@ export class SectorsComponent implements OnInit {
     }
   }
 
-  getSectorTitle(sector: Sector): string {
+  getSectorTitle(sector: any): string {
     return sector.title;
   }
 
-  getSectorViceDean(sector: Sector): string {
+  getSectorViceDean(sector: any): string {
     return sector.viceDean;
   }
 
-  getSectorObjectives(sector: Sector): string[] {
+  getSectorObjectives(sector: any): string[] {
     return sector.objectives;
   }
 
-  getSectorServices(sector: Sector): string[] {
+  getSectorServices(sector: any): string[] {
     return sector.services;
   }
 
-  isCurrentSector(sector: Sector): boolean {
+  isCurrentSector(sector: any): boolean {
     return this.currentSector?.id === sector.id;
   }
 }

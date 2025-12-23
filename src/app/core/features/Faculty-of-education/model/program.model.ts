@@ -1,13 +1,72 @@
+// export interface Program {
+//   id: string;
+//   name: string;
+//   description: string;
+//   icon: string;
+//   level: 'bachelor' | 'master' | 'phd' | 'diploma';
+//   duration: string;
+//   overview: string;
+//   objectives: string[];
+//   requirements: string[];
+//   courses: string[];
+//   careerOpportunities: string[];
+//   admissionRequirements: string[];
+//   fees?: string;
+//   coordinator?: string;
+//   department: string;
+//   creditsRequired: number;
+//   isActive: boolean;
+// }
+
+// ==================== PROGRAM MODELS ====================
+
+export interface ProgramAttachment {
+  id: string;
+  fileName: string;
+  isPublic: boolean;
+  relativePath: string;
+  folderName: string;
+  url: string;
+  programId: string;
+}
+
+export interface ProgramGoal {
+  id: string;
+  index: number;
+  goalName: string;
+  programId: string;
+}
+
 export interface Program {
-  id: string;  // غيرت لـ string عشان توافق مع الجديد
-  name: string;
-  shortDescription?: string;  // optional لو مفيش
-  fullDescription?: string;   // optional
-  description?: string;       // من الجديد، optional
-  images: string[];           // array، لو مفيش استخدمي empty array
-  category: string;
-  duration: string;
-  degree: string;
-  icon?: string;              // من الجديد
-  isNew?: boolean;            // optional، true للجديد
+  id: string;
+  pageId: string;
+  pageTitle: string;
+  aboutId: string;
+  about: string;
+  mission: string;
+  vision: string;
+  goals: ProgramGoal[];
+  programAttachments: ProgramAttachment[];
+}
+
+// ==================== PROGRAM DETAIL ====================
+export interface ProgramDetail {
+  id: string;
+  title: string;
+  content: string;
+  programCategory: string;
+  facultyId: string;
+  facultyName: string;
+  programId: string;
+  programName: string;
+}
+
+// ==================== PROGRAM MEMBER ====================
+export interface ProgramMember {
+  id: string;
+  isLeader: boolean;
+  programId: string;
+  programName: string;
+  memberId: string;
+  memberName: string;
 }

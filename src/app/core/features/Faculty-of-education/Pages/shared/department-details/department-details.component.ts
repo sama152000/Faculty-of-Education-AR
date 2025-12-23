@@ -2,21 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf, NgForOf } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { DepartmentService } from '../../../Services/department.service';
-import { Department, DepartmentNavigation } from '../../../model/department.model';
-import { FooterComponent } from "../footer/footer.component";
-import { PageHeaderComponent } from "../page-header/page-header.component";
+import { FooterComponent } from '../footer/footer.component';
+import { PageHeaderComponent } from '../page-header/page-header.component';
 
 @Component({
   selector: 'app-department-details',
   standalone: true,
-  imports: [CommonModule, NgIf, NgForOf, RouterModule, FooterComponent, PageHeaderComponent],
+  imports: [
+    CommonModule,
+    NgIf,
+    NgForOf,
+    RouterModule,
+    FooterComponent,
+    PageHeaderComponent,
+  ],
   templateUrl: './department-details.component.html',
-  styleUrls: ['./department-details.component.css']
+  styleUrls: ['./department-details.component.css'],
 })
 export class DepartmentDetailsComponent implements OnInit {
-  currentDepartment: Department | null = null;
-  allDepartments: Department[] = [];
-  navigation: DepartmentNavigation | null = null;
+  currentDepartment: any | null = null;
+  allDepartments: any[] = [];
+  navigation: any | null = null;
   loading = true;
 
   constructor(
@@ -27,17 +33,20 @@ export class DepartmentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // Load list then subscribe to route params
-    this.departmentService.getAllDepartments().subscribe(departments => {
+    this.departmentService.getAllDepartments().subscribe((departments) => {
       this.allDepartments = departments;
 
-      this.route.params.subscribe(params => {
+      this.route.params.subscribe((params) => {
         const id = params['id'];
         if (id) {
           this.loadDepartmentById(id);
         } else {
           // If no id provided, redirect to first department
           if (this.allDepartments.length > 0) {
-            this.router.navigate(['/department-details', this.allDepartments[0].id]);
+            this.router.navigate([
+              '/department-details',
+              this.allDepartments[0].id,
+            ]);
           }
         }
       });
@@ -46,17 +55,20 @@ export class DepartmentDetailsComponent implements OnInit {
 
   loadDepartmentById(id: string): void {
     this.loading = true;
-    this.departmentService.getDepartmentById(id).subscribe(dept => {
+    this.departmentService.getDepartmentById(id).subscribe((dept) => {
       if (dept) {
         this.currentDepartment = dept;
-        this.departmentService.getDepartmentNavigation(id).subscribe(nav => {
+        this.departmentService.getDepartmentNavigation(id).subscribe((nav) => {
           this.navigation = nav;
           this.loading = false;
         });
       } else {
         // invalid id — redirect to first available
         if (this.allDepartments.length > 0) {
-          this.router.navigate(['/department-details', this.allDepartments[0].id]);
+          this.router.navigate([
+            '/department-details',
+            this.allDepartments[0].id,
+          ]);
         } else {
           this.router.navigate(['/']);
         }
@@ -65,7 +77,7 @@ export class DepartmentDetailsComponent implements OnInit {
     });
   }
 
-  navigateToDepartment(department: Department): void {
+  navigateToDepartment(department: any): void {
     this.router.navigate(['/department-details', department.id]);
   }
 
@@ -81,27 +93,27 @@ export class DepartmentDetailsComponent implements OnInit {
     }
   }
 
-  getDepartmentTitle(department: Department): string {
+  getDepartmentTitle(department: any): string {
     return department.name;
   }
 
-  getDepartmentViceDean(department: Department): string {
+  getDepartmentViceDean(department: any): string {
     return department.viceDean;
   }
 
-  getDepartmentObjectives(department: Department): string[] {
+  getDepartmentObjectives(department: any): string[] {
     return department.objectives;
   }
 
-  getDepartmentServices(department: Department): string[] {
+  getDepartmentServices(department: any): string[] {
     return department.services;
   }
 
-  getDepartmentSubjects(department: Department): string[] {
+  getDepartmentSubjects(department: any): string[] {
     return department.subjects;
   }
 
-  isCurrentDepartment(department: Department): boolean {
+  isCurrentDepartment(department: any): boolean {
     return this.currentDepartment?.id === department.id;
   }
 }

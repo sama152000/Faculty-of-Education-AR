@@ -4,14 +4,15 @@ export interface Department {
   description: string;
   icon: string;
   order: number;
-  viceDean: string;
-  subjects: string[];
+  overview: string;
+  vision: string;
+  mission: string;
+  programs?: string[];
   objectives: string[];
-  services: string[];
-  route: string;
-}
-
-export interface DepartmentNavigation {
-  previous: Department | null;
-  next: Department | null;
+  courses: string[];
+  researchAreas: string[];
+  headOfDepartment?: string;
+  establishedYear?: number;
+  studentCount?: number;
+  facultyCount?: number;
 }

@@ -2,14 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Program } from '../../../model/program.model';
-import { UnifiedProgramsService } from '../../../Services/program.service';  // صححت الاسم
+import { UnifiedProgramsService } from '../../../Services/program.service'; // صححت الاسم
 import { PageHeaderComponent } from '../page-header/page-header.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { GalleriaModule } from 'primeng/galleria';
 import { TagModule } from 'primeng/tag';
-import { FooterComponent } from "../footer/footer.component";
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-new-program-details',
@@ -23,14 +23,14 @@ import { FooterComponent } from "../footer/footer.component";
     DividerModule,
     GalleriaModule,
     TagModule,
-    FooterComponent
-],
+    FooterComponent,
+  ],
   templateUrl: './new-program-details.component.html',
-  styleUrls: ['./new-program-details.component.css']
+  styleUrls: ['./new-program-details.component.css'],
 })
 export class NewProgramDetailsComponent implements OnInit {
-  program: Program | undefined;
-  allNewPrograms: Program[] = [];  // فلتر للجديدة فقط
+  program: any;
+  allNewPrograms: any[] = []; // فلتر للجديدة فقط
   images: any[] = [];
   responsiveOptions: any[] = [];
 
@@ -46,23 +46,26 @@ export class NewProgramDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAllNewPrograms();
-    this.route.params.subscribe(params => {
-      const id = params['id'];  // string
+    this.route.params.subscribe((params) => {
+      const id = params['id']; // string
       this.loadProgram(id);
     });
   }
 
   loadProgram(id: string): void {
-    this.programsService.getProgramById(id).subscribe(data => {
+    this.programsService.getProgramById(id).subscribe((data) => {
       this.program = data;
       if (this.program) {
-        this.images = this.program.images.map(img => ({ source: img, alt: this.program?.name }));
+        this.images = this.program.images.map((img: any) => ({
+          source: img,
+          alt: this.program?.name,
+        }));
       }
     });
   }
 
   loadAllNewPrograms(): void {
-    this.programsService.getNewPrograms().subscribe(data => {  
+    this.programsService.getNewPrograms().subscribe((data) => {
       this.allNewPrograms = data;
     });
   }
@@ -70,7 +73,7 @@ export class NewProgramDetailsComponent implements OnInit {
   goToNextProgram(): void {
     if (this.program) {
       const nextProgram = this.programsService.getNextProgram(this.program.id);
-      if (nextProgram && nextProgram.isNew) {  
+      if (nextProgram && nextProgram.isNew) {
         this.router.navigate(['/new-programs', nextProgram.id]);
       }
     }
@@ -78,7 +81,9 @@ export class NewProgramDetailsComponent implements OnInit {
 
   goToPreviousProgram(): void {
     if (this.program) {
-      const previousProgram = this.programsService.getPreviousProgram(this.program.id);
+      const previousProgram = this.programsService.getPreviousProgram(
+        this.program.id
+      );
       if (previousProgram && previousProgram.isNew) {
         this.router.navigate(['/new-programs', previousProgram.id]);
       }

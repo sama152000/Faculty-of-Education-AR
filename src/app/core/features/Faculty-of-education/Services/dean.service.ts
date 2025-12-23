@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DeanInfo, FacultyHistory } from '../model/dean.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeanService {
-  private deanInfo: DeanInfo = {
+  private deanInfo: any = {
     name: 'أ.د. وليد محمد عبد الله',
     title: 'عميد كلية التربية – جامعة الأقصر',
     photo: './assets/dean-photo.jpg',
@@ -20,30 +19,34 @@ export class DeanService {
 
 أيها الطلاب الأعزاء، أنتم جوهر مهمتنا، أساس مستقبلنا، وأمل هذا الوطن. نحن هنا لدعمكم، وهدايتكم، والسير بجانبكم في رحلتكم التعليمية. اسعوا لتكونوا المتعلمين، وصناع التغيير، وسفراء الخير الذين نعرف أنكم قادرون على أن تكونوا.
 
-أتمنى لكم النجاح والإنجاز في كل خطوة.`
+أتمنى لكم النجاح والإنجاز في كل خطوة.`,
   };
 
-  private facultyHistory: FacultyHistory = {
+  private facultyHistory: any = {
     establishmentDate: '7 أغسطس 2024',
     decree: 'القرار رقم (1400)',
     academicYear: '2024/2025',
-    programs: ['البرامج الجامعية', 'البرامج الدراسات العليا (دبلومة لمدة سنة واحدة)'],
+    programs: [
+      'البرامج الجامعية',
+      'البرامج الدراسات العليا (دبلومة لمدة سنة واحدة)',
+    ],
     facilities: [
       'قاعات دراسية مكيفة بالكامل مزودة بأحدث التكنولوجيا التعليمية',
       'شاشات العرض ولوحات ذكية في جميع القاعات',
       'مكتبات شاملة تحتوي على كتب ومراجع ومجلات علمية',
       'معامل متخصصة في العلوم التعليمية والنفسية ودراسات الحاسوب',
       'مسابح رياضية ومساحات خضراء لأنشطة الطلاب',
-      'معدات وتطبيقات تكنولوجية حديثة'
+      'معدات وتطبيقات تكنولوجية حديثة',
     ],
-    description: 'تم إنشاء كلية التربية في جامعة الأقصر بموجب القرار رقم (1400) بتاريخ 7 أغسطس 2024. فتحت الكلية أبوابها رسميًا للطلاب في بداية العام الدراسي 2024/2025، حيث تقدم برامج جامعية ودراسات عليا (دبلومة لمدة سنة واحدة).'
+    description:
+      'تم إنشاء كلية التربية في جامعة الأقصر بموجب القرار رقم (1400) بتاريخ 7 أغسطس 2024. فتحت الكلية أبوابها رسميًا للطلاب في بداية العام الدراسي 2024/2025، حيث تقدم برامج جامعية ودراسات عليا (دبلومة لمدة سنة واحدة).',
   };
 
-  getDeanInfo(): Observable<DeanInfo> {
+  getDeanInfo(): Observable<any> {
     return of(this.deanInfo);
   }
 
-  getFacultyHistory(): Observable<FacultyHistory> {
+  getFacultyHistory(): Observable<any> {
     return of(this.facultyHistory);
   }
 }

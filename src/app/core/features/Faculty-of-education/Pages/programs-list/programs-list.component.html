@@ -1,68 +1,77 @@
 <div class="programs-container col-lg-12">
-  
   <div class="content-wrapper col-lg-12">
     <div class="main-content col-lg-12">
-      
       <app-page-header
         [title]="'البرامج الأكاديمية'"
-        [breadcrumbs]="[{label: 'البرامج الأكاديمية'}]">
+        [breadcrumbs]="[{ label: 'البرامج الأكاديمية' }]"
+      >
       </app-page-header>
       <div class="programs-grid">
         @for (program of filteredPrograms; track program.id) {
-          <p-card
-            class="program-card"
-            [styleClass]="'custom-card'">
-            <ng-template pTemplate="header">
-              <div class="card-image-wrapper">
-                <img [src]="program.images[0]" [alt]="program.name" class="card-image" />
-                <div class="card-overlay">
-                  <p-tag *ngIf="program.isNew" value="جديد" severity="success" styleClass="new-badge"></p-tag> <!-- بادج للبرامج الجديدة -->
-                </div>
-              </div>
-            </ng-template>
-
-            <div class="card-content">
-              <h3 class="program-title">
-                {{ program.name }}
-                <span *ngIf="program.isNew" class="new-text">(جديد)</span> <!-- نص "جديد" جنب العنوان -->
-              </h3>
-
-              <p-divider></p-divider>
-
-              <p class="program-description">{{ program.shortDescription }}</p>
-
-              <div class="program-meta">
-                <div class="meta-item">
-                  <i class="pi pi-clock"></i>
-                  <span>{{ program.duration }}</span>
-                </div>
-                <div class="meta-item">
-                  <i class="pi pi-graduation-cap"></i>
-                  <span>{{ program.degree }}</span>
-                </div>
+        <p-card class="program-card" [styleClass]="'custom-card'">
+          <ng-template pTemplate="header">
+            <div class="card-image-wrapper">
+              <img
+                [src]="program.images[0]"
+                [alt]="program.name"
+                class="card-image"
+              />
+              <div class="card-overlay">
+                <p-tag
+                  *ngIf="program.isNew"
+                  value="جديد"
+                  severity="success"
+                  styleClass="new-badge"
+                ></p-tag>
+                <!-- بادج للبرامج الجديدة -->
               </div>
             </div>
+          </ng-template>
 
-            <ng-template pTemplate="footer">
-              <div class="card-footer">
-                <button
-                  class="view-details-btn"
-                  [routerLink]="['/programs', program.id]">
-                  <span>عرض التفاصيل</span>
-                  <i class="pi pi-arrow-left"></i>
-                </button>
+          <div class="card-content">
+            <h3 class="program-title">
+              {{ program.name }}
+              <span *ngIf="program.isNew" class="new-text">(جديد)</span>
+              <!-- نص "جديد" جنب العنوان -->
+            </h3>
+
+            <p-divider></p-divider>
+
+            <p class="program-description">{{ program.shortDescription }}</p>
+
+            <div class="program-meta">
+              <div class="meta-item">
+                <i class="pi pi-clock"></i>
+                <span>{{ program.duration }}</span>
               </div>
-            </ng-template>
-          </p-card>
+              <div class="meta-item">
+                <i class="pi pi-graduation-cap"></i>
+                <span>{{ program.degree }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ng-template pTemplate="footer">
+            <div class="card-footer">
+              <button
+                class="view-details-btn"
+                [routerLink]="['/programs', program.id]"
+              >
+                <span>عرض التفاصيل</span>
+                <i class="pi pi-arrow-left"></i>
+              </button>
+            </div>
+          </ng-template>
+        </p-card>
         }
       </div>
 
       @if (filteredPrograms.length === 0) {
-        <div class="no-results">
-          <i class="pi pi-search"></i>
-          <h3>لا توجد نتائج</h3>
-          <p>لا توجد برامج تطابق بحثك</p>
-        </div>
+      <div class="no-results">
+        <i class="pi pi-search"></i>
+        <h3>لا توجد نتائج</h3>
+        <p>لا توجد برامج تطابق بحثك</p>
+      </div>
       }
     </div>
 
@@ -75,14 +84,25 @@
         <p-divider></p-divider>
         <ul class="programs-list">
           @for (program of programs; track program.id) {
-            <li class="program-item"
-                [class.active]="selectedProgram?.id === program.id">
-              <a [routerLink]="['/programs', program.id]" (click)="selectProgram(program)">
-                <i class="pi pi-angle-left"></i>
-                <span>{{ program.name }}</span>
-                <p-tag *ngIf="program.isNew" value="جديد" severity="success" styleClass="new-badge sidebar-new-badge"></p-tag> <!-- بادج في الـ sidebar -->
-              </a>
-            </li>
+          <li
+            class="program-item"
+            [class.active]="selectedProgram?.id === program.id"
+          >
+            <a
+              [routerLink]="['/programs', program.id]"
+              (click)="selectProgram(program)"
+            >
+              <i class="pi pi-angle-left"></i>
+              <span>{{ program.name }}</span>
+              <p-tag
+                *ngIf="program.isNew"
+                value="جديد"
+                severity="success"
+                styleClass="new-badge sidebar-new-badge"
+              ></p-tag>
+              <!-- بادج في الـ sidebar -->
+            </a>
+          </li>
           }
         </ul>
       </div>

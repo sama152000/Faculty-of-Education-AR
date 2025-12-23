@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Department, DepartmentNavigation } from '../model/department.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DepartmentService {
-  private departments: Department[] = [
+  private departments: any[] = [
     {
       id: 'curricula-teaching',
       name: 'المناهج وطرق التدريس',
-      description: 'يتخصص في إعداد معلمي المستقبل وتطوير طرق التدريس الحديثة وتطبيقاتها عبر مختلف المواد الأكاديمية.',
+      description:
+        'يتخصص في إعداد معلمي المستقبل وتطوير طرق التدريس الحديثة وتطبيقاتها عبر مختلف المواد الأكاديمية.',
       icon: 'pi pi-book',
       order: 1,
       viceDean: 'أ.د. أحمد حسن محمد',
@@ -22,7 +22,7 @@ export class DepartmentService {
         'التكنولوجيا التربوية',
         'أساليب التقييم والتقويم',
         'طرق تدريس التربية الخاصة',
-        'طرق تدريس الدراسات الاجتماعية'
+        'طرق تدريس الدراسات الاجتماعية',
       ],
       objectives: [
         'إعداد معلمين مؤهلين قادرين على استخدام طرق تدريس حديثة',
@@ -31,7 +31,7 @@ export class DepartmentService {
         'تحسين أساليب التقييم والتقويم في التعليم',
         'إجراء بحوث في تطوير المناهج وطرق التدريس',
         'توفير برامج تدريبية للمعلمين أثناء الخدمة',
-        'تعزيز التفكير النقدي والإبداع في الممارسات التعليمية'
+        'تعزيز التفكير النقدي والإبداع في الممارسات التعليمية',
       ],
       services: [
         'برامج إعداد وتدريب المعلمين',
@@ -41,14 +41,15 @@ export class DepartmentService {
         'الإشراف والتوجيه البحثي',
         'ورش عمل للتطوير المهني',
         'تطوير المواد التعليمية',
-        'الإشراف على التدريب العملي'
+        'الإشراف على التدريب العملي',
       ],
-      route: 'department-details/curricula-teaching'
+      route: 'department-details/curricula-teaching',
     },
     {
       id: 'foundations-education',
       name: 'أصول التربية',
-      description: 'يركز على دراسة الفلسفات والمبادئ الأساسية للتعليم، وعلاقته بالمجتمع، وتطوير السياسات التعليمية.',
+      description:
+        'يركز على دراسة الفلسفات والمبادئ الأساسية للتعليم، وعلاقته بالمجتمع، وتطوير السياسات التعليمية.',
       icon: 'pi pi-building',
       order: 2,
       viceDean: 'أ.د. فاطمة علي إبراهيم',
@@ -60,7 +61,7 @@ export class DepartmentService {
         'التربية المقارنة',
         'السياسة والتخطيط التربوي',
         'مناهج البحث التربوي',
-        'الأخلاقيات في التربية'
+        'الأخلاقيات في التربية',
       ],
       objectives: [
         'فهم الأسس الفلسفية للنظم التربوية',
@@ -69,7 +70,7 @@ export class DepartmentService {
         'تطوير سياسات تربوية مبنية على مبادئ سليمة',
         'إجراء دراسات مقارنة للنظم التعليمية',
         'تعزيز الممارسات الأخلاقية في البيئات التعليمية',
-        'تعزيز التحليل النقدي للقضايا التربوية'
+        'تعزيز التحليل النقدي للقضايا التربوية',
       ],
       services: [
         'استشارات السياسات التربوية',
@@ -79,14 +80,15 @@ export class DepartmentService {
         'دعم التخطيط التربوي',
         'تدريب مناهج البحث',
         'ورش عمل الأخلاقيات في التربية',
-        'توجيه إصلاح التعليم'
+        'توجيه إصلاح التعليم',
       ],
-      route: 'department-details/foundations-education'
+      route: 'department-details/foundations-education',
     },
     {
       id: 'mental-health',
       name: 'الصحة النفسية',
-      description: 'مكرس لدراسة الصحة النفسية للطلاب والمعلمين، وتقديم برامج دعم وخدمات الإرشاد النفسي.',
+      description:
+        'مكرس لدراسة الصحة النفسية للطلاب والمعلمين، وتقديم برامج دعم وخدمات الإرشاد النفسي.',
       icon: 'pi pi-heart',
       order: 3,
       viceDean: 'أ.د. محمد سعيد عبد الرحمن',
@@ -98,7 +100,7 @@ export class DepartmentService {
         'الصحة النفسية للأطفال والمراهقين',
         'إدارة الضغوط النفسية',
         'الاضطرابات السلوكية',
-        'التواصل العلاجي'
+        'التواصل العلاجي',
       ],
       objectives: [
         'تعزيز الوعي بالصحة النفسية في البيئات التعليمية',
@@ -107,7 +109,7 @@ export class DepartmentService {
         'تدريب المحترفين على دعم الصحة النفسية',
         'إجراء بحوث حول الصحة النفسية التعليمية',
         'خلق بيئات داعمة للطلاب وأعضاء هيئة التدريس',
-        'تنفيذ برامج الوقاية من الاضطرابات النفسية'
+        'تنفيذ برامج الوقاية من الاضطرابات النفسية',
       ],
       services: [
         'الإرشاد النفسي الفردي',
@@ -117,14 +119,15 @@ export class DepartmentService {
         'برامج إدارة الضغوط النفسية',
         'ورش عمل تدريبية مهنية',
         'خدمات البحث والتقييم',
-        'برامج التوعية المجتمعية'
+        'برامج التوعية المجتمعية',
       ],
-      route: 'department-details/mental-health'
+      route: 'department-details/mental-health',
     },
     {
       id: 'psychology',
       name: 'علم النفس',
-      description: 'يستكشف السلوك البشري وعمليات التعلم، مع التركيز على تطبيقات علم النفس التربوي.',
+      description:
+        'يستكشف السلوك البشري وعمليات التعلم، مع التركيز على تطبيقات علم النفس التربوي.',
       icon: 'pi pi-users',
       order: 4,
       viceDean: 'أ.د. نادية محمود حسن',
@@ -136,7 +139,7 @@ export class DepartmentService {
         'الاختبارات والقياسات النفسية',
         'علم النفس السلوكي',
         'علم النفس الاجتماعي',
-        'مناهج البحث في علم النفس'
+        'مناهج البحث في علم النفس',
       ],
       objectives: [
         'فهم المبادئ النفسية في السياقات التعليمية',
@@ -145,7 +148,7 @@ export class DepartmentService {
         'إجراء بحوث حول السلوك البشري والتعلم',
         'تدريب المعلمين على المبادئ النفسية',
         'تعزيز الممارسات التعليمية القائمة على الأدلة',
-        'دعم الفروق الفردية في التعلم'
+        'دعم الفروق الفردية في التعلم',
       ],
       services: [
         'التقييم والاختبار النفسي',
@@ -155,14 +158,15 @@ export class DepartmentService {
         'تصميم وتحليل البحوث',
         'تدريب التطوير المهني',
         'الإشراف على الأبحاث النفسية',
-        'تقييم البرامج التعليمية'
+        'تقييم البرامج التعليمية',
       ],
-      route: 'department-details/psychology'
+      route: 'department-details/psychology',
     },
     {
       id: 'comparative-education',
       name: 'التربية المقارنة والإدارة التربوية',
-      description: 'يهتم بدراسة النظم التعليمية حول العالم وإدارة المؤسسات التعليمية باستخدام أساليب حديثة وفعالة.',
+      description:
+        'يهتم بدراسة النظم التعليمية حول العالم وإدارة المؤسسات التعليمية باستخدام أساليب حديثة وفعالة.',
       icon: 'pi pi-globe',
       order: 5,
       viceDean: 'أ.د. عمر عبد العزيز محمد',
@@ -174,7 +178,7 @@ export class DepartmentService {
         'التمويل التربوي',
         'الموارد البشرية في التعليم',
         'ضمان جودة التعليم',
-        'السياسات التعليمية الدولية'
+        'السياسات التعليمية الدولية',
       ],
       objectives: [
         'مقارنة النظم التعليمية بين الدول المختلفة',
@@ -183,7 +187,7 @@ export class DepartmentService {
         'تحسين نظم إدارة المدارس',
         'تعزيز ضمان جودة التعليم',
         'تعزيز التعاون التعليمي الدولي',
-        'إجراء بحوث حول الحوكمة التعليمية'
+        'إجراء بحوث حول الحوكمة التعليمية',
       ],
       services: [
         'تحليل النظم التعليمية',
@@ -193,41 +197,52 @@ export class DepartmentService {
         'تقييم ضمان الجودة',
         'دعم تطوير السياسات',
         'شراكات التعليم الدولي',
-        'أبحاث ودراسات مقارنة'
+        'أبحاث ودراسات مقارنة',
       ],
-      route: 'department-details/comparative-education'
-    }
+      route: 'department-details/comparative-education',
+    },
   ];
 
-  getAllDepartments(): Observable<Department[]> {
+  getAllDepartments(): Observable<any[]> {
     return of(this.departments.sort((a, b) => a.order - b.order));
   }
 
-  getDepartmentByRoute(route: string): Observable<Department | null> {
-    const department = this.departments.find(d => d.route === route);
+  getDepartmentByRoute(route: string): Observable<any | null> {
+    const department = this.departments.find((d) => d.route === route);
     return of(department || null);
   }
 
-  getDepartmentById(id: string): Observable<Department | null> {
-    const department = this.departments.find(d => d.id === id);
+  getDepartmentById(id: string): Observable<any | null> {
+    const department = this.departments.find((d) => d.id === id);
     return of(department || null);
   }
 
-  getDepartmentNavigation(currentDepartmentId: string): Observable<DepartmentNavigation> {
-    const sortedDepartments = this.departments.sort((a, b) => a.order - b.order);
-    const currentIndex = sortedDepartments.findIndex(d => d.id === currentDepartmentId);
+  getDepartmentNavigation(currentDepartmentId: string): Observable<any> {
+    const sortedDepartments = this.departments.sort(
+      (a, b) => a.order - b.order
+    );
+    const currentIndex = sortedDepartments.findIndex(
+      (d) => d.id === currentDepartmentId
+    );
 
-    const navigation: DepartmentNavigation = {
+    const navigation: any = {
       previous: currentIndex > 0 ? sortedDepartments[currentIndex - 1] : null,
-      next: currentIndex < sortedDepartments.length - 1 ? sortedDepartments[currentIndex + 1] : null
+      next:
+        currentIndex < sortedDepartments.length - 1
+          ? sortedDepartments[currentIndex + 1]
+          : null,
     };
 
     return of(navigation);
   }
 
-  getNextDepartment(currentDepartmentId: string): Observable<Department | null> {
-    const sortedDepartments = this.departments.sort((a, b) => a.order - b.order);
-    const currentIndex = sortedDepartments.findIndex(d => d.id === currentDepartmentId);
+  getNextDepartment(currentDepartmentId: string): Observable<any | null> {
+    const sortedDepartments = this.departments.sort(
+      (a, b) => a.order - b.order
+    );
+    const currentIndex = sortedDepartments.findIndex(
+      (d) => d.id === currentDepartmentId
+    );
 
     if (currentIndex !== -1 && currentIndex < sortedDepartments.length - 1) {
       return of(sortedDepartments[currentIndex + 1]);
@@ -236,9 +251,13 @@ export class DepartmentService {
     return of(null);
   }
 
-  getPreviousDepartment(currentDepartmentId: string): Observable<Department | null> {
-    const sortedDepartments = this.departments.sort((a, b) => a.order - b.order);
-    const currentIndex = sortedDepartments.findIndex(d => d.id === currentDepartmentId);
+  getPreviousDepartment(currentDepartmentId: string): Observable<any | null> {
+    const sortedDepartments = this.departments.sort(
+      (a, b) => a.order - b.order
+    );
+    const currentIndex = sortedDepartments.findIndex(
+      (d) => d.id === currentDepartmentId
+    );
 
     if (currentIndex > 0) {
       return of(sortedDepartments[currentIndex - 1]);

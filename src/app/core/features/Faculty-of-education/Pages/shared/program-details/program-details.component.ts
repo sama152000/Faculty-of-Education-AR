@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { GalleriaModule } from 'primeng/galleria';
 import { TagModule } from 'primeng/tag';
-import { FooterComponent } from "../footer/footer.component";
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-program-details',
@@ -23,14 +23,14 @@ import { FooterComponent } from "../footer/footer.component";
     DividerModule,
     GalleriaModule,
     TagModule,
-    FooterComponent
-],
+    FooterComponent,
+  ],
   templateUrl: './program-details.component.html',
-  styleUrls: ['./program-details.component.css']
+  styleUrls: ['./program-details.component.css'],
 })
 export class ProgramDetailsComponent implements OnInit {
-  program: Program | undefined;
-  allPrograms: Program[] = [];
+  program: any;
+  allPrograms: any[] = [];
   images: any[] = [];
   responsiveOptions: any[] = [];
 
@@ -42,38 +42,41 @@ export class ProgramDetailsComponent implements OnInit {
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
-        numVisible: 5
+        numVisible: 5,
       },
       {
         breakpoint: '768px',
-        numVisible: 3
+        numVisible: 3,
       },
       {
         breakpoint: '560px',
-        numVisible: 1
-      }
+        numVisible: 1,
+      },
     ];
   }
 
   ngOnInit(): void {
     this.loadAllPrograms();
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const id = params['id']; // string
       this.loadProgram(id);
     });
   }
 
   loadProgram(id: string): void {
-    this.programsService.getProgramById(id).subscribe(data => {
+    this.programsService.getProgramById(id).subscribe((data) => {
       this.program = data;
       if (this.program) {
-        this.images = this.program.images.map(img => ({ source: img, alt: this.program?.name }));
+        this.images = this.program.images.map((img: any) => ({
+          source: img,
+          alt: this.program?.name,
+        }));
       }
     });
   }
 
   loadAllPrograms(): void {
-    this.programsService.getAllPrograms().subscribe(data => {
+    this.programsService.getAllPrograms().subscribe((data) => {
       this.allPrograms = data; // مرتبة حسب السيرفيس (قديم أولاً)
       // لو عايزة sort حسب ID أبجدي: this.allPrograms = data.sort((a, b) => a.id.localeCompare(b.id));
     });
@@ -90,7 +93,9 @@ export class ProgramDetailsComponent implements OnInit {
 
   goToPreviousProgram(): void {
     if (this.program) {
-      const previousProgram = this.programsService.getPreviousProgram(this.program.id);
+      const previousProgram = this.programsService.getPreviousProgram(
+        this.program.id
+      );
       if (previousProgram) {
         this.router.navigate(['/programs', previousProgram.id]);
       }

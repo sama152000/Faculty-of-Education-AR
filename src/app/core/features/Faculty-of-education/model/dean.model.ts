@@ -1,16 +1,18 @@
-export interface DeanInfo {
-  name: string;
-  title: string;
-  photo: string;
-  message: string;
-  signature?: string;
+// src/app/core/features/Luxor-university/model/deanspeech.model.ts
+export interface DeanSpeechAttachment {
+  id: string;
+  fileName: string;
+  isPublic: boolean;
+  relativePath: string;
+  folderName: string;
+  url: string;
 }
 
-export interface FacultyHistory {
-  establishmentDate: string;
-  decree: string;
-  academicYear: string;
-  programs: string[];
-  facilities: string[];
-  description: string;
+export interface DeanSpeech {
+  id: string;
+  memberId: string;
+  memberName: string;
+  memberPosition: string;
+  speech: string;
+  deanSpeechAttachments: DeanSpeechAttachment[];
 }
