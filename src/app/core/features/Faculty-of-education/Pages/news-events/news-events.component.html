@@ -18,7 +18,8 @@
                 <input
                   type="date"
                   class="form-control filter-input"
-                  [(ngModel)]="dateFrom"
+                  [ngModel]="dateFrom()"
+                  (ngModelChange)="dateFrom.set($event)"
                 />
               </div>
 
@@ -28,7 +29,8 @@
                 <input
                   type="date"
                   class="form-control filter-input"
-                  [(ngModel)]="dateTo"
+                  [ngModel]="dateTo()"
+                  (ngModelChange)="dateTo.set($event)"
                 />
               </div>
 
@@ -37,7 +39,8 @@
                 <label class="filter-label">الفئة</label>
                 <select
                   class="form-select filter-input"
-                  [(ngModel)]="selectedCategory"
+                  [ngModel]="selectedCategory()"
+                  (ngModelChange)="selectedCategory.set($event)"
                 >
                   <option value="">جميع الفئات</option>
                   @for (category of categories(); track category.id) {
@@ -51,13 +54,13 @@
               <!-- Filter Buttons -->
               <div class="col-lg-3 col-md-6 mb-3">
                 <div class="filter-buttons">
-                  <button
+                  <!-- <button
                     class="btn btn-primary-custom me-2"
                     (click)="applyFilter()"
                   >
                     <i class="pi pi-search me-1"></i>
                     تطبيق الفلتر
-                  </button>
+                  </button> -->
                   <button
                     class="btn btn-outline-secondary"
                     (click)="clearFilter()"
@@ -179,11 +182,11 @@
           <nav aria-label="تصفح الأخبار والفعاليات">
             <ul class="pagination custom-pagination">
               <!-- Previous Button -->
-              <li class="page-item" [class.disabled]="currentPage === 1">
+              <li class="page-item" [class.disabled]="currentPage() === 1">
                 <button
                   class="page-link"
-                  (click)="onPageChange(currentPage - 1)"
-                  [disabled]="currentPage === 1"
+                  (click)="onPageChange(currentPage() - 1)"
+                  [disabled]="currentPage() === 1"
                 >
                   <i class="pi pi-chevron-right"></i>
                 </button>
@@ -191,7 +194,7 @@
 
               <!-- Page Numbers -->
               @for (page of getPaginationArray(); track page) {
-              <li class="page-item" [class.active]="page === currentPage">
+              <li class="page-item" [class.active]="page === currentPage()">
                 <button class="page-link" (click)="onPageChange(page)">
                   {{ page }}
                 </button>
@@ -201,12 +204,12 @@
               <!-- Next Button -->
               <li
                 class="page-item"
-                [class.disabled]="currentPage === totalPages()"
+                [class.disabled]="currentPage() === totalPages()"
               >
                 <button
                   class="page-link"
-                  (click)="onPageChange(currentPage + 1)"
-                  [disabled]="currentPage === totalPages()"
+                  (click)="onPageChange(currentPage() + 1)"
+                  [disabled]="currentPage() === totalPages()"
                 >
                   <i class="pi pi-chevron-left"></i>
                 </button>

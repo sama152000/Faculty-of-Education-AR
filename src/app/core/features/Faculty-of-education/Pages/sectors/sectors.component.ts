@@ -1,148 +1,141 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { SectorService } from '../../Services/sector.service';
-import { FooterComponent } from '../shared/footer/footer.component';
+import { SectorsService } from '../../Services/real-services/sectors/sectors.service';
+import { Sector } from '../../model/sector.model';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+
+interface SectorNavigation {
+  previous: Sector | null;
+  next: Sector | null;
+}
 
 @Component({
   selector: 'app-sectors',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, PageHeaderComponent],
+  imports: [CommonModule, RouterModule, PageHeaderComponent],
   templateUrl: './sectors.component.html',
   styleUrls: ['./sectors.component.css'],
 })
 export class SectorsComponent implements OnInit {
-  currentSector: any | null = null;
-  allSectors: any[] = [];
-  navigation: any = { previous: null, next: null };
-  currentLanguage = 'en';
-  loading = true;
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly sectorsService = inject(SectorsService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private sectorService: SectorService
-  ) {}
+  // Signals for reactive state
+  currentSector = signal<Sector | null>(null);
+  allSectors = signal<Sector[]>([]);
+  loading = signal<boolean>(true);
+
+  // Computed signal for navigation
+  navigation = computed<SectorNavigation>(() => {
+    const current = this.currentSector();
+    const all = this.allSectors();
+    if (!current || all.length === 0) return { previous: null, next: null };
+
+    const currentIndex = all.findIndex((s) => s.id === current.id);
+    return {
+      previous: currentIndex > 0 ? all[currentIndex - 1] : null,
+      next: currentIndex < all.length - 1 ? all[currentIndex + 1] : null,
+    };
+  });
 
   ngOnInit(): void {
-    this.loadAllSectors();
+    this.loadSectors();
+  }
 
-    this.route.url.subscribe((urlSegments) => {
-      const fullPath = urlSegments.map((segment) => segment.path).join('/');
-      this.loadSectorByRoute(fullPath);
+  private loadSectors(): void {
+    this.loading.set(true);
+    this.sectorsService.getAll().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.allSectors.set(response.data);
+
+          this.route.params.subscribe((params) => {
+            const id = params['id'];
+            if (id) {
+              this.loadSectorById(id);
+            } else if (response.data.length > 0) {
+              this.currentSector.set(response.data[0]);
+            }
+          });
+        }
+        this.loading.set(false);
+      },
+      error: (error) => {
+        console.error('Error loading sectors:', error);
+        this.loading.set(false);
+      },
     });
   }
 
-  loadAllSectors(): void {
-    this.sectorService.getAllSectors().subscribe((sectors) => {
-      this.allSectors = sectors;
-    });
+  private loadSectorById(id: string): void {
+    const sector = this.allSectors().find((s) => s.id === id);
+    if (sector) {
+      this.currentSector.set(sector);
+    } else {
+      this.sectorsService.getById(id).subscribe({
+        next: (response) => {
+          if (response.success && response.data) {
+            this.currentSector.set(response.data);
+          } else if (this.allSectors().length > 0) {
+            this.currentSector.set(this.allSectors()[0]);
+          }
+        },
+        error: () => {
+          if (this.allSectors().length > 0) {
+            this.currentSector.set(this.allSectors()[0]);
+          }
+        },
+      });
+    }
   }
 
-  loadSectorByRoute(route: string): void {
-    this.loading = true;
-    const tryRoute = (r: string) =>
-      this.sectorService.getSectorByRoute(r).toPromise();
-
-    (async () => {
-      try {
-        // normalize input: remove leading slash if present
-        let normalized = route.startsWith('/') ? route.substring(1) : route;
-
-        // attempt 1: exact normalized route
-        let sector = await tryRoute(normalized);
-        if (sector) {
-          this.currentSector = sector;
-          this.loadNavigation(sector.id);
-          this.loading = false;
-          return;
-        }
-
-        // attempt 2: strip trailing segment (possible id)
-        const lastSlashIndex = normalized.lastIndexOf('/');
-        if (lastSlashIndex > 0) {
-          const baseRoute = normalized.substring(0, lastSlashIndex);
-          sector = await tryRoute(baseRoute);
-          if (sector) {
-            this.currentSector = sector;
-            this.loadNavigation(sector.id);
-            this.loading = false;
-            return;
-          }
-        }
-
-        // attempt 3: try adding/removing management prefix variants
-        if (!normalized.startsWith('management/')) {
-          sector = await tryRoute('management/' + normalized);
-          if (sector) {
-            this.currentSector = sector;
-            this.loadNavigation(sector.id);
-            this.loading = false;
-            return;
-          }
-        } else {
-          // also try removing 'management/' prefix if present
-          const withoutPrefix = normalized.replace(/^management\//, '');
-          sector = await tryRoute(withoutPrefix);
-          if (sector) {
-            this.currentSector = sector;
-            this.loadNavigation(sector.id);
-            this.loading = false;
-            return;
-          }
-        }
-
-        // final fallback: navigate home
-        this.router.navigate(['/']);
-      } catch (e) {
-        // if any error, fallback to home
-        this.router.navigate(['/']);
-      } finally {
-        this.loading = false;
-      }
-    })();
-  }
-
-  loadNavigation(sectorId: string): void {
-    this.sectorService.getSectorNavigation(sectorId).subscribe((navigation) => {
-      this.navigation = navigation;
-    });
-  }
-
-  navigateToSector(sector: any): void {
-    this.router.navigate([sector.route]);
+  navigateToSector(sector: Sector): void {
+    this.router.navigate(['/sectors', sector.id]);
+    this.currentSector.set(sector);
   }
 
   navigateToPrevious(): void {
-    if (this.navigation.previous) {
-      this.navigateToSector(this.navigation.previous);
+    const nav = this.navigation();
+    if (nav.previous) {
+      this.navigateToSector(nav.previous);
     }
   }
 
   navigateToNext(): void {
-    if (this.navigation.next) {
-      this.navigateToSector(this.navigation.next);
+    const nav = this.navigation();
+    if (nav.next) {
+      this.navigateToSector(nav.next);
     }
   }
 
-  getSectorTitle(sector: any): string {
-    return sector.title;
+  getSectorTitle(sector: Sector | null): string {
+    return sector?.name || '';
   }
 
-  getSectorViceDean(sector: any): string {
-    return sector.viceDean;
+  getSectorViceDean(sector: Sector | null): string {
+    return sector?.subTitle || '';
   }
 
-  getSectorObjectives(sector: any): string[] {
-    return sector.objectives;
+  getSectorGoals(sector: Sector | null): string[] {
+    if (!sector?.goals) return [];
+    return sector.goals.map((g) => g.goalName);
   }
 
-  getSectorServices(sector: any): string[] {
-    return sector.services;
+  getAbout(sector: Sector | null): string {
+    return sector?.about || '';
   }
 
-  isCurrentSector(sector: any): boolean {
-    return this.currentSector?.id === sector.id;
+  getVision(sector: Sector | null): string {
+    return sector?.vision || '';
+  }
+
+  getMission(sector: Sector | null): string {
+    return sector?.mission || '';
+  }
+
+  isCurrentSector(sector: Sector): boolean {
+    return this.currentSector()?.id === sector.id;
   }
 }

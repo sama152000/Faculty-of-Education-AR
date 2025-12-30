@@ -300,4 +300,12 @@ export const API_ENDPOINTS = {
     GET_PAGED: '/unitmember/getpaged',
     GET_BY_ID: (id: string) => `/unitmember/get/${id}`,
   },
+
+  // Journals
+  JOURNALS: {
+    BASE: '/journals',
+    GET_ALL: '/journals/getall',
+    GET_PAGED: '/journals/getpaged',
+    GET_BY_ID: (id: string) => `/journals/get/${id}`,
+  },
 } as const;

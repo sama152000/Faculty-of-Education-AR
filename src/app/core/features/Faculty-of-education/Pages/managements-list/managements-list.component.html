@@ -1,0 +1,52 @@
+<div class="managements-page">
+  <app-page-header
+    [title]="'الإدارات الإدارية بالكلية'"
+    [breadcrumbs]="[{ label: 'الإدارات الإدارية بالكلية' }]"
+  >
+  </app-page-header>
+
+  <div class="container-fluid">
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading-container text-center py-5">
+      <i class="pi pi-spin pi-spinner loading-spinner"></i>
+      <p class="loading-text">جاري تحميل الإدارات...</p>
+    </div>
+    }
+
+    <!-- Managements Grid -->
+    @if (!isLoading() && managements().length > 0) {
+    <div class="managements-grid">
+      @for (mgmt of managements(); track mgmt.id; let i = $index) {
+      <div class="management-card" [style.animation-delay.ms]="i * 100">
+        <div class="card-icon">
+          <i [class]="getManagementIcon(i)"></i>
+        </div>
+        <div class="card-content">
+          <h3 class="management-title">{{ getManagementTitle(mgmt) }}</h3>
+          <p class="management-description">
+            {{ getManagementDescription(mgmt) }}
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="card-decoration">
+            <span class="decoration-line"></span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && managements().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="pi pi-briefcase"></i>
+      </div>
+      <h3 class="empty-title">لا توجد إدارات متاحة حالياً</h3>
+      <p class="empty-description">تحقق لاحقاً للإدارات الجديدة</p>
+    </div>
+    }
+  </div>
+</div>

@@ -1,119 +1,179 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgIf, NgForOf } from '@angular/common';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { DepartmentService } from '../../../Services/department.service';
-import { FooterComponent } from '../footer/footer.component';
+import {
+  DepartmentsService,
+  Department,
+} from '../../../Services/real-services/departments/departments.service';
 import { PageHeaderComponent } from '../page-header/page-header.component';
+
+interface DepartmentNavigation {
+  previous: Department | null;
+  next: Department | null;
+}
 
 @Component({
   selector: 'app-department-details',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgIf,
-    NgForOf,
-    RouterModule,
-    FooterComponent,
-    PageHeaderComponent,
-  ],
+  imports: [CommonModule, RouterModule, PageHeaderComponent],
   templateUrl: './department-details.component.html',
   styleUrls: ['./department-details.component.css'],
 })
 export class DepartmentDetailsComponent implements OnInit {
-  currentDepartment: any | null = null;
-  allDepartments: any[] = [];
-  navigation: any | null = null;
-  loading = true;
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly departmentsService = inject(DepartmentsService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private departmentService: DepartmentService
-  ) {}
+  // Signals for reactive state
+  currentDepartment = signal<Department | null>(null);
+  allDepartments = signal<Department[]>([]);
+  loading = signal<boolean>(true);
+
+  // Computed signal for navigation
+  navigation = computed<DepartmentNavigation>(() => {
+    const current = this.currentDepartment();
+    const all = this.allDepartments();
+    if (!current || all.length === 0) return { previous: null, next: null };
+
+    const currentIndex = all.findIndex((d) => d.id === current.id);
+    return {
+      previous: currentIndex > 0 ? all[currentIndex - 1] : null,
+      next: currentIndex < all.length - 1 ? all[currentIndex + 1] : null,
+    };
+  });
+
+  // Default icons
+  private readonly departmentIcons = [
+    'pi pi-book',
+    'pi pi-graduation-cap',
+    'pi pi-users',
+    'pi pi-briefcase',
+    'pi pi-globe',
+    'pi pi-star',
+  ];
 
   ngOnInit(): void {
-    // Load list then subscribe to route params
-    this.departmentService.getAllDepartments().subscribe((departments) => {
-      this.allDepartments = departments;
+    this.loadDepartments();
+  }
 
-      this.route.params.subscribe((params) => {
-        const id = params['id'];
-        if (id) {
-          this.loadDepartmentById(id);
-        } else {
-          // If no id provided, redirect to first department
-          if (this.allDepartments.length > 0) {
+  private loadDepartments(): void {
+    this.loading.set(true);
+    this.departmentsService.getAll().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.allDepartments.set(response.data);
+
+          this.route.params.subscribe((params) => {
+            const id = params['id'];
+            if (id) {
+              this.loadDepartmentById(id);
+            } else if (response.data.length > 0) {
+              this.router.navigate([
+                '/department-details',
+                response.data[0].id,
+              ]);
+            }
+          });
+        }
+        this.loading.set(false);
+      },
+      error: (error) => {
+        console.error('Error loading departments:', error);
+        this.loading.set(false);
+      },
+    });
+  }
+
+  private loadDepartmentById(id: string): void {
+    const department = this.allDepartments().find((d) => d.id === id);
+    if (department) {
+      this.currentDepartment.set(department);
+    } else {
+      // Try to fetch from API
+      this.departmentsService.getById(id).subscribe({
+        next: (response) => {
+          if (response.success && response.data) {
+            this.currentDepartment.set(response.data);
+          } else if (this.allDepartments().length > 0) {
             this.router.navigate([
               '/department-details',
-              this.allDepartments[0].id,
+              this.allDepartments()[0].id,
             ]);
           }
-        }
+        },
+        error: () => {
+          if (this.allDepartments().length > 0) {
+            this.router.navigate([
+              '/department-details',
+              this.allDepartments()[0].id,
+            ]);
+          } else {
+            this.router.navigate(['/']);
+          }
+        },
       });
-    });
+    }
   }
 
-  loadDepartmentById(id: string): void {
-    this.loading = true;
-    this.departmentService.getDepartmentById(id).subscribe((dept) => {
-      if (dept) {
-        this.currentDepartment = dept;
-        this.departmentService.getDepartmentNavigation(id).subscribe((nav) => {
-          this.navigation = nav;
-          this.loading = false;
-        });
-      } else {
-        // invalid id — redirect to first available
-        if (this.allDepartments.length > 0) {
-          this.router.navigate([
-            '/department-details',
-            this.allDepartments[0].id,
-          ]);
-        } else {
-          this.router.navigate(['/']);
-        }
-        this.loading = false;
-      }
-    });
-  }
-
-  navigateToDepartment(department: any): void {
+  navigateToDepartment(department: Department): void {
     this.router.navigate(['/department-details', department.id]);
+    this.currentDepartment.set(department);
   }
 
   navigateToPrevious(): void {
-    if (this.navigation && this.navigation.previous) {
-      this.navigateToDepartment(this.navigation.previous);
+    const nav = this.navigation();
+    if (nav.previous) {
+      this.navigateToDepartment(nav.previous);
     }
   }
 
   navigateToNext(): void {
-    if (this.navigation && this.navigation.next) {
-      this.navigateToDepartment(this.navigation.next);
+    const nav = this.navigation();
+    if (nav.next) {
+      this.navigateToDepartment(nav.next);
     }
   }
 
-  getDepartmentTitle(department: any): string {
-    return department.name;
+  getDepartmentTitle(department: Department | null): string {
+    return department?.name || '';
   }
 
-  getDepartmentViceDean(department: any): string {
-    return department.viceDean;
+  getDepartmentViceDean(department: Department | null): string {
+    return department?.subTitle || '';
   }
 
-  getDepartmentObjectives(department: any): string[] {
-    return department.objectives;
+  getDepartmentGoals(department: Department | null): string[] {
+    if (!department?.goals) return [];
+    return department.goals.map((g) => g.goalName);
   }
 
-  getDepartmentServices(department: any): string[] {
-    return department.services;
+  getDepartmentIcon(index: number): string {
+    return this.departmentIcons[index % this.departmentIcons.length];
   }
 
-  getDepartmentSubjects(department: any): string[] {
-    return department.subjects;
+  getDepartmentImage(department: Department | null): string {
+    if (
+      department?.departmentAttachments &&
+      department.departmentAttachments.length > 0
+    ) {
+      return department.departmentAttachments[0].url;
+    }
+    return '';
   }
 
-  isCurrentDepartment(department: any): boolean {
-    return this.currentDepartment?.id === department.id;
+  getVision(department: Department | null): string {
+    return department?.vision || '';
+  }
+
+  getMission(department: Department | null): string {
+    return department?.mission || '';
+  }
+
+  getAbout(department: Department | null): string {
+    return department?.about || '';
+  }
+
+  isCurrentDepartment(department: Department): boolean {
+    return this.currentDepartment()?.id === department.id;
   }
 }

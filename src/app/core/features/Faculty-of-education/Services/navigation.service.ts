@@ -30,11 +30,11 @@ export class NavigationService {
           label: 'الرؤية والرسالة والأهداف',
           route: '/about-us/vision-mission',
         },
-        // {
-        //   id: 'staff-members',
-        //   label: 'أعضاء هيئة التدريس',
-        //   route: '/about-us/staff-members'
-        // }
+        {
+          id: 'staff-members',
+          label: 'أعضاء هيئة التدريس',
+          route: '/about-us/staff-members',
+        },
       ],
     },
     {
@@ -43,214 +43,34 @@ export class NavigationService {
       route: '/news-events',
     },
     {
-      id: 'units-labs',
-      label: 'الوحدات والمعامل',
-      children: [
-        {
-          id: 'laboratories',
-          label: 'المعامل',
-          children: [
-            {
-              id: 'computer-lab',
-              label: 'معمل الحاسب الآلي',
-              // route: '/labs/computer'
-              route: '/comming-soon',
-            },
-            {
-              id: 'mental-health-lab',
-              label: 'معمل الصحة النفسية',
-              // route: '/labs/mental-health'
-              route: '/comming-soon',
-            },
-            {
-              id: 'micro-teaching-lab',
-              label: 'معمل التدريس المصغر',
-              // route: '/labs/micro-teaching'
-              route: '/comming-soon',
-            },
-            {
-              id: 'science-lab',
-              label: 'معمل العلوم',
-              // route: '/labs/science'
-              route: '/comming-soon',
-            },
-          ],
-        },
-        {
-          id: 'units',
-          label: 'الوحدات',
-          // route: '/units'
-          route: '/comming-soon',
-        },
-      ],
+      id: 'journals',
+      label: 'المجلات العلمية',
+      route: '/journals',
+    },
+    {
+      id: 'centers-units',
+      label: 'المراكز والوحدات',
+      route: '/centers-units',
     },
     {
       id: 'programs',
       label: 'البرامج الدراسية',
-      children: [
-        {
-          id: 'academic-programs',
-          label: 'البرامج الأكاديمية',
-          children: [
-            {
-              id: 'arabic',
-              label: 'إعداد معلمي اللغة العربية ',
-              route: '/programs/arabic',
-            },
-            {
-              id: 'english',
-              label: 'إعداد معلمي اللغة الإنجليزية ',
-              route: '/programs/english',
-            },
-            {
-              id: 'french',
-              label: 'إعداد معلمي اللغة الفرنسية ',
-              route: '/programs/french',
-            },
-            {
-              id: 'german',
-              label: 'إعداد معلمي اللغة الألمانية ',
-              route: '/programs/german',
-            },
-            {
-              id: 'math',
-              label: 'إعداد معلمي الرياضيات',
-              route: '/programs/math',
-            },
-            {
-              id: 'chemistry',
-              label: 'إعداد معلمي الكيمياء',
-              route: '/programs/chemistry',
-            },
-            {
-              id: 'biology',
-              label: 'إعداد معلمي العلوم البيولوجية',
-              route: '/programs/biology',
-            },
-          ],
-        },
-        {
-          id: 'new-programs',
-          label: 'البرامج الجديدة',
-          children: [
-            {
-              id: 'math-english',
-              label: 'إعداد معلمي الرياضيات (باللغة الإنجليزية)',
-              route: '/new-programs/math-english',
-            },
-            {
-              id: 'biology-english',
-              label: 'إعداد معلمي العلوم البيولوجية (باللغة الإنجليزية)',
-              route: '/new-programs/biology-english',
-            },
-            {
-              id: 'physics-english',
-              label: 'إعداد معلمي الفيزياء (باللغة الإنجليزية)',
-              route: '/new-programs/physics-english',
-            },
-            {
-              id: 'chemistry-english',
-              label: 'إعداد معلمي الكيمياء (باللغة الإنجليزية)',
-              route: '/new-programs/chemistry-english',
-            },
-          ],
-        },
-      ],
+      route: '/programs',
     },
     {
       id: 'faculty-administrations',
-      label: 'الإدارات الإدارية بالكلية',
-      children: [
-        {
-          id: 'student-affairs',
-          label: 'إدارة شؤون الطلاب',
-          // route: '/administrations/student-affairs'
-          route: '/comming-soon',
-        },
-        {
-          id: 'postgraduate',
-          label: 'إدارة الدراسات العليا',
-          // route: '/administrations/postgraduate'
-          route: '/comming-soon',
-        },
-        {
-          id: 'hr',
-          label: 'إدارة الموارد البشرية',
-          // route: '/administrations/hr'
-          route: '/comming-soon',
-        },
-        {
-          id: 'youth-welfare',
-          label: 'إدارة رعاية الشباب',
-          // route: '/administrations/youth-welfare'
-          route: '/comming-soon',
-        },
-        {
-          id: 'labs-admin',
-          label: 'إدارة المعامل',
-          // route: '/administrations/labs'
-          route: '/comming-soon',
-        },
-        {
-          id: 'stores',
-          label: 'إدارة المخازن',
-          // route: '/administrations/stores'
-          route: '/comming-soon',
-        },
-      ],
+      label: 'الإدارات بالكلية',
+      route: '/managements',
     },
     {
       id: 'faculty-departments',
       label: 'أقسام الكلية',
-      route: '',
-      children: [
-        {
-          id: 'curricula-teaching',
-          label: 'المناهج وطرق التدريس',
-          route: '/department-details/curricula-teaching',
-        },
-        {
-          id: 'foundations-education',
-          label: 'أصول التربية',
-          route: '/department-details/foundations-education',
-        },
-        {
-          id: 'mental-health',
-          label: 'الصحة النفسية',
-          route: '/department-details/mental-health',
-        },
-        {
-          id: 'psychology',
-          label: 'علم النفس',
-          route: '/department-details/psychology',
-        },
-        {
-          id: 'comparative-education',
-          label: 'التربية المقارنة والإدارة التربوية',
-          route: '/department-details/comparative-education',
-        },
-      ],
+      route: '/departments',
     },
     {
       id: 'Sectors',
       label: 'القطاعات',
-      children: [
-        {
-          id: 'vice-dean-education',
-          label: 'شؤون التعليم والطلاب',
-          route: '/management/vice-dean-education',
-        },
-        {
-          id: 'vice-dean-postgraduate',
-          label: 'الدراسات العليا والبحوث',
-          route: '/management/vice-dean-postgraduate',
-        },
-        {
-          id: 'vice-dean-community',
-          label: 'خدمة المجتمع وتنمية البيئة',
-          route: '/management/vice-dean-community',
-        },
-      ],
+      route: '/sectors',
     },
     {
       id: 'contact',
@@ -344,11 +164,11 @@ export class NavigationService {
       {
         id: 'faculty-departments-footer',
         label: 'أقسام الكلية',
-        route: '/department-details',
+        route: '/departments',
       },
       {
         id: 'faculty-administrations-footer',
-        label: 'الإدارات الإدارية بالكلية',
+        label: 'الإدارات بالكلية',
         route: '/comming-soon',
       },
       {

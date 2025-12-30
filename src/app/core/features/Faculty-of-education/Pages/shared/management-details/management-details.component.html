@@ -1,6 +1,6 @@
 <!-- Loading State -->
 @if (loading()) {
-<div class="department-page">
+<div class="management-page">
   <div class="container-fluid">
     <div class="loading-container text-center py-5">
       <i
@@ -13,54 +13,68 @@
 </div>
 }
 
-<!-- Department Page -->
-@if (!loading() && currentDepartment()) {
-<div class="department-page">
+<!-- Management Page -->
+@if (!loading() && currentManagement()) {
+<div class="management-page">
   <div class="container-fluid">
     <div class="row">
       <!-- Main Content -->
       <div class="col-lg-8 col-md-7">
-        <div class="department-content">
+        <div class="management-content">
           <app-page-header
-            [title]="getDepartmentTitle(currentDepartment())"
-            [breadcrumbs]="[{ label: 'الأقسام' }]"
+            [title]="getManagementTitle(currentManagement())"
+            [breadcrumbs]="[
+              { label: 'الإدارات' },
+              { label: getManagementTitle(currentManagement()) }
+            ]"
           ></app-page-header>
 
-          <!-- Department Header -->
-          <div class="department-header mb-5">
-            <div class="vice-dean-info">
-              <div class="vice-dean-card">
-                <div class="vice-dean-avatar">
-                  <i class="pi pi-user"></i>
-                </div>
-                <div class="vice-dean-details">
-                  <h3 class="vice-dean-title">وكيل القسم</h3>
-                  <p class="vice-dean-name">
-                    {{ getDepartmentViceDean(currentDepartment()) }}
-                  </p>
-                </div>
-              </div>
+          <!-- Management Header -->
+          <div class="management-header mb-5">
+            @if (getManagementImage(currentManagement())) {
+            <div class="management-image">
+              <img
+                [src]="getManagementImage(currentManagement())"
+                [alt]="getManagementTitle(currentManagement())"
+              />
             </div>
+            }
           </div>
 
-          <!-- About Section -->
-          @if (getAbout(currentDepartment())) {
+          <!-- Content Section -->
+          @if (getManagementContent(currentManagement())) {
           <div class="content-section mb-5">
             <div class="section-header">
               <div class="section-icon">
                 <i class="pi pi-info-circle"></i>
               </div>
-              <h2 class="section-subtitle">عن القسم</h2>
+              <h2 class="section-subtitle">عن الإدارة</h2>
             </div>
             <div
               class="about-content"
-              [innerHTML]="getAbout(currentDepartment())"
+              [innerHTML]="getManagementContent(currentManagement())"
+            ></div>
+          </div>
+          }
+
+          <!-- History Section -->
+          @if (getHistory(currentManagement())) {
+          <div class="content-section mb-5">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="pi pi-history"></i>
+              </div>
+              <h2 class="section-subtitle">تاريخ الإدارة</h2>
+            </div>
+            <div
+              class="history-content"
+              [innerHTML]="getHistory(currentManagement())"
             ></div>
           </div>
           }
 
           <!-- Vision Section -->
-          @if (getVision(currentDepartment())) {
+          @if (getVision(currentManagement())) {
           <div class="content-section mb-5">
             <div class="section-header">
               <div class="section-icon">
@@ -70,13 +84,13 @@
             </div>
             <div
               class="vision-content"
-              [innerHTML]="getVision(currentDepartment())"
+              [innerHTML]="getVision(currentManagement())"
             ></div>
           </div>
           }
 
           <!-- Mission Section -->
-          @if (getMission(currentDepartment())) {
+          @if (getMission(currentManagement())) {
           <div class="content-section mb-5">
             <div class="section-header">
               <div class="section-icon">
@@ -86,22 +100,22 @@
             </div>
             <div
               class="mission-content"
-              [innerHTML]="getMission(currentDepartment())"
+              [innerHTML]="getMission(currentManagement())"
             ></div>
           </div>
           }
 
           <!-- Goals Section -->
-          @if (getDepartmentGoals(currentDepartment()).length > 0) {
+          @if (getManagementGoals(currentManagement()).length > 0) {
           <div class="content-section mb-5">
             <div class="section-header">
               <div class="section-icon">
                 <i class="pi pi-target"></i>
               </div>
-              <h2 class="section-subtitle">أهداف القسم</h2>
+              <h2 class="section-subtitle">أهداف الإدارة</h2>
             </div>
             <div class="objectives-list">
-              @for (goal of getDepartmentGoals(currentDepartment()); track goal;
+              @for (goal of getManagementGoals(currentManagement()); track goal;
               let i = $index) {
               <div class="objective-item">
                 <div class="objective-number">{{ i + 1 }}</div>
@@ -115,18 +129,18 @@
           }
 
           <!-- Navigation Buttons -->
-          <div class="department-navigation">
+          <div class="management-navigation">
             @if (navigation().previous) {
             <button
               class="nav-btn prev-btn"
               (click)="navigateToPrevious()"
-              [title]="getDepartmentTitle(navigation().previous)"
+              [title]="getManagementTitle(navigation().previous)"
             >
               <i class="pi pi-chevron-right me-2"></i>
               <div class="nav-content">
                 <span class="nav-label">السابق</span>
                 <span class="nav-title">{{
-                  getDepartmentTitle(navigation().previous)
+                  getManagementTitle(navigation().previous)
                 }}</span>
               </div>
             </button>
@@ -134,12 +148,12 @@
             <button
               class="nav-btn next-btn"
               (click)="navigateToNext()"
-              [title]="getDepartmentTitle(navigation().next)"
+              [title]="getManagementTitle(navigation().next)"
             >
               <div class="nav-content">
                 <span class="nav-label">التالي</span>
                 <span class="nav-title">{{
-                  getDepartmentTitle(navigation().next)
+                  getManagementTitle(navigation().next)
                 }}</span>
               </div>
               <i class="pi pi-chevron-left ms-2"></i>
@@ -153,28 +167,25 @@
       <div class="col-lg-4 col-md-5">
         <div class="sidebar">
           <div class="sidebar-section">
-            <h3 class="sidebar-title">جميع الأقسام</h3>
+            <h3 class="sidebar-title">جميع الإدارات</h3>
 
-            <div class="departments-list">
-              @for (department of allDepartments(); track department.id; let i =
+            <div class="managements-list">
+              @for (management of allManagements(); track management.id; let i =
               $index) {
               <div
-                class="department-item"
-                [class.active]="isCurrentDepartment(department)"
-                (click)="navigateToDepartment(department)"
+                class="management-item"
+                [class.active]="isCurrentManagement(management)"
+                (click)="navigateToManagement(management)"
               >
-                <div class="department-icon">
-                  <i [class]="getDepartmentIcon(i)"></i>
+                <div class="management-icon">
+                  <i [class]="getManagementIcon(i)"></i>
                 </div>
-                <div class="department-info">
-                  <h4 class="department-name">
-                    {{ getDepartmentTitle(department) }}
+                <div class="management-info">
+                  <h4 class="management-name">
+                    {{ getManagementTitle(management) }}
                   </h4>
-                  <p class="department-dean">
-                    {{ getDepartmentViceDean(department) }}
-                  </p>
                 </div>
-                <div class="department-arrow">
+                <div class="management-arrow">
                   <i class="pi pi-chevron-left"></i>
                 </div>
               </div>

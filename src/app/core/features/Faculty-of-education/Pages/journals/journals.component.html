@@ -1,0 +1,96 @@
+<!-- Loading State -->
+@if (loading()) {
+<div class="journals-page">
+  <div class="container-fluid">
+    <div class="loading-container">
+      <i
+        class="pi pi-spin pi-spinner"
+        style="font-size: 2rem; color: var(--primary-color)"
+      ></i>
+      <p class="mt-3">جاري تحميل المجلات...</p>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Journals Content -->
+@if (!loading()) {
+<div class="journals-page">
+  <div class="container-fluid">
+    <app-page-header
+      title="المجلات العلمية"
+      [breadcrumbs]="[{ label: 'المجلات العلمية' }]"
+    >
+    </app-page-header>
+
+    <!-- Page Introduction -->
+    <div class="page-intro">
+      <div class="intro-icon">
+        <i class="pi pi-book"></i>
+      </div>
+      <div class="intro-content">
+        <h2>المجلات العلمية لكلية التربية</h2>
+        <p>
+          تصدر كلية التربية بجامعة الأقصر مجموعة من المجلات العلمية المحكمة التي
+          تغطي مختلف مجالات العلوم التربوية والنفسية.
+        </p>
+      </div>
+    </div>
+
+    <!-- Journals Grid -->
+    @if (journals().length > 0) {
+    <div class="journals-grid">
+      @for (journal of journals(); track journal.id) {
+      <div class="journal-card">
+        <!-- Journal Image -->
+        @if (getJournalImage(journal)) {
+        <div class="journal-image">
+          <img
+            [src]="getJournalImage(journal)"
+            [alt]="getJournalTitle(journal)"
+          />
+        </div>
+        } @else {
+        <div class="journal-image placeholder">
+          <i class="pi pi-book"></i>
+        </div>
+        }
+
+        <!-- Journal Content -->
+        <div class="journal-content">
+          <div class="journal-date">
+            <i class="pi pi-calendar"></i>
+            <span>{{ getJournalDate(journal) }}</span>
+          </div>
+
+          <h3 class="journal-title">{{ getJournalTitle(journal) }}</h3>
+
+          @if (getCleanDescription(journal)) {
+          <p class="journal-description">{{ getCleanDescription(journal) }}</p>
+          }
+
+          <div class="journal-actions">
+            @if (hasExternalLink(journal)) {
+            <button class="btn-visit" (click)="openJournalLink(journal)">
+              <i class="pi pi-external-link"></i>
+              <span>زيارة موقع المجلة</span>
+            </button>
+            }
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (journals().length === 0) {
+    <div class="empty-state">
+      <i class="pi pi-book"></i>
+      <h3>لا توجد مجلات</h3>
+      <p>لم يتم العثور على أي مجلات علمية حالياً</p>
+    </div>
+    }
+  </div>
+</div>
+}

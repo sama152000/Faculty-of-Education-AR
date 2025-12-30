@@ -1,15 +1,30 @@
-<section class="hero-section" 
-         (mouseenter)="onMouseEnter()" 
-         (mouseleave)="onMouseLeave()">
-  
+<!-- Loading State -->
+@if (isLoading()) {
+<section class="hero-section hero-loading">
+  <div class="loading-container text-center">
+    <i class="pi pi-spin pi-spinner" style="font-size: 3rem; color: white"></i>
+  </div>
+</section>
+}
+
+<!-- Hero Section -->
+@if (!isLoading() && slides().length > 0) {
+<section
+  class="hero-section"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
   <!-- Background Slider -->
   <div class="hero-slider">
-    <div class="slide" 
-         *ngFor="let slide of slides; let i = index"
-         [class.active]="i === currentSlideIndex"
-         [style.background-image]="'url(' + slide.image + ')'">
+    @for (slide of slides(); track $index) {
+    <div
+      class="slide"
+      [class.active]="$index === currentSlideIndex()"
+      [style.background-image]="'url(' + slide.image + ')'"
+    >
       <div class="slide-overlay"></div>
     </div>
+    }
   </div>
 
   <!-- Hero Content -->
@@ -17,8 +32,8 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 text-center">
-          <div class="content-wrapper" *ngIf="getCurrentSlide() as currentSlide">
-            
+          @if (getCurrentSlide(); as currentSlide) {
+          <div class="content-wrapper">
             <!-- Main Headline -->
             <h1 class="hero-title animate-fadeInUp">
               {{ currentSlide.title }}
@@ -31,15 +46,16 @@
 
             <!-- Call-to-Action Button -->
             <div class="hero-actions animate-fadeInUp">
-              <a [routerLink]="currentSlide.buttonLink"
-                 class="btn btn-primary-custom btn-lg hero-btn">
+              <a
+                [routerLink]="currentSlide.buttonLink"
+                class="btn btn-primary-custom btn-lg hero-btn"
+              >
                 {{ currentSlide.buttonText }}
                 <i class="pi pi-arrow-left ms-2"></i>
               </a>
-
-          
             </div>
           </div>
+          }
         </div>
       </div>
     </div>
@@ -48,35 +64,45 @@
   <!-- Navigation Controls -->
   <div class="hero-controls">
     <!-- Previous Button -->
-    <button class="control-btn prev-btn" 
-            (click)="prevSlide()" 
-            [disabled]="isTransitioning"
-            title="Previous slide">
+    <button
+      class="control-btn prev-btn"
+      (click)="prevSlide()"
+      [disabled]="isTransitioning()"
+      title="Previous slide"
+    >
       <i class="pi pi-chevron-right"></i>
     </button>
 
     <!-- Next Button -->
-    <button class="control-btn next-btn" 
-            (click)="nextSlide()" 
-            [disabled]="isTransitioning"
-            title="Next slide">
+    <button
+      class="control-btn next-btn"
+      (click)="nextSlide()"
+      [disabled]="isTransitioning()"
+      title="Next slide"
+    >
       <i class="pi pi-chevron-left"></i>
     </button>
   </div>
 
   <!-- Slide Indicators -->
   <div class="hero-indicators">
-    <button *ngFor="let slide of slides; let i = index" 
-            class="indicator" 
-            [class.active]="i === currentSlideIndex"
-            (click)="goToSlide(i)"
-            [disabled]="isTransitioning"
-            [title]="'Go to slide ' + (i + 1)">
-      <span class="indicator-progress" 
-            [style.animation-duration]="i === currentSlideIndex ? autoSlideInterval + 'ms' : '0ms'">
+    @for (slide of slides(); track $index) {
+    <button
+      class="indicator"
+      [class.active]="$index === currentSlideIndex()"
+      (click)="goToSlide($index)"
+      [disabled]="isTransitioning()"
+      [title]="'Go to slide ' + ($index + 1)"
+    >
+      <span
+        class="indicator-progress"
+        [style.animation-duration]="
+          $index === currentSlideIndex() ? autoSlideInterval + 'ms' : '0ms'
+        "
+      >
       </span>
     </button>
+    }
   </div>
-
- 
 </section>
+}

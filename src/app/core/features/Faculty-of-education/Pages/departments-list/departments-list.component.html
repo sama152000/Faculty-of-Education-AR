@@ -1,0 +1,66 @@
+<div class="departments-page">
+  <app-page-header
+    [title]="'أقسام الكلية'"
+    [breadcrumbs]="[{ label: 'أقسام الكلية' }]"
+  >
+  </app-page-header>
+
+  <div class="container-fluid">
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading-container text-center py-5">
+      <i class="pi pi-spin pi-spinner loading-spinner"></i>
+      <p class="loading-text">جاري تحميل الأقسام...</p>
+    </div>
+    }
+
+    <!-- Departments Grid -->
+    @if (!isLoading() && departments().length > 0) {
+    <div class="departments-grid">
+      @for (dept of departments(); track dept.id; let i = $index) {
+      <div
+        class="department-card"
+        [style.animation-delay.ms]="i * 100"
+        (click)="navigateToDetails(dept)"
+      >
+        <div class="card-image">
+          <img
+            [src]="getDepartmentImage(dept)"
+            [alt]="getDepartmentName(dept)"
+          />
+          <div class="card-overlay">
+            <i class="pi pi-building overlay-icon"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="department-name">{{ getDepartmentName(dept) }}</h3>
+          @if (getDepartmentSubtitle(dept)) {
+          <p class="department-subtitle">{{ getDepartmentSubtitle(dept) }}</p>
+          }
+          <p class="department-description">
+            {{ getDepartmentDescription(dept) }}
+          </p>
+          <div class="card-footer">
+            <button class="view-details-btn">
+              <span>عرض التفاصيل</span>
+              <i class="pi pi-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && departments().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="pi pi-building"></i>
+      </div>
+      <h3 class="empty-title">لا توجد أقسام متاحة حالياً</h3>
+      <p class="empty-description">تحقق لاحقاً للأقسام الجديدة</p>
+    </div>
+    }
+  </div>
+</div>

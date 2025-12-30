@@ -3,6 +3,10 @@
     <!-- رأس القسم -->
     <div class="section-header">
       <div class="header-content">
+        <span class="section-badge">
+          <i class="pi pi-users"></i>
+          دعم شامل
+        </span>
         <h2 class="section-title">خدمات الطلاب</h2>
         <p class="section-subtitle">
           خدمات دعم شاملة مصممة لتعزيز رحلتك الأكاديمية
@@ -10,74 +14,58 @@
       </div>
     </div>
 
-    <!-- تنقل تبويب الخدمات -->
-    <div class="services-tabs">
-      <div class="tabs-container">
-        <button 
-          *ngFor="let category of serviceCategories" 
-          class="tab-button"
-          [class.active]="activeTab === category.id"
-          (click)="setActiveTab(category.id)">
-          <div class="tab-icon">
-            <i [class]="category.icon"></i>
-          </div>
-          <div class="tab-content">
-            <h4 class="tab-title">{{ category.title }}</h4>
-            <!-- <p class="tab-description">{{ category.description }}</p> -->
-          </div>
-        </button>
-      </div>
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading-container text-center py-5">
+      <i
+        class="pi pi-spin pi-spinner"
+        style="font-size: 2rem; color: var(--primary-color)"
+      ></i>
+      <p class="mt-3">جاري تحميل الخدمات...</p>
     </div>
+    }
 
-    <!-- محتوى الخدمة النشط -->
-    <div class="service-content" *ngIf="getActiveCategory() as activeCategory">
-      <div class="content-grid">
-        <!-- قائمة الخدمات -->
-        <div class="services-list">
-          <div class="services-header">
-            <h3 class="services-title">الخدمات المتاحة</h3>
-            <div class="services-count">{{ activeCategory.services.length }} خدمات</div>
+    <!-- Services Grid -->
+    @if (!isLoading() && services().length > 0) {
+    <div class="services-content">
+      <div class="services-header">
+        <h3 class="services-title">الخدمات المتاحة</h3>
+        <div class="services-count">{{ services().length }} خدمة</div>
+      </div>
+
+      <div class="services-grid">
+        @for (service of services(); track service.id; let i = $index) {
+        <div class="service-card" [style.animation-delay.ms]="i * 100">
+          <div class="service-icon">
+            <i [class]="getServiceIcon(service)"></i>
           </div>
-          
-          <div class="services-grid">
-            <div 
-              class="service-card" 
-              *ngFor="let service of activeCategory.services; let i = index"
-              [style.animation-delay.ms]="i * 100">
-              <div class="service-number">{{ i + 1 }}</div>
-              <div class="service-info">
-                <h4 class="service-title">{{ service.title }}</h4>
-                <p class="service-description">{{ service.description }}</p>
-              </div>
-              <div class="service-arrow">
-                <i class="pi pi-arrow-left"></i>
-              </div>
-            </div>
+          <div class="service-info">
+            <h4 class="service-title">{{ service.title }}</h4>
+            <p class="service-description">
+              {{ getServiceDescription(service) }}
+            </p>
+          </div>
+          <div class="service-arrow">
+            <i class="pi pi-arrow-left"></i>
           </div>
         </div>
-
-        <!-- طرق التسليم -->
-        <div class="delivery-methods">
-          <div class="methods-header">
-            <h3 class="methods-title">طرق التسليم</h3>
-            <p class="methods-subtitle">كيفية توفير هذه الخدمات</p>
-          </div>
-          
-          <div class="methods-list">
-            <div 
-              class="method-item" 
-              *ngFor="let method of activeCategory.deliveryMethods; let i = index"
-              [style.animation-delay.ms]="(i + activeCategory.services.length) * 100">
-              <div class="method-icon">
-                <i [class]="method.icon"></i>
-              </div>
-              <div class="method-text">
-                <span class="method-name">{{ method.method }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        }
       </div>
     </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && services().length === 0) {
+    <div class="empty-state text-center py-5">
+      <div class="empty-icon">
+        <i
+          class="pi pi-inbox"
+          style="font-size: 3rem; color: var(--text-muted)"
+        ></i>
+      </div>
+      <h3 class="empty-title mt-3">لا توجد خدمات متاحة حالياً</h3>
+      <p class="empty-description">تحقق لاحقاً للخدمات الجديدة</p>
+    </div>
+    }
   </div>
 </section>

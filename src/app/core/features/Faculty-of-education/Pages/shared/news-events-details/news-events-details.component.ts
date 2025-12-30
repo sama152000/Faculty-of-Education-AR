@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FooterComponent } from '../footer/footer.component';
+
 import { PageHeaderComponent } from '../page-header/page-header.component';
 import { NewsService } from '../../../Services/real-services/news.service';
 import { News, PostAttachment } from '../../../model/news.model';
@@ -17,7 +17,7 @@ import { News, PostAttachment } from '../../../model/news.model';
 @Component({
   selector: 'app-news-events-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, PageHeaderComponent],
+  imports: [CommonModule, RouterModule, PageHeaderComponent],
   templateUrl: './news-events-details.component.html',
   styleUrls: ['./news-events-details.component.css'],
 })

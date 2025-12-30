@@ -9,6 +9,12 @@ export interface ManagementAttachment {
   managementId: string;
 }
 
+export interface ManagementGoal {
+  id: string;
+  goalName: string;
+  aboutId?: string;
+}
+
 export interface Management {
   id: string;
   pageId: string;
@@ -18,7 +24,7 @@ export interface Management {
   content: string;
   mission: string;
   vision: string;
-  goals: string[];
+  goals: ManagementGoal[];
   history: string;
   managementAttachments: ManagementAttachment[];
 }

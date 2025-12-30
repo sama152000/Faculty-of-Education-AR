@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { UnifiedProgramsService } from '../../../Services/program.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ProgramsService } from '../../../Services/real-services/programs/programs.service';
+import { Program } from '../../../model/program.model';
+
 @Component({
   selector: 'all-programs',
   standalone: true,
@@ -11,55 +12,70 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./all-programs.component.css'],
 })
 export class AllProgramsComponent implements OnInit {
-  programs: any[] = [];
-  filteredItems: any[] = [];
-  activeTab: 'all' | 'new' | 'old' = 'all'; // عدلت التبات لتناسب البرامج
-  loading = false;
+  private readonly programsService = inject(ProgramsService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private programsService: UnifiedProgramsService,
-    public router: Router
-  ) {}
+  // Signals for reactive state
+  programs = signal<Program[]>([]);
+  isLoading = signal<boolean>(true);
+
+  // Computed signal for filtered items (limited to 4 for Home page)
+  filteredItems = computed(() => {
+    return this.programs().slice(0, 4);
+  });
 
   ngOnInit(): void {
     this.loadPrograms();
   }
 
-  loadPrograms(): void {
-    this.loading = true;
-    this.programsService.getAllPrograms().subscribe({
-      next: (data) => {
-        this.programs = data;
-        this.filterItems();
-        this.loading = false;
+  private loadPrograms(): void {
+    this.isLoading.set(true);
+    this.programsService.getAll().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.programs.set(response.data);
+        }
+        this.isLoading.set(false);
       },
-      error: () => {
-        this.loading = false;
+      error: (error) => {
+        console.error('Error loading programs:', error);
+        this.isLoading.set(false);
       },
     });
   }
 
-  filterItems(): void {
-    let filtered = this.programs;
-    if (this.activeTab === 'new') {
-      filtered = filtered.filter((p) => p.isNew);
-    } else if (this.activeTab === 'old') {
-      filtered = filtered.filter((p) => !p.isNew);
-    }
-    this.filteredItems = filtered.slice(0, 4); // عرض 4 فقط في الهوم
+  getProgramTitle(program: Program): string {
+    return program.pageTitle || '';
   }
 
-  switchTab(tab: 'all' | 'new' | 'old'): void {
-    this.activeTab = tab;
-    this.filterItems();
+  getProgramDescription(program: Program): string {
+    if (!program.about) return '';
+    // Strip HTML and truncate
+    const stripped = program.about.replace(/<[^>]*>/g, '');
+    return stripped.length > 100
+      ? stripped.substring(0, 100) + '...'
+      : stripped;
+  }
+
+  getProgramImage(program: Program): string {
+    if (program.programAttachments && program.programAttachments.length > 0) {
+      return program.programAttachments[0].url;
+    }
+    return 'assets/images/placeholder-program.jpg';
   }
 
   truncateText(text: string, limit: number): string {
-    if (text.length <= limit) return text;
-    return text.substring(0, limit) + '...';
+    if (!text) return '';
+    const stripped = text.replace(/<[^>]*>/g, '');
+    if (stripped.length <= limit) return stripped;
+    return stripped.substring(0, limit) + '...';
   }
 
   navigateToPrograms(): void {
     this.router.navigate(['/programs']);
+  }
+
+  navigateToProgramDetails(program: Program): void {
+    this.router.navigate(['/programs', program.id]);
   }
 }

@@ -1,0 +1,228 @@
+<!-- Loading State -->
+@if (loading()) {
+<div class="centers-units-page">
+  <div class="container-fluid">
+    <div class="loading-container text-center py-5">
+      <i
+        class="pi pi-spin pi-spinner"
+        style="font-size: 2rem; color: var(--primary-color)"
+      ></i>
+      <p class="mt-3">جاري تحميل البيانات...</p>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Main Content -->
+@if (!loading()) {
+<div class="centers-units-page">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8 col-md-7">
+        <div class="main-content">
+          <app-page-header
+            [title]="currentItem()?.name || 'المراكز والوحدات'"
+            [breadcrumbs]="[{ label: 'المراكز والوحدات' }]"
+          ></app-page-header>
+
+          <!-- Details View -->
+          @if (currentItem()) {
+          <div class="item-details">
+            <!-- Type Badge -->
+            <div
+              class="type-badge"
+              [class.center]="currentItem()?.type === 'center'"
+              [class.unit]="currentItem()?.type === 'unit'"
+            >
+              <i [class]="getItemIcon(currentItem()!)"></i>
+              <span>{{ getTypeLabel(currentItem()!.type) }}</span>
+            </div>
+
+            <!-- Header with Image -->
+            @if (currentItem()?.imageUrl) {
+            <div class="item-image">
+              <img
+                [src]="currentItem()?.imageUrl"
+                [alt]="currentItem()?.name"
+              />
+            </div>
+            }
+
+            <!-- About Section -->
+            @if (currentItem()?.about) {
+            <div class="content-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="pi pi-info-circle"></i>
+                </div>
+                <h2 class="section-subtitle">
+                  عن {{ getTypeLabel(currentItem()!.type) }}
+                </h2>
+              </div>
+              <div
+                class="about-content"
+                [innerHTML]="currentItem()?.about"
+              ></div>
+            </div>
+            }
+
+            <!-- Vision Section -->
+            @if (currentItem()?.vision) {
+            <div class="content-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="pi pi-eye"></i>
+                </div>
+                <h2 class="section-subtitle">الرؤية</h2>
+              </div>
+              <div
+                class="vision-content"
+                [innerHTML]="currentItem()?.vision"
+              ></div>
+            </div>
+            }
+
+            <!-- Mission Section -->
+            @if (currentItem()?.mission) {
+            <div class="content-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="pi pi-flag"></i>
+                </div>
+                <h2 class="section-subtitle">الرسالة</h2>
+              </div>
+              <div
+                class="mission-content"
+                [innerHTML]="currentItem()?.mission"
+              ></div>
+            </div>
+            }
+
+            <!-- Goals Section -->
+            @if (currentItem()?.goals && currentItem()!.goals!.length > 0) {
+            <div class="content-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="pi pi-target"></i>
+                </div>
+                <h2 class="section-subtitle">الأهداف</h2>
+              </div>
+              <div class="objectives-list">
+                @for (goal of currentItem()?.goals; track goal; let i = $index)
+                {
+                <div class="objective-item">
+                  <div class="objective-number">{{ i + 1 }}</div>
+                  <div class="objective-content">
+                    <p>{{ goal }}</p>
+                  </div>
+                </div>
+                }
+              </div>
+            </div>
+            }
+
+            <!-- Navigation Buttons -->
+            <div class="item-navigation">
+              @if (navigation().previous) {
+              <button class="nav-btn prev-btn" (click)="navigateToPrevious()">
+                <i class="pi pi-chevron-right me-2"></i>
+                <div class="nav-content">
+                  <span class="nav-label">السابق</span>
+                  <span class="nav-title">{{
+                    navigation().previous?.name
+                  }}</span>
+                </div>
+              </button>
+              } @if (navigation().next) {
+              <button class="nav-btn next-btn" (click)="navigateToNext()">
+                <div class="nav-content">
+                  <span class="nav-label">التالي</span>
+                  <span class="nav-title">{{ navigation().next?.name }}</span>
+                </div>
+                <i class="pi pi-chevron-left ms-2"></i>
+              </button>
+              }
+            </div>
+          </div>
+          }
+
+          <!-- Empty State -->
+          @if (!currentItem() && allItems().length === 0) {
+          <div class="empty-state">
+            <i class="pi pi-building"></i>
+            <h3>لا توجد مراكز أو وحدات</h3>
+            <p>لم يتم العثور على أي مراكز أو وحدات حالياً</p>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4 col-md-5">
+        <div class="sidebar">
+          <!-- Tab Filters -->
+          <div class="tab-filters">
+            <button
+              class="tab-btn"
+              [class.active]="activeTab() === 'all'"
+              (click)="setActiveTab('all')"
+            >
+              الكل
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="activeTab() === 'centers'"
+              (click)="setActiveTab('centers')"
+            >
+              المراكز
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="activeTab() === 'units'"
+              (click)="setActiveTab('units')"
+            >
+              الوحدات
+            </button>
+          </div>
+
+          <!-- Items List -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">
+              @switch (activeTab()) { @case ('all') { المراكز والوحدات } @case
+              ('centers') { المراكز } @case ('units') { الوحدات } }
+            </h3>
+
+            <div class="items-list">
+              @for (item of filteredItems(); track item.id + item.type) {
+              <div
+                class="item-card"
+                [class.active]="isCurrentItem(item)"
+                [class.center]="item.type === 'center'"
+                [class.unit]="item.type === 'unit'"
+                (click)="selectItem(item)"
+              >
+                <div class="item-icon">
+                  <i [class]="getItemIcon(item)"></i>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">{{ item.name }}</h4>
+                  <span class="item-type">{{ getTypeLabel(item.type) }}</span>
+                </div>
+                <div class="item-arrow">
+                  <i class="pi pi-chevron-left"></i>
+                </div>
+              </div>
+              } @if (filteredItems().length === 0) {
+              <div class="no-items">
+                <p>لا توجد عناصر في هذا القسم</p>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

@@ -1,11 +1,29 @@
+<!-- Loading State -->
+@if (isLoading()) {
+<section class="departments-section">
+  <div class="container-fluid">
+    <div class="loading-container text-center py-5">
+      <i
+        class="pi pi-spin pi-spinner"
+        style="font-size: 2rem; color: var(--primary-color)"
+      ></i>
+      <p class="mt-3">جاري تحميل الأقسام...</p>
+    </div>
+  </div>
+</section>
+}
+
+<!-- Departments Section -->
+@if (!isLoading() && departments().length > 0) {
 <section class="departments-section">
   <div class="container-fluid">
     <!-- Section Header -->
     <div class="section-header">
       <div class="header-content">
-        <h2 class="section-title">أقسام الكلية </h2>
+        <h2 class="section-title">أقسام الكلية</h2>
         <p class="section-subtitle">
-الاقسام الاكاديمية المتخصصة التي تدفع التميز والابتكار في التعليم
+          الأقسام الأكاديمية المتخصصة التي تدفع التميز والابتكار في التعليم
+        </p>
       </div>
     </div>
 
@@ -13,76 +31,89 @@
     <div class="departments-container">
       <div class="departments-slider">
         <!-- First set of cards -->
-        @for (department of departments; track department.id; let i = $index) {
-          <div class="department-card"
-               [style.animation-delay.ms]="i * 150">
-            <!-- Card Header -->
-            <div class="card-header">
-              <div class="department-number">
-                <span class="number-text">{{ department.order.toString().padStart(2, '0') }}</span>
-              </div>
-              <div class="department-icon">
-                <i [class]="department.icon"></i>
-                <div class="icon-glow"></div>
-              </div>
+        @for (department of departments(); track department.id; let i = $index)
+        {
+        <div class="department-card" [style.animation-delay.ms]="i * 150">
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="department-number">
+              <span class="number-text">{{ getDepartmentOrder(i) }}</span>
             </div>
-
-            <!-- Card Content -->
-            <div class="card-content">
-              <h4 class="department-title">{{ department.name }}</h4>
-              <div class="title-underline"></div>
-              <p class="department-description">{{ department.description }}</p>
+            <div class="department-icon">
+              <i [class]="getDepartmentIcon(i)"></i>
+              <div class="icon-glow"></div>
             </div>
-
-            <!-- Card Footer -->
-            <div class="card-footer">
-              <button class="explore-btn" type="button" (click)="navigateToDepartment(department)">
-                <span class="btn-text">اكتشف المزيد </span>
-                <i class="pi pi-arrow-left btn-icon"></i>
-              </button>
-            </div>
-
-            <!-- Decorative Elements -->
-            <div class="card-decoration top-left"></div>
-            <div class="card-decoration bottom-right"></div>
           </div>
+
+          <!-- Card Content -->
+          <div class="card-content">
+            <h4 class="department-title">{{ department.name }}</h4>
+            <div class="title-underline"></div>
+            <p class="department-description">
+              {{ getDepartmentDescription(department) }}
+            </p>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer">
+            <button
+              class="explore-btn"
+              type="button"
+              (click)="navigateToDepartment(department)"
+            >
+              <span class="btn-text">اكتشف المزيد</span>
+              <i class="pi pi-arrow-left btn-icon"></i>
+            </button>
+          </div>
+
+          <!-- Decorative Elements -->
+          <div class="card-decoration top-left"></div>
+          <div class="card-decoration bottom-right"></div>
+        </div>
         }
         <!-- Duplicate set for continuous sliding -->
-        @for (department of departments; track department.id; let i = $index) {
-          <div class="department-card"
-               [style.animation-delay.ms]="i * 150">
-            <!-- Card Header -->
-            <div class="card-header">
-              <div class="department-number">
-                <span class="number-text">{{ department.order.toString().padStart(2, '0') }}</span>
-              </div>
-              <div class="department-icon">
-                <i [class]="department.icon"></i>
-                <div class="icon-glow"></div>
-              </div>
+        @for (department of departments(); track department.id; let i = $index)
+        {
+        <div class="department-card" [style.animation-delay.ms]="i * 150">
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="department-number">
+              <span class="number-text">{{ getDepartmentOrder(i) }}</span>
             </div>
-
-            <!-- Card Content -->
-            <div class="card-content">
-              <h4 class="department-title">{{ department.name }}</h4>
-              <div class="title-underline"></div>
-              <p class="department-description">{{ department.description }}</p>
+            <div class="department-icon">
+              <i [class]="getDepartmentIcon(i)"></i>
+              <div class="icon-glow"></div>
             </div>
-
-            <!-- Card Footer -->
-            <div class="card-footer">
-              <button class="explore-btn" type="button" (click)="navigateToDepartment(department)">
-                <span class="btn-text">اكتشف المزيد </span>
-                <i class="pi pi-arrow-left btn-icon"></i>
-              </button>
-            </div>
-
-            <!-- Decorative Elements -->
-            <div class="card-decoration top-left"></div>
-            <div class="card-decoration bottom-right"></div>
           </div>
+
+          <!-- Card Content -->
+          <div class="card-content">
+            <h4 class="department-title">{{ department.name }}</h4>
+            <div class="title-underline"></div>
+            <p class="department-description">
+              {{ getDepartmentDescription(department) }}
+            </p>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer">
+            <button
+              class="explore-btn"
+              type="button"
+              (click)="navigateToDepartment(department)"
+            >
+              <span class="btn-text">اكتشف المزيد</span>
+              <i class="pi pi-arrow-left btn-icon"></i>
+            </button>
+          </div>
+
+          <!-- Decorative Elements -->
+          <div class="card-decoration top-left"></div>
+          <div class="card-decoration bottom-right"></div>
+        </div>
         }
       </div>
     </div>
   </div>
 </section>
+}

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { UnifiedProgramsService } from '../../Services/program.service'; // السيرفيس الموحد
+import { ProgramsService } from '../../Services/real-services/programs/programs.service';
+import { Program } from '../../model/program.model';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { TagModule } from 'primeng/tag';
-import { FooterComponent } from '../shared/footer/footer.component'; // لأجل البادج
 
 @Component({
   selector: 'app-programs-list',
@@ -23,38 +23,75 @@ import { FooterComponent } from '../shared/footer/footer.component'; // لأجل
     CardModule,
     ButtonModule,
     DividerModule,
-    TagModule, // أضفنا TagModule للبادج
-    FooterComponent,
+    TagModule,
   ],
   templateUrl: './programs-list.component.html',
   styleUrls: ['./programs-list.component.css'],
 })
 export class ProgramsListComponent implements OnInit {
-  programs: any[] = [];
-  filteredPrograms: any[] = [];
-  searchTerm: string = '';
-  selectedProgram: any | null = null;
+  private readonly programsService = inject(ProgramsService);
 
-  constructor(private programsService: UnifiedProgramsService) {}
+  // Signals for reactive state
+  programs = signal<Program[]>([]);
+  isLoading = signal<boolean>(true);
+  searchTerm = signal<string>('');
+  selectedProgram = signal<Program | null>(null);
+
+  // Computed signal for filtered programs
+  filteredPrograms = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    if (!term) return this.programs();
+    return this.programs().filter(
+      (p) =>
+        p.pageTitle?.toLowerCase().includes(term) ||
+        p.about?.toLowerCase().includes(term)
+    );
+  });
 
   ngOnInit(): void {
     this.loadPrograms();
   }
 
-  loadPrograms(): void {
-    this.programsService.getAllPrograms().subscribe((data) => {
-      this.programs = data;
-      this.filteredPrograms = data;
+  private loadPrograms(): void {
+    this.isLoading.set(true);
+    this.programsService.getAll().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.programs.set(response.data);
+        }
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error loading programs:', error);
+        this.isLoading.set(false);
+      },
     });
   }
 
   onSearch(): void {
-    this.programsService.searchPrograms(this.searchTerm).subscribe((data) => {
-      this.filteredPrograms = data;
-    });
+    // Search is handled by the computed signal
   }
 
-  selectProgram(program: any): void {
-    this.selectedProgram = program;
+  getProgramTitle(program: Program): string {
+    return program.pageTitle || '';
+  }
+
+  getProgramDescription(program: Program): string {
+    if (!program.about) return '';
+    const stripped = program.about.replace(/<[^>]*>/g, '');
+    return stripped.length > 150
+      ? stripped.substring(0, 150) + '...'
+      : stripped;
+  }
+
+  getProgramImage(program: Program): string {
+    if (program.programAttachments && program.programAttachments.length > 0) {
+      return program.programAttachments[0].url;
+    }
+    return 'assets/images/placeholder-program.jpg';
+  }
+
+  selectProgram(program: Program): void {
+    this.selectedProgram.set(program);
   }
 }

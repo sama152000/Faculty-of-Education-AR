@@ -38,67 +38,73 @@ export class NewsEventsComponent implements OnInit, OnDestroy {
   categories = signal<Category[]>([]);
   isLoading = signal<boolean>(false);
 
-  // Tab state
-  activeTab: 'all' | 'news' | 'event' = 'all';
+  // Tab state as signal
+  activeTab = signal<'all' | 'news' | 'event'>('all');
 
   // Breadcrumbs
   breadcrumbs: Array<{ label: string; url?: string }> = [
     { label: 'الأخبار والفعاليات' },
   ];
 
-  // Filter properties
-  dateFrom: string = '';
-  dateTo: string = '';
-  selectedCategory: string = '';
+  // Filter properties as signals
+  dateFrom = signal<string>('');
+  dateTo = signal<string>('');
+  selectedCategory = signal<string>('');
 
   // Pagination
-  currentPage = 1;
+  currentPage = signal<number>(1);
   pageSize = 6;
   totalItems = signal<number>(0);
 
   // Computed signals
-  totalPages = computed(() => Math.ceil(this.totalItems() / this.pageSize));
+  totalPages = computed(() =>
+    Math.ceil(this.filteredNewsEvents().length / this.pageSize)
+  );
 
   filteredNewsEvents = computed(() => {
     let items = this.newsEvents();
+    const tab = this.activeTab();
+    const category = this.selectedCategory();
+    const fromDate = this.dateFrom();
+    const toDate = this.dateTo();
 
     // Filter by tab (category type)
-    if (this.activeTab === 'news') {
+    if (tab === 'news') {
       items = items.filter((item) =>
         item.postCategories.some(
           (cat) =>
             cat.categoryName?.toLowerCase().includes('أخبار') ||
-            cat.categoryName?.toLowerCase().includes('خبر')
+            cat.categoryName?.toLowerCase().includes('خبر') ||
+            cat.categoryName?.toLowerCase().includes('news')
         )
       );
-    } else if (this.activeTab === 'event') {
+    } else if (tab === 'event') {
       items = items.filter((item) =>
         item.postCategories.some(
           (cat) =>
             cat.categoryName?.toLowerCase().includes('فعالية') ||
-            cat.categoryName?.toLowerCase().includes('فعاليات')
+            cat.categoryName?.toLowerCase().includes('فعاليات') ||
+            cat.categoryName?.toLowerCase().includes('event')
         )
       );
     }
 
     // Filter by selected category
-    if (this.selectedCategory) {
+    if (category) {
       items = items.filter((item) =>
-        item.postCategories.some(
-          (cat) => cat.categoryId === this.selectedCategory
-        )
+        item.postCategories.some((cat) => cat.categoryId === category)
       );
     }
 
     // Filter by date range
-    if (this.dateFrom) {
-      const fromDate = new Date(this.dateFrom);
-      items = items.filter((item) => new Date(item.createdDate) >= fromDate);
+    if (fromDate) {
+      const from = new Date(fromDate);
+      items = items.filter((item) => new Date(item.createdDate) >= from);
     }
 
-    if (this.dateTo) {
-      const toDate = new Date(this.dateTo);
-      items = items.filter((item) => new Date(item.createdDate) <= toDate);
+    if (toDate) {
+      const to = new Date(toDate);
+      items = items.filter((item) => new Date(item.createdDate) <= to);
     }
 
     return items;
@@ -106,14 +112,15 @@ export class NewsEventsComponent implements OnInit, OnDestroy {
 
   paginatedNewsEvents = computed(() => {
     const filtered = this.filteredNewsEvents();
-    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const page = this.currentPage();
+    const startIndex = (page - 1) * this.pageSize;
     return filtered.slice(startIndex, startIndex + this.pageSize);
   });
 
   private routeSubscription: Subscription | null = null;
 
   get headerActiveTabRoute(): string {
-    return '/news-events/' + this.activeTab;
+    return '/news-events/' + this.activeTab();
   }
 
   ngOnInit(): void {
@@ -126,11 +133,11 @@ export class NewsEventsComponent implements OnInit, OnDestroy {
         ? urlSegments[urlSegments.length - 1].path
         : '';
       if (last === 'news' || last === 'events') {
-        this.activeTab = last === 'news' ? 'news' : 'event';
+        this.activeTab.set(last === 'news' ? 'news' : 'event');
       } else {
-        this.activeTab = 'all';
+        this.activeTab.set('all');
       }
-      this.currentPage = 1;
+      this.currentPage.set(1);
     });
   }
 
@@ -171,24 +178,24 @@ export class NewsEventsComponent implements OnInit, OnDestroy {
   }
 
   onTabChange(tab: 'all' | 'news' | 'event'): void {
-    this.activeTab = tab;
-    this.currentPage = 1;
+    this.activeTab.set(tab);
+    this.currentPage.set(1);
   }
 
   applyFilter(): void {
-    this.currentPage = 1;
+    this.currentPage.set(1);
   }
 
   clearFilter(): void {
-    this.dateFrom = '';
-    this.dateTo = '';
-    this.selectedCategory = '';
-    this.currentPage = 1;
+    this.dateFrom.set('');
+    this.dateTo.set('');
+    this.selectedCategory.set('');
+    this.currentPage.set(1);
   }
 
   onPageChange(page: number): void {
     if (page >= 1 && page <= this.totalPages()) {
-      this.currentPage = page;
+      this.currentPage.set(page);
     }
   }
 
@@ -252,7 +259,7 @@ export class NewsEventsComponent implements OnInit, OnDestroy {
 
     let startPage = Math.max(
       1,
-      this.currentPage - Math.floor(maxVisiblePages / 2)
+      this.currentPage() - Math.floor(maxVisiblePages / 2)
     );
     let endPage = Math.min(total, startPage + maxVisiblePages - 1);
 

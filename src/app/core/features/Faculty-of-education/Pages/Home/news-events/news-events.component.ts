@@ -1,70 +1,149 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { NewsEventService } from '../../../Services/news-event.service';
-import { NewsEvent, NewsEventFilter } from '../../../model/news-event.model';
+import { NewsService } from '../../../Services/real-services/news.service';
+import { News } from '../../../model/news.model';
 
 @Component({
   selector: 'home-news-events',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './news-events.component.html',
-  styleUrls: ['./news-events.component.css']
+  styleUrls: ['./news-events.component.css'],
 })
 export class NewsEventsComponent implements OnInit {
-  newsEvents: NewsEvent[] = [];
-  filteredItems: NewsEvent[] = [];
-  activeTab: 'all' | 'news' | 'event' = 'all';
-  loading = false;
+  private readonly newsService = inject(NewsService);
+  private readonly router = inject(Router);
 
-  constructor(private newsEventService: NewsEventService, private router: Router) {}
+  // Signals for reactive state
+  allNews = signal<News[]>([]);
+  activeTab = signal<'all' | 'news' | 'event'>('all');
+  isLoading = signal<boolean>(true);
+
+  // Computed signal for filtered items (limited to 4 for Home page)
+  filteredItems = computed(() => {
+    const news = this.allNews();
+    const tab = this.activeTab();
+
+    let filtered = news;
+
+    if (tab === 'news') {
+      filtered = news.filter((item) =>
+        item.postCategories?.some(
+          (cat) =>
+            cat.categoryName?.toLowerCase().includes('news') ||
+            cat.categoryName?.toLowerCase().includes('خبر') ||
+            cat.categoryName?.toLowerCase().includes('أخبار')
+        )
+      );
+    } else if (tab === 'event') {
+      filtered = news.filter((item) =>
+        item.postCategories?.some(
+          (cat) =>
+            cat.categoryName?.toLowerCase().includes('event') ||
+            cat.categoryName?.toLowerCase().includes('فعالية') ||
+            cat.categoryName?.toLowerCase().includes('فعاليات')
+        )
+      );
+    }
+
+    return filtered.slice(0, 4);
+  });
 
   ngOnInit(): void {
-    this.loadNewsEvents();
+    this.loadNews();
   }
 
-  loadNewsEvents(): void {
-    this.loading = true;
-    const filter: NewsEventFilter = {
-      type: this.activeTab === 'all' ? undefined : this.activeTab
-    };
-
-    this.newsEventService.getNewsEvents(filter).subscribe({
+  private loadNews(): void {
+    this.isLoading.set(true);
+    this.newsService.getAll().subscribe({
       next: (response) => {
-        this.newsEvents = response.items;
-        this.filteredItems = response.items.slice(0, 4);
-        this.loading = false;
+        if (response.success && response.data) {
+          this.allNews.set(response.data);
+        }
+        this.isLoading.set(false);
       },
-      error: () => {
-        this.loading = false;
-      }
+      error: (error) => {
+        console.error('Error loading news:', error);
+        this.isLoading.set(false);
+      },
     });
   }
 
   switchTab(tab: 'all' | 'news' | 'event'): void {
-    this.activeTab = tab;
-    this.loadNewsEvents();
+    this.activeTab.set(tab);
   }
 
-  formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
+  formatDate(dateInput: Date | string): string {
+    if (!dateInput) return '';
+    const date =
+      typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+    return new Intl.DateTimeFormat('ar-EG', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     }).format(date);
   }
 
   getTypeLabel(type: string): string {
-    return type === 'news' ? 'News' : 'Event';
+    switch (type) {
+      case 'news':
+        return 'أخبار';
+      case 'event':
+        return 'فعاليات';
+      default:
+        return 'الكل';
+    }
   }
 
-  getTypeIcon(type: string): string {
-    return type === 'news' ? 'pi pi-info-circle' : 'pi pi-calendar';
+  getTypeIcon(item: News): string {
+    const hasEvent = item.postCategories?.some(
+      (cat) =>
+        cat.categoryName?.toLowerCase().includes('event') ||
+        cat.categoryName?.toLowerCase().includes('فعالية')
+    );
+    return hasEvent ? 'pi pi-calendar' : 'pi pi-info-circle';
+  }
+
+  getTypeBadge(item: News): string {
+    const hasEvent = item.postCategories?.some(
+      (cat) =>
+        cat.categoryName?.toLowerCase().includes('event') ||
+        cat.categoryName?.toLowerCase().includes('فعالية')
+    );
+    return hasEvent ? 'event-badge' : 'news-badge';
+  }
+
+  getItemType(item: News): string {
+    const hasEvent = item.postCategories?.some(
+      (cat) =>
+        cat.categoryName?.toLowerCase().includes('event') ||
+        cat.categoryName?.toLowerCase().includes('فعالية')
+    );
+    return hasEvent ? 'فعالية' : 'خبر';
+  }
+
+  getItemImage(item: News): string {
+    return item.featuredImagePath || 'assets/images/placeholder-news.jpg';
+  }
+
+  getItemCategory(item: News): string {
+    return item.postCategories?.[0]?.categoryName || '';
+  }
+
+  getItemExcerpt(item: News): string {
+    if (!item.content) return '';
+    const stripped = item.content.replace(/<[^>]*>/g, '');
+    return stripped.length > 120
+      ? stripped.substring(0, 120) + '...'
+      : stripped;
   }
 
   truncateText(text: string, limit: number): string {
-    if (text.length <= limit) return text;
-    return text.substring(0, limit) + '...';
+    if (!text) return '';
+    const stripped = text.replace(/<[^>]*>/g, '');
+    if (stripped.length <= limit) return stripped;
+    return stripped.substring(0, limit) + '...';
   }
 
   navigateToDetails(id: string): void {

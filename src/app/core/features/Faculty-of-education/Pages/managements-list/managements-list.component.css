@@ -1,0 +1,235 @@
+.managements-page {
+  direction: rtl;
+  text-align: right;
+  padding-bottom: 4rem;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+.container-fluid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.loading-spinner {
+  font-size: 2.5rem;
+  color: var(--primary-color, #0d6efd);
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: var(--text-muted, #6c757d);
+  font-size: 1.1rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Managements Grid */
+.managements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* Management Card */
+.management-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.management-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--primary-color, #0d6efd) 0%,
+    #6610f2 100%
+  );
+  transition: width 0.3s ease;
+}
+
+.management-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.management-card:hover::before {
+  width: 8px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card Icon */
+.card-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 110, 253, 0.1) 0%,
+    rgba(102, 16, 242, 0.1) 100%
+  );
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card-icon i {
+  font-size: 1.75rem;
+  color: var(--primary-color, #0d6efd);
+  transition: transform 0.3s ease;
+}
+
+.management-card:hover .card-icon {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color, #0d6efd) 0%,
+    #6610f2 100%
+  );
+}
+
+.management-card:hover .card-icon i {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* Card Content */
+.card-content {
+  margin-bottom: 1.5rem;
+}
+
+.management-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.management-description {
+  font-size: 0.95rem;
+  color: var(--text-muted, #6c757d);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Card Footer */
+.card-footer {
+  padding-top: 1rem;
+}
+
+.card-decoration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.decoration-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color, #0d6efd) 0%,
+    transparent 100%
+  );
+  border-radius: 1px;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.empty-icon i {
+  font-size: 2.5rem;
+  color: var(--primary-color, #0d6efd);
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 0.5rem;
+}
+
+.empty-description {
+  font-size: 1rem;
+  color: var(--text-muted, #6c757d);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 0 1rem;
+  }
+
+  .managements-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .management-card {
+    padding: 1.5rem;
+  }
+
+  .management-title {
+    font-size: 1.1rem;
+  }
+}

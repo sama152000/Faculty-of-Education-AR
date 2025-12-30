@@ -1,34 +1,63 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FacultyDataService } from '../../../Services/faculty-data.service';
-import { StatisticTab } from '../..//../model/services.model';
+import {
+  StatisticsService,
+  Statistic,
+} from '../../../Services/real-services/statistics.service';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.css'],
 })
 export class StatisticsComponent implements OnInit {
-  statisticTabs: StatisticTab[] = [];
-  activeTab: string = 'enrolled-students';
+  private readonly statisticsService = inject(StatisticsService);
 
-  constructor(private facultyDataService: FacultyDataService) {}
+  // Signals for reactive state
+  statistics = signal<Statistic[]>([]);
+  isLoading = signal<boolean>(true);
+
+  // Computed signals
+  activeStatistics = computed(() => {
+    return this.statistics().filter((stat) => stat.isActive);
+  });
+
+  totalValue = computed(() => {
+    return this.activeStatistics().reduce((sum, stat) => {
+      const value = parseInt(stat.value, 10);
+      return sum + (isNaN(value) ? 0 : value);
+    }, 0);
+  });
 
   ngOnInit(): void {
-    this.statisticTabs = this.facultyDataService.getStatistics();
+    this.loadStatistics();
   }
 
-  setActiveTab(tabId: string): void {
-    this.activeTab = tabId;
+  private loadStatistics(): void {
+    this.isLoading.set(true);
+    this.statisticsService.getAllStatistics().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.statistics.set(response.data);
+        }
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error loading statistics:', error);
+        this.isLoading.set(false);
+      },
+    });
   }
 
-  getActiveTab(): StatisticTab | undefined {
-    return this.statisticTabs.find(tab => tab.id === this.activeTab);
+  getStatIcon(stat: Statistic): string {
+    return stat.iconPath || 'pi pi-chart-bar';
   }
 
-  getTotalStudents(data: any[]): number {
-    return data.reduce((total, item) => total + item.value, 0);
+  formatValue(value: string): string {
+    const numValue = parseInt(value, 10);
+    if (isNaN(numValue)) return value;
+    return numValue.toLocaleString('ar-EG');
   }
 }

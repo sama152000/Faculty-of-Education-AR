@@ -1,17 +1,23 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavigationService } from '../../../Services/navigation.service';
 import { NavItem } from '../../../model/navigation.model';
+import {
+  LogosService,
+  LogoAttachment,
+} from '../../../Services/real-services/logos.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  private readonly logosService = inject(LogosService);
+
   navItems: NavItem[] = [];
   firstRowItems: NavItem[] = [];
   secondRowItems: NavItem[] = [];
@@ -19,14 +25,36 @@ export class NavbarComponent implements OnInit {
   openDropdowns: Set<string> = new Set();
   mainIds: Set<string> = new Set();
 
+  // Logo signal
+  logo = signal<LogoAttachment | null>(null);
+  logoUrl = signal<string>(''); // fallback
+
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
     this.navItems = this.navigationService.getMainNavItems();
-    this.mainIds = new Set(this.navItems.map(item => item.id));
+    this.mainIds = new Set(this.navItems.map((item) => item.id));
     const mid = Math.ceil(this.navItems.length / 2);
     this.firstRowItems = this.navItems.slice(0, mid);
     this.secondRowItems = this.navItems.slice(mid);
+
+    // Load logo from API
+    this.loadLogo();
+  }
+
+  private loadLogo(): void {
+    this.logosService.getAllLogos().subscribe({
+      next: (response) => {
+        if (response.success && response.data && response.data.length > 0) {
+          this.logo.set(response.data[0]);
+          this.logoUrl.set(response.data[0].url);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading logo:', error);
+        // Keep fallback logo
+      },
+    });
   }
 
   toggleMenu(): void {
@@ -67,13 +95,15 @@ export class NavbarComponent implements OnInit {
     window.open('http://www.luxor.edu.eg/#/', '_blank');
   }
 
-  navigateTojornal():void{
+  navigateTojornal(): void {
     window.open('https://jedul.journals.ekb.eg/', '_blank');
   }
-   languageswitcher():void{
-    window.open('https://faculty-of-education-en-943s.vercel.app/home/', '_blank');
+  languageswitcher(): void {
+    window.open(
+      'https://faculty-of-education-en-943s.vercel.app/home/',
+      '_blank'
+    );
   }
-
 
   handleItemClick(item: NavItem, event?: Event): void {
     if (item.external && item.url) {
