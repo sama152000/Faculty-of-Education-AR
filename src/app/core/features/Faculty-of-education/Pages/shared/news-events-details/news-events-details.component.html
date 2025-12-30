@@ -1,51 +1,87 @@
-<div class="news-details-container" *ngIf="!loading && currentItem">
+<!-- Loading State -->
+@if (isLoading()) {
+<div class="loading-container text-center py-5">
+  <i
+    class="pi pi-spin pi-spinner"
+    style="font-size: 3rem; color: var(--primary-color)"
+  ></i>
+  <p class="mt-3">جاري تحميل البيانات...</p>
+</div>
+}
+
+<!-- Content -->
+@if (!isLoading() && currentItem()) {
+<div class="news-details-container">
   <div class="container-fluid">
-    
     <div class="row">
       <!-- Main Content -->
       <div class="col-lg-8">
         <app-page-header
-          [title]="getItemTitle(currentItem)"
-          [breadcrumbs]="[{ label: 'الأخبار والفعاليات', url: '/news-events' }]">
+          [title]="getItemTitle(currentItem())"
+          [breadcrumbs]="[{ label: 'الأخبار والفعاليات', url: '/news-events' }]"
+        >
         </app-page-header>
         <article class="news-article">
           <!-- Article Header -->
           <header class="article-header">
             <div class="article-meta mb-3">
-              <span class="item-type-badge" 
-                    [class.news-badge]="currentItem.type === 'news'" 
-                    [class.event-badge]="currentItem.type === 'event'">
-                <i [class]="currentItem.type === 'news' ? 'pi pi-file-edit' : 'pi pi-calendar'" class="me-1"></i>
-                {{ currentItem.type === 'news' ? 'خبر' : 'فعالية' }}
+              <span
+                class="item-type-badge"
+                [class.news-badge]="getItemType(currentItem()) === 'news'"
+                [class.event-badge]="getItemType(currentItem()) === 'event'"
+              >
+                <i
+                  [class]="
+                    getItemType(currentItem()) === 'news'
+                      ? 'pi pi-file-edit'
+                      : 'pi pi-calendar'
+                  "
+                  class="me-1"
+                ></i>
+                {{ getItemType(currentItem()) === "news" ? "خبر" : "فعالية" }}
               </span>
-              
-              <span class="category-badge" *ngIf="currentItem.category">
-                {{ getItemCategory(currentItem) }}
-              </span>
-            </div>
 
-            <!-- <h1 class="article-title">
-              {{ getItemTitle(currentItem) }}
-            </h1> -->
+              @if (currentItem()!.postCategories.length > 0) {
+              <span class="category-badge">
+                {{ getItemCategories(currentItem()) }}
+              </span>
+              }
+            </div>
 
             <div class="article-info">
               <div class="date-info">
                 <i class="pi pi-calendar me-2"></i>
-                {{ formatDate(currentItem.date) }}
+                {{ formatDate(currentItem()!.createdDate) }}
               </div>
-              
+
               <div class="share-buttons">
                 <span class="share-label">مشاركة:</span>
-                <button class="share-btn facebook" (click)="shareOnFacebook()" title="مشاركة على فيسبوك">
+                <button
+                  class="share-btn facebook"
+                  (click)="shareOnFacebook()"
+                  title="مشاركة على فيسبوك"
+                >
                   <i class="pi pi-facebook"></i>
                 </button>
-                <button class="share-btn twitter" (click)="shareOnTwitter()" title="مشاركة على تويتر">
+                <button
+                  class="share-btn twitter"
+                  (click)="shareOnTwitter()"
+                  title="مشاركة على تويتر"
+                >
                   <i class="pi pi-twitter"></i>
                 </button>
-                <button class="share-btn linkedin" (click)="shareOnLinkedIn()" title="مشاركة على لينكدإن">
+                <button
+                  class="share-btn linkedin"
+                  (click)="shareOnLinkedIn()"
+                  title="مشاركة على لينكدإن"
+                >
                   <i class="pi pi-linkedin"></i>
                 </button>
-                <button class="share-btn copy" (click)="copyLink()" title="نسخ الرابط">
+                <button
+                  class="share-btn copy"
+                  (click)="copyLink()"
+                  title="نسخ الرابط"
+                >
                   <i class="pi pi-copy"></i>
                 </button>
               </div>
@@ -53,69 +89,83 @@
           </header>
 
           <!-- Image Slider -->
-          <div class="image-slider-container" *ngIf="currentItem.images.length > 0">
+          @if (images().length > 0) {
+          <div class="image-slider-container">
             <div class="image-slider">
               <div class="slider-main-image">
-                <img [src]="currentItem.images[currentImageIndex]" 
-                     [alt]="getItemTitle(currentItem)" 
-                     class="main-image">
-                
+                <img
+                  [src]="images()[currentImageIndex()]"
+                  [alt]="getItemTitle(currentItem())"
+                  class="main-image"
+                />
+
                 <!-- Navigation Arrows -->
-                <button class="slider-nav prev" 
-                        (click)="previousImage()" 
-                        *ngIf="currentItem.images.length > 1"
-                        [disabled]="currentItem.images.length <= 1">
-                  <i class="pi pi-chevron-left"></i>
-                </button>
-                
-                <button class="slider-nav next" 
-                        (click)="nextImage()" 
-                        *ngIf="currentItem.images.length > 1"
-                        [disabled]="currentItem.images.length <= 1">
+                @if (images().length > 1) {
+                <button class="slider-nav prev" (click)="previousImage()">
                   <i class="pi pi-chevron-right"></i>
                 </button>
+
+                <button class="slider-nav next" (click)="nextImage()">
+                  <i class="pi pi-chevron-left"></i>
+                </button>
+                }
               </div>
 
               <!-- Thumbnail Navigation -->
-              <div class="slider-thumbnails" *ngIf="currentItem.images.length > 1">
-                <button class="thumbnail" 
-                        *ngFor="let image of currentItem.images; let i = index"
-                        [class.active]="i === currentImageIndex"
-                        (click)="goToImage(i)">
-                  <img [src]="image" [alt]="'صورة ' + (i + 1)">
+              @if (images().length > 1) {
+              <div class="slider-thumbnails">
+                @for (image of images(); track $index) {
+                <button
+                  class="thumbnail"
+                  [class.active]="$index === currentImageIndex()"
+                  (click)="goToImage($index)"
+                >
+                  <img [src]="image" [alt]="'صورة ' + ($index + 1)" />
                 </button>
+                }
               </div>
+              }
             </div>
           </div>
+          }
 
           <!-- Article Content -->
           <div class="article-content">
-            <div class="content-text" [innerHTML]="getItemContent(currentItem)"></div>
+            <div
+              class="content-text"
+              [innerHTML]="getItemContent(currentItem())"
+            ></div>
           </div>
 
           <!-- Navigation Buttons -->
           <div class="article-navigation">
-            <button class="nav-btn prev-btn" 
-                    (click)="navigateToPrevious()" 
-                    *ngIf="previousItem"
-                    [title]="getItemTitle(previousItem)">
+            @if (previousItem()) {
+            <button
+              class="nav-btn prev-btn"
+              (click)="navigateToPrevious()"
+              [title]="getItemTitle(previousItem())"
+            >
               <i class="pi pi-chevron-right me-2"></i>
               <div class="nav-content">
                 <span class="nav-label">السابق</span>
-                <span class="nav-title">{{ getItemTitle(previousItem) }}</span>
+                <span class="nav-title">{{
+                  getItemTitle(previousItem())
+                }}</span>
               </div>
             </button>
-
-            <button class="nav-btn next-btn" 
-                    (click)="navigateToNext()" 
-                    *ngIf="nextItem"
-                    [title]="getItemTitle(nextItem)">
+            } @if (nextItem()) {
+            <button
+              class="nav-btn next-btn"
+              (click)="navigateToNext()"
+              [title]="getItemTitle(nextItem())"
+            >
               <div class="nav-content">
                 <span class="nav-label">التالي</span>
-                <span class="nav-title">{{ getItemTitle(nextItem) }}</span>
+                <span class="nav-title">{{ getItemTitle(nextItem()) }}</span>
               </div>
               <i class="pi pi-chevron-left ms-2"></i>
             </button>
+            }
           </div>
         </article>
       </div>
@@ -124,32 +174,41 @@
       <div class="col-lg-4">
         <aside class="sidebar">
           <!-- Related Items -->
-          <div class="sidebar-section" *ngIf="relatedItems.length > 0">
+          @if (relatedItems().length > 0) {
+          <div class="sidebar-section">
             <h3 class="sidebar-title">
-              {{ currentItem.type === 'news' ? 'أخبار ذات صلة' : 'فعاليات ذات صلة' }}
+              {{
+                getItemType(currentItem()) === "news"
+                  ? "أخبار ذات صلة"
+                  : "فعاليات ذات صلة"
+              }}
             </h3>
-            
+
             <div class="related-items">
-              <article class="related-item" 
-                       *ngFor="let item of relatedItems"
-                       (click)="navigateToItem(item.id)">
+              @for (item of relatedItems(); track item.id) {
+              <article class="related-item" (click)="navigateToItem(item.id)">
                 <div class="related-image">
-                  <img [src]="item.images[0]" [alt]="getItemTitle(item)">
+                  <img [src]="getItemImage(item)" [alt]="getItemTitle(item)" />
                 </div>
                 <div class="related-content">
                   <h4 class="related-title">{{ getItemTitle(item) }}</h4>
                   <div class="related-date">
                     <i class="pi pi-calendar me-1"></i>
-                    {{ formatDate(item.date) }}
+                    {{ formatDate(item.createdDate) }}
                   </div>
                 </div>
               </article>
+              }
             </div>
           </div>
+          }
 
           <!-- Back to List -->
           <div class="sidebar-section">
-            <a [routerLink]="['/news-events']" class="btn btn-outline-primary-custom w-100">
+            <a
+              [routerLink]="['/news-events']"
+              class="btn btn-outline-primary-custom w-100"
+            >
               العودة إلى الأخبار والفعاليات
               <i class="pi pi-arrow-left me-2"></i>
             </a>
@@ -159,7 +218,4 @@
     </div>
   </div>
 </div>
-
-<!-- Loading State -->
-
-<app-footer></app-footer>
+}

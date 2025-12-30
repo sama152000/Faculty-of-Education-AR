@@ -1,6 +1,6 @@
 /**
- * Centers Service
- * Handles all API operations related to university centers
+ * Contacts Service
+ * Handles all API operations related to contact information
  * @version 2.0
  */
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,36 @@ import { ApiResponse, PaginatedResponse } from '../../../../models/api.models';
 import { PageRequest } from '../../model/real model/page-request.model';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { environment } from '../../../../../../environments/environment';
+
+/**
+ * Contact Interface
+ * Represents contact information for the organization
+ */
+export interface Contact {
+  id: string;
+  address: string;
+  phone: string;
+  email: string;
+  facebook: string;
+  twitter: string;
+  instagram: string;
+  linkedIn: string;
+  youTube: string;
+  whatsApp: string;
+  mapLocation: string;
+  webSite: string;
+  fax: string;
+}
+
+/**
+ * Social Media Link Interface
+ * Used for displaying social media links in UI
+ */
+export interface SocialMediaLink {
+  platform: string;
+  url: string;
+  icon: string;
+}
 
 @Injectable({
   providedIn: 'root',

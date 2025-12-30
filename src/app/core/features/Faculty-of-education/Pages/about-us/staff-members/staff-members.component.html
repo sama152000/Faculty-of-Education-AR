@@ -1,9 +1,12 @@
 <section class="staff-members-section">
   <div class="container-fluid">
-    
-    <app-page-header 
-      [title]="'أعضاء هيئة التدريس والموظفون'" 
-      [breadcrumbs]="[{label: 'عن الكلية'}, {label: 'أعضاء هيئة التدريس والموظفون'}]">
+    <app-page-header
+      [title]="'أعضاء هيئة التدريس والموظفون'"
+      [breadcrumbs]="[
+        { label: 'عن الكلية' },
+        { label: 'أعضاء هيئة التدريس والموظفون' }
+      ]"
+    >
     </app-page-header>
 
     <!-- Filters Section -->
@@ -13,9 +16,9 @@
         <!-- <div class="search-container">
           <div class="search-input-wrapper">
             <i class="pi pi-search search-icon"></i>
-            <input 
-              type="text" 
-              class="search-input" 
+            <input
+              type="text"
+              class="search-input"
               placeholder="البحث بالاسم أو المنصب..."
               (input)="onSearchChange($event)">
           </div>
@@ -25,18 +28,20 @@
         <div class="department-filter">
           <div class="filter-label">التصفية حسب القسم:</div>
           <div class="department-buttons">
-            <button 
+            <button
               class="dept-button"
               [class.active]="selectedDepartment === 'all'"
-              (click)="filterByDepartment('all')">
+              (click)="filterByDepartment('all')"
+            >
               جميع الأقسام
             </button>
-            <button 
-              *ngFor="let dept of departments" 
+            <button
+              *ngFor="let dept of departments"
               class="dept-button"
               [class.active]="selectedDepartment === dept"
               [style.border-color]="getDepartmentColor(dept)"
-              (click)="filterByDepartment(dept)">
+              (click)="filterByDepartment(dept)"
+            >
               {{ dept }}
             </button>
           </div>
@@ -46,27 +51,41 @@
 
     <!-- Staff Members Grid -->
     <div class="staff-grid">
-      <div class="results-header" *ngIf="filteredStaff.length !== staffMembers.length">
+      <div
+        class="results-header"
+        *ngIf="filteredStaff.length !== staffMembers.length"
+      >
         <div class="results-count">
-          عرض {{ filteredStaff.length }} من أصل {{ staffMembers.length }} من أعضاء هيئة التدريس والموظفين
+          عرض {{ filteredStaff.length }} من أصل {{ staffMembers.length }} من
+          أعضاء هيئة التدريس والموظفين
         </div>
       </div>
       <div class="members-grid">
-        <div 
-          class="staff-card" 
+        <div
+          class="staff-card"
           *ngFor="let member of filteredStaff; let i = index"
-          [style.animation-delay.ms]="i * 100">
-          
+          [style.animation-delay.ms]="i * 100"
+        >
           <!-- Card Header -->
           <div class="card-header">
             <div class="member-avatar">
-              <div class="avatar-circle" [style.background-color]="getDepartmentColor(member.department || 'عام')">
+              <div
+                class="avatar-circle"
+                [style.background-color]="
+                  getDepartmentColor(member.department || 'عام')
+                "
+              >
                 <i class="pi pi-user"></i>
               </div>
               <!-- <div class="member-id">#{{ member.id.toString().padStart(2, '0') }}</div> -->
             </div>
-            <div class="department-badge" [style.background-color]="getDepartmentColor(member.department || 'عام')">
-              {{ member.department || 'عام' }}
+            <div
+              class="department-badge"
+              [style.background-color]="
+                getDepartmentColor(member.department || 'عام')
+              "
+            >
+              {{ member.department || "عام" }}
             </div>
           </div>
 
@@ -85,10 +104,11 @@
                 <span class="phone-number">email@gmail.com</span>
               </div>
             </div>
-            <button 
-              class="call-button" 
+            <button
+              class="call-button"
               (click)="callPhone(member.phone)"
-              title="إرسال بريد إلكتروني إلى {{ member.name }}">
+              title="إرسال بريد إلكتروني إلى {{ member.name }}"
+            >
               <i class="pi pi-send"></i>
               <span>إرسال بريد إلكتروني</span>
             </button>
@@ -101,11 +121,14 @@
         <div class="no-results-icon">
           <i class="pi pi-search"></i>
         </div>
-        <h3 class="no-results-title">لم يتم العثور على أعضاء هيئة تدريس أو موظفين</h3>
-        <p class="no-results-text">
-          حاول تعديل معايير البحث أو فلتر القسم
-        </p>
-        <button class="reset-button" (click)="filterByDepartment('all'); searchTerm = ''">
+        <h3 class="no-results-title">
+          لم يتم العثور على أعضاء هيئة تدريس أو موظفين
+        </h3>
+        <p class="no-results-text">حاول تعديل معايير البحث أو فلتر القسم</p>
+        <button
+          class="reset-button"
+          (click)="filterByDepartment('all'); searchTerm = ''"
+        >
           <i class="pi pi-refresh"></i>
           إعادة تعيين الفلاتر
         </button>
@@ -113,4 +136,3 @@
     </div>
   </div>
 </section>
-<app-footer></app-footer>

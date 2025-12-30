@@ -1,15 +1,58 @@
-
 .history-section {
-
   width: 100%;
   padding: var(--section-padding);
-    padding-bottom: 4rem;
-
+  padding-bottom: 4rem;
 }
 
 .history-header {
   text-align: center;
   margin-bottom: 4rem;
+}
+
+/* Loading & Error States */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--dark-primary-color);
+}
+
+.loading-container i {
+  color: var(--primary-color);
+}
+
+.loading-container p,
+.error-container p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Content Section */
+.content-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(119, 166, 199, 0.05);
+  border-radius: 16px;
+  border-right: 4px solid var(--primary-color);
+}
+
+.content-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark-primary-color);
+  margin-bottom: 1rem;
+}
+
+.content-text {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.8;
+  text-align: justify;
 }
 
 .history-timeline {
@@ -27,7 +70,11 @@
 .timeline-marker {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -35,8 +82,7 @@
   flex-shrink: 0;
   position: relative;
   z-index: 3;
-  box-shadow: 
-    0 8px 32px rgba(119, 166, 199, 0.4),
+  box-shadow: 0 8px 32px rgba(119, 166, 199, 0.4),
     0 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
@@ -47,14 +93,13 @@
 
 .timeline-content {
   padding-bottom: 2rem;
-    width: 100%;
-
+  width: 100%;
 }
 
 .timeline-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-    width: 100%;
+  width: 100%;
 
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 24px;
@@ -62,26 +107,28 @@
   position: relative;
   overflow: hidden;
   transition: all 0.4s ease;
-  box-shadow: 
-    0 12px 32px rgba(119, 166, 199, 0.15),
+  box-shadow: 0 12px 32px rgba(119, 166, 199, 0.15),
     0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .timeline-card:hover {
   transform: translateY(-4px);
-  box-shadow: 
-    0 20px 48px rgba(119, 166, 199, 0.2),
+  box-shadow: 0 20px 48px rgba(119, 166, 199, 0.2),
     0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .timeline-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   border-radius: 24px 24px 0 0;
 }
 
@@ -146,7 +193,6 @@
   gap: 0.5rem;
 }
 
-
 .programs-list {
   display: flex;
   flex-wrap: wrap;
@@ -208,13 +254,22 @@
    ANIMATIONS
 ======================================== */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes slideInDown {
@@ -246,26 +301,26 @@
   .section-title {
     font-size: 2.5rem;
   }
-  
+
   .dean-content {
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
   }
-  
+
   .dean-profile {
     position: static;
   }
-  
+
   .timeline-item {
     gap: 1.5rem;
   }
-  
+
   .timeline-marker {
     width: 60px;
     height: 60px;
   }
-  
+
   .timeline-marker i {
     font-size: 1.5rem;
   }
@@ -275,33 +330,33 @@
   .dean-message-section {
     padding: 3rem 0;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .dean-card {
     padding: 2rem;
     border-radius: 24px;
   }
-  
+
   .dean-photo {
     width: 150px;
     height: 150px;
   }
-  
+
   .message-text {
     font-size: 1rem;
   }
-  
+
   .timeline-card {
     padding: 2rem;
   }
-  
+
   .history-details {
     grid-template-columns: 1fr;
   }
-  
+
   .facilities-grid {
     grid-template-columns: 1fr;
   }
@@ -311,29 +366,29 @@
   .section-title {
     font-size: 1.75rem;
   }
-  
+
   .dean-card {
     padding: 1.5rem;
     border-radius: 20px;
   }
-  
+
   .dean-photo {
     width: 120px;
     height: 120px;
   }
-  
+
   .dean-name {
     font-size: 1.25rem;
   }
-  
+
   .timeline-card {
     padding: 1.5rem;
   }
-  
+
   .timeline-title {
     font-size: 1.5rem;
   }
-  
+
   .programs-list {
     flex-direction: column;
   }

@@ -3,20 +3,48 @@
     <!-- Page Header -->
     <app-page-header
       [title]="'كلمة عميد الكلية '"
-      [breadcrumbs]="[{ label: 'عن الكلية', url: '/about-us' }, { label: 'كلمة العميد' }]">
+      [breadcrumbs]="[
+        { label: 'عن الكلية', url: '/about-us' },
+        { label: 'كلمة العميد' }
+      ]"
+    >
     </app-page-header>
-    <div class="dean-message-container">
 
+    <div class="dean-message-container">
+      <!-- Loading State -->
+      @if (isLoading()) {
+      <div class="loading-container">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        <p>جاري التحميل...</p>
+      </div>
+      }
+
+      <!-- Error State -->
+      @if (error()) {
+      <div class="error-container">
+        <i
+          class="pi pi-exclamation-triangle"
+          style="font-size: 2rem; color: #e74c3c"
+        ></i>
+        <p>{{ error() }}</p>
+      </div>
+      }
+
+      <!-- Content -->
+      @if (!isLoading() && !error() && deanSpeech()) {
       <div class="dean-card">
         <div class="dean-profile">
           <div class="dean-photo-wrapper">
-            <img [src]="deanInfo.photo" [alt]="deanInfo.name" class="dean-photo">
+            <img
+              [src]="getDeanPhoto()"
+              [alt]="deanSpeech()?.memberName"
+              class="dean-photo"
+            />
             <div class="photo-frame"></div>
-        <div class="dean-content">
-            </div>
+            <div class="dean-content"></div>
             <div class="dean-info">
-              <h3 class="dean-name">{{ deanInfo.name }}</h3>
-              <p class="dean-title">{{ deanInfo.title }}</p>
+              <h3 class="dean-name">{{ deanSpeech()?.memberName }}</h3>
+              <p class="dean-title">{{ deanSpeech()?.memberPosition }}</p>
               <div class="dean-badge">
                 <i class="pi pi-star"></i>
                 <span>العميد</span>
@@ -26,25 +54,27 @@
 
           <div class="message-content">
             <div class="message-text">
-              <p *ngFor="let paragraph of formatMessage(deanInfo.message)" class="message-paragraph">
+              @for (paragraph of formatMessage(deanSpeech()?.speech); track
+              $index) {
+              <p class="message-paragraph" dir="rtl">
                 {{ paragraph }}
               </p>
+              }
             </div>
-            
+
             <div class="message-signature">
               <div class="signature-line"></div>
               <div class="signature-info">
-                <p class="signature-name">{{ deanInfo.name }}</p>
-                <p class="signature-title">{{ deanInfo.title }}</p>
+                <p class="signature-name">{{ deanSpeech()?.memberName }}</p>
+                <p class="signature-title">
+                  {{ deanSpeech()?.memberPosition }}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      }
     </div>
-
   </div>
 </section>
-
-
-<app-footer></app-footer>

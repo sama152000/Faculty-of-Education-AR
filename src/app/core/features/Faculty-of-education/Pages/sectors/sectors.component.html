@@ -1,12 +1,12 @@
 <div class="sectors-container" *ngIf="!loading && currentSector">
   <div class="container-fluid">
-    
     <div class="row">
       <!-- Main Content -->
       <div class="col-lg-8 col-md-7">
         <app-page-header
           [title]="getSectorTitle(currentSector)"
-          [breadcrumbs]="[{ label: 'الإدارة العليا' }]">
+          [breadcrumbs]="[{ label: 'الإدارة العليا' }]"
+        >
         </app-page-header>
         <div class="sector-content">
           <!-- Sector Header -->
@@ -23,9 +23,7 @@
                   <i class="pi pi-user"></i>
                 </div>
                 <div class="vice-dean-details">
-                  <h3 class="vice-dean-title">
-                    وكيل القطاع
-                  </h3>
+                  <h3 class="vice-dean-title">وكيل القطاع</h3>
                   <p class="vice-dean-name">
                     {{ getSectorViceDean(currentSector) }}
                   </p>
@@ -42,12 +40,16 @@
                   <div class="section-icon">
                     <i class="pi pi-target"></i>
                   </div>
-                  <h2 class="section-subtitle">
-                    أهداف القطاع
-                  </h2>
+                  <h2 class="section-subtitle">أهداف القطاع</h2>
                 </div>
                 <div class="objectives-list">
-                  <div class="objective-item" *ngFor="let objective of getSectorObjectives(currentSector); let i = index">
+                  <div
+                    class="objective-item"
+                    *ngFor="
+                      let objective of getSectorObjectives(currentSector);
+                      let i = index
+                    "
+                  >
                     <div class="objective-number">
                       {{ i + 1 }}
                     </div>
@@ -66,12 +68,13 @@
                   <div class="section-icon">
                     <i class="pi pi-cog"></i>
                   </div>
-                  <h2 class="section-subtitle">
-                    خدمات القطاع
-                  </h2>
+                  <h2 class="section-subtitle">خدمات القطاع</h2>
                 </div>
                 <div class="services-list">
-                  <div class="service-item" *ngFor="let service of getSectorServices(currentSector)">
+                  <div
+                    class="service-item"
+                    *ngFor="let service of getSectorServices(currentSector)"
+                  >
                     <div class="service-icon">
                       <i class="pi pi-check-circle"></i>
                     </div>
@@ -86,24 +89,32 @@
 
           <!-- Navigation Buttons -->
           <div class="sector-navigation">
-            <button class="nav-btn prev-btn" 
-                    (click)="navigateToPrevious()" 
-                    *ngIf="navigation.previous"
-                    [title]="getSectorTitle(navigation.previous)">
+            <button
+              class="nav-btn prev-btn"
+              (click)="navigateToPrevious()"
+              *ngIf="navigation.previous"
+              [title]="getSectorTitle(navigation.previous)"
+            >
               <i class="pi pi-chevron-right me-2"></i>
               <div class="nav-content">
                 <span class="nav-label">السابق</span>
-                <span class="nav-title">{{ getSectorTitle(navigation.previous) }}</span>
+                <span class="nav-title">{{
+                  getSectorTitle(navigation.previous)
+                }}</span>
               </div>
             </button>
 
-            <button class="nav-btn next-btn"
-                    (click)="navigateToNext()"
-                    *ngIf="navigation.next"
-                    [title]="getSectorTitle(navigation.next)">
+            <button
+              class="nav-btn next-btn"
+              (click)="navigateToNext()"
+              *ngIf="navigation.next"
+              [title]="getSectorTitle(navigation.next)"
+            >
               <div class="nav-content">
                 <span class="nav-label">التالي</span>
-                <span class="nav-title">{{ getSectorTitle(navigation.next) }}</span>
+                <span class="nav-title">{{
+                  getSectorTitle(navigation.next)
+                }}</span>
               </div>
               <i class="pi pi-chevron-left ms-2"></i>
             </button>
@@ -115,15 +126,15 @@
       <div class="col-lg-4 col-md-5">
         <div class="sidebar">
           <div class="sidebar-section">
-            <h3 class="sidebar-title">
-              جميع القطاعات
-            </h3>
-          
+            <h3 class="sidebar-title">جميع القطاعات</h3>
+
             <div class="sectors-list">
-              <div class="sector-item" 
-                   *ngFor="let sector of allSectors"
-                   [class.active]="isCurrentSector(sector)"
-                   (click)="navigateToSector(sector)">
+              <div
+                class="sector-item"
+                *ngFor="let sector of allSectors"
+                [class.active]="isCurrentSector(sector)"
+                (click)="navigateToSector(sector)"
+              >
                 <div class="sector-icon">
                   <i class="pi pi-building"></i>
                 </div>
@@ -140,9 +151,7 @@
 
           <!-- Quick Contact -->
           <div class="sidebar-section">
-            <h3 class="sidebar-title">
-              تواصل سريع
-            </h3>
+            <h3 class="sidebar-title">تواصل سريع</h3>
             <div class="contact-info">
               <div class="contact-item">
                 <i class="pi pi-phone"></i>
@@ -163,7 +172,3 @@
     </div>
   </div>
 </div>
-
-
-
-<app-footer></app-footer>

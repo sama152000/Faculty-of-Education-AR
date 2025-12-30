@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { NavItem, SocialLink, ContactInfo } from '../model/navigation.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private mainNavItems: NavItem[] = [
     {
       id: 'home',
       label: 'الصفحة الرئيسية',
-      route: '/home'
+      route: '/home',
     },
     {
       id: 'About Us',
@@ -18,29 +18,29 @@ export class NavigationService {
         {
           id: 'dean-word',
           label: 'كلمة العميد',
-          route: '/about-us/dean-word'
+          route: '/about-us/dean-word',
         },
         {
           id: 'Faculty-history',
           label: 'تاريخ الكلية',
-          route: '/about-us/Faculty-history'
+          route: '/about-us/Faculty-history',
         },
         {
           id: 'vision-mission',
           label: 'الرؤية والرسالة والأهداف',
-          route: '/about-us/vision-mission'
+          route: '/about-us/vision-mission',
         },
-        {
-          id: 'staff-members',
-          label: 'أعضاء هيئة التدريس',
-          route: '/about-us/staff-members'
-        }
-      ]
+        // {
+        //   id: 'staff-members',
+        //   label: 'أعضاء هيئة التدريس',
+        //   route: '/about-us/staff-members'
+        // }
+      ],
     },
     {
       id: 'news-events',
       label: 'الأخبار والفعاليات',
-      route: '/news-events'
+      route: '/news-events',
     },
     {
       id: 'units-labs',
@@ -54,40 +54,35 @@ export class NavigationService {
               id: 'computer-lab',
               label: 'معمل الحاسب الآلي',
               // route: '/labs/computer'
-                            route:'/comming-soon'
-
+              route: '/comming-soon',
             },
             {
               id: 'mental-health-lab',
               label: 'معمل الصحة النفسية',
               // route: '/labs/mental-health'
-                            route:'/comming-soon'
-
+              route: '/comming-soon',
             },
             {
               id: 'micro-teaching-lab',
               label: 'معمل التدريس المصغر',
               // route: '/labs/micro-teaching'
-                            route:'/comming-soon'
-
+              route: '/comming-soon',
             },
             {
               id: 'science-lab',
               label: 'معمل العلوم',
               // route: '/labs/science'
-                            route:'/comming-soon'
-
-            }
-          ]
+              route: '/comming-soon',
+            },
+          ],
         },
         {
           id: 'units',
           label: 'الوحدات',
           // route: '/units'
-                        route:'/comming-soon'
-
-        }
-      ]
+          route: '/comming-soon',
+        },
+      ],
     },
     {
       id: 'programs',
@@ -100,39 +95,39 @@ export class NavigationService {
             {
               id: 'arabic',
               label: 'إعداد معلمي اللغة العربية ',
-              route: '/programs/arabic'
+              route: '/programs/arabic',
             },
             {
               id: 'english',
               label: 'إعداد معلمي اللغة الإنجليزية ',
-              route: '/programs/english'
+              route: '/programs/english',
             },
             {
               id: 'french',
               label: 'إعداد معلمي اللغة الفرنسية ',
-              route: '/programs/french'
+              route: '/programs/french',
             },
             {
               id: 'german',
               label: 'إعداد معلمي اللغة الألمانية ',
-              route: '/programs/german'
+              route: '/programs/german',
             },
             {
               id: 'math',
               label: 'إعداد معلمي الرياضيات',
-              route: '/programs/math'
+              route: '/programs/math',
             },
             {
               id: 'chemistry',
               label: 'إعداد معلمي الكيمياء',
-              route: '/programs/chemistry'
+              route: '/programs/chemistry',
             },
             {
               id: 'biology',
               label: 'إعداد معلمي العلوم البيولوجية',
-              route: '/programs/biology'
-            }
-          ]
+              route: '/programs/biology',
+            },
+          ],
         },
         {
           id: 'new-programs',
@@ -141,26 +136,26 @@ export class NavigationService {
             {
               id: 'math-english',
               label: 'إعداد معلمي الرياضيات (باللغة الإنجليزية)',
-              route: '/new-programs/math-english'
+              route: '/new-programs/math-english',
             },
             {
               id: 'biology-english',
               label: 'إعداد معلمي العلوم البيولوجية (باللغة الإنجليزية)',
-              route: '/new-programs/biology-english'
+              route: '/new-programs/biology-english',
             },
             {
               id: 'physics-english',
               label: 'إعداد معلمي الفيزياء (باللغة الإنجليزية)',
-              route: '/new-programs/physics-english'
+              route: '/new-programs/physics-english',
             },
             {
               id: 'chemistry-english',
               label: 'إعداد معلمي الكيمياء (باللغة الإنجليزية)',
-              route: '/new-programs/chemistry-english'
-            }
-          ]
-        }
-      ]
+              route: '/new-programs/chemistry-english',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'faculty-administrations',
@@ -170,45 +165,39 @@ export class NavigationService {
           id: 'student-affairs',
           label: 'إدارة شؤون الطلاب',
           // route: '/administrations/student-affairs'
-                        route:'/comming-soon'
-
+          route: '/comming-soon',
         },
         {
           id: 'postgraduate',
           label: 'إدارة الدراسات العليا',
           // route: '/administrations/postgraduate'
-                        route:'/comming-soon'
-
+          route: '/comming-soon',
         },
         {
           id: 'hr',
           label: 'إدارة الموارد البشرية',
           // route: '/administrations/hr'
-                        route:'/comming-soon'
-
+          route: '/comming-soon',
         },
         {
           id: 'youth-welfare',
           label: 'إدارة رعاية الشباب',
           // route: '/administrations/youth-welfare'
-                        route:'/comming-soon'
-
+          route: '/comming-soon',
         },
         {
           id: 'labs-admin',
           label: 'إدارة المعامل',
           // route: '/administrations/labs'
-                        route:'/comming-soon'
-
+          route: '/comming-soon',
         },
         {
           id: 'stores',
           label: 'إدارة المخازن',
           // route: '/administrations/stores'
-                        route:'/comming-soon'
-
-        }
-      ]
+          route: '/comming-soon',
+        },
+      ],
     },
     {
       id: 'faculty-departments',
@@ -218,29 +207,29 @@ export class NavigationService {
         {
           id: 'curricula-teaching',
           label: 'المناهج وطرق التدريس',
-          route: '/department-details/curricula-teaching'
+          route: '/department-details/curricula-teaching',
         },
         {
           id: 'foundations-education',
           label: 'أصول التربية',
-          route: '/department-details/foundations-education'
+          route: '/department-details/foundations-education',
         },
         {
           id: 'mental-health',
           label: 'الصحة النفسية',
-          route: '/department-details/mental-health'
+          route: '/department-details/mental-health',
         },
         {
           id: 'psychology',
           label: 'علم النفس',
-          route: '/department-details/psychology'
+          route: '/department-details/psychology',
         },
         {
           id: 'comparative-education',
           label: 'التربية المقارنة والإدارة التربوية',
-          route: '/department-details/comparative-education'
-        }
-      ]
+          route: '/department-details/comparative-education',
+        },
+      ],
     },
     {
       id: 'Sectors',
@@ -249,25 +238,25 @@ export class NavigationService {
         {
           id: 'vice-dean-education',
           label: 'شؤون التعليم والطلاب',
-          route: '/management/vice-dean-education'
+          route: '/management/vice-dean-education',
         },
         {
           id: 'vice-dean-postgraduate',
           label: 'الدراسات العليا والبحوث',
-          route: '/management/vice-dean-postgraduate'
+          route: '/management/vice-dean-postgraduate',
         },
         {
           id: 'vice-dean-community',
           label: 'خدمة المجتمع وتنمية البيئة',
-          route: '/management/vice-dean-community'
-        }
-      ]
+          route: '/management/vice-dean-community',
+        },
+      ],
     },
     {
       id: 'contact',
       label: 'تواصلوا معنا',
-      route: '/contact'
-    }
+      route: '/contact',
+    },
   ];
 
   private socialLinks: SocialLink[] = [
@@ -275,52 +264,53 @@ export class NavigationService {
       platform: 'فيسبوك',
       url: 'https://facebook.com/luxoreducation',
       icon: 'pi pi-facebook',
-      color: '#1877f2'
+      color: '#1877f2',
     },
     {
       platform: 'يوتيوب',
       url: 'https://youtube.com/luxoruniversity',
       icon: 'pi pi-youtube',
-      color: '#ff0000'
+      color: '#ff0000',
     },
     {
       platform: 'لينكدإن',
       url: 'https://linkedin.com/company/luxor-university',
       icon: 'pi pi-linkedin',
-      color: '#0077b5'
-    }
+      color: '#0077b5',
+    },
   ];
 
   private contactInfo: ContactInfo = {
-    address: 'كلية التربية - جامعة الأقصر - مدينة طيبة الجديدة، بجوار هيئة مدينة طيبة الجديدة',
+    address:
+      'كلية التربية - جامعة الأقصر - مدينة طيبة الجديدة، بجوار هيئة مدينة طيبة الجديدة',
     phone: '01010577677',
     emails: {
       dean: 'waleed2507@yahoo.co.uk',
-      journal: 'Lueduscij@fedu.luxor.edu.eg'
-    }
+      journal: 'Lueduscij@fedu.luxor.edu.eg',
+    },
   };
 
   private footerQuickLinks = [
     {
       label: 'موقع جامعة الأقصر',
       url: 'http://www.luxor.edu.eg/#/',
-      external: true
+      external: true,
     },
     {
       label: 'الصفحة الرسمية على فيسبوك',
       url: 'https://facebook.com/luxoreducation',
-      external: true
+      external: true,
     },
     {
       label: 'مجلة العلوم التربوية',
       url: 'https://jedul.journals.ekb.eg/',
-      external: true
+      external: true,
     },
     {
       label: 'بوابة 90',
       url: '#',
-      external: true
-    }
+      external: true,
+    },
   ];
 
   getMainNavItems(): NavItem[] {
@@ -344,43 +334,43 @@ export class NavigationService {
       {
         id: 'about-faculty',
         label: 'عن الكلية',
-        route: '/about-us/Faculty-history'
+        route: '/about-us/Faculty-history',
       },
       {
         id: 'top-management-footer',
         label: 'كلمة العميد',
-        route: '/about-us/dean-word'
+        route: '/about-us/dean-word',
       },
       {
         id: 'faculty-departments-footer',
         label: 'أقسام الكلية',
-        route: '/department-details'
+        route: '/department-details',
       },
       {
         id: 'faculty-administrations-footer',
         label: 'الإدارات الإدارية بالكلية',
-              route:'/comming-soon'
+        route: '/comming-soon',
       },
       {
         id: 'programs-footer',
         label: 'البرامج الدراسية',
-        route: '/programs'
+        route: '/programs',
       },
       {
         id: 'units-labs-footer',
         label: 'الوحدات والمعامل',
-              route:'/comming-soon'
+        route: '/comming-soon',
       },
       {
         id: 'news-events-footer',
         label: 'الأخبار والفعاليات',
-        route: '/news-events'
+        route: '/news-events',
       },
       {
         id: 'contact-footer',
         label: 'تواصلوا معنا',
-        route: '/contact'
-      }
+        route: '/contact',
+      },
     ];
   }
 }

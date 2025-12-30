@@ -1,21 +1,35 @@
 <div class="program-details-container" *ngIf="program">
-  
   <div class="content-wrapper">
     <div class="main-content">
       <app-page-header
         [title]="program.name"
         [breadcrumbs]="[
-          {label: 'البرامج الجديدة', url: '/new-programs'},
-          {label: program.name}
-        ]">
+          { label: 'البرامج الجديدة', url: '/new-programs' },
+          { label: program.name }
+        ]"
+      >
       </app-page-header>
       <div class="image-section">
         <div class="program-image-wrapper">
-          <img [src]="program.images[0]" [alt]="program.name" class="program-main-image" />
+          <img
+            [src]="program.images[0]"
+            [alt]="program.name"
+            class="program-main-image"
+          />
           <div class="image-overlay"></div>
           <div class="image-badge">
-            <p-tag [value]="program.category" severity="info" styleClass="custom-tag"></p-tag>
-            <p-tag value="جديد" severity="success" styleClass="new-tag" *ngIf="program.isNew"></p-tag>  <!-- البادج الجديد -->
+            <p-tag
+              [value]="program.category"
+              severity="info"
+              styleClass="custom-tag"
+            ></p-tag>
+            <p-tag
+              value="جديد"
+              severity="success"
+              styleClass="new-tag"
+              *ngIf="program.isNew"
+            ></p-tag>
+            <!-- البادج الجديد -->
           </div>
         </div>
       </div>
@@ -23,7 +37,11 @@
       <p-card class="details-card">
         <div class="program-header">
           <div class="title-section">
-            <h1 class="program-title">{{ program.name }} <span class="new-badge" *ngIf="program.isNew">(جديد)</span></h1>  <!-- بادج هنا كمان -->
+            <h1 class="program-title">
+              {{ program.name }}
+              <span class="new-badge" *ngIf="program.isNew">(جديد)</span>
+            </h1>
+            <!-- بادج هنا كمان -->
           </div>
 
           <div class="program-meta-info">
@@ -69,14 +87,16 @@
             iconPos="right"
             (onClick)="goToNextProgram()"
             styleClass="p-button-primary"
-            [style]="{'flex': '1'}">
+            [style]="{ flex: '1' }"
+          >
           </p-button>
           <p-button
             label="البرنامج السابق"
             icon="pi pi-arrow-right"
             (onClick)="goToPreviousProgram()"
             styleClass="p-button-outlined"
-            [style]="{'flex': '1'}">
+            [style]="{ flex: '1' }"
+          >
           </p-button>
         </div>
       </p-card>
@@ -90,9 +110,11 @@
         </h3>
         <p-divider></p-divider>
         <ul class="programs-navigation-list">
-          <li *ngFor="let prog of allNewPrograms"
-              class="program-nav-item"
-              [class.active]="prog.id === program.id">
+          <li
+            *ngFor="let prog of allNewPrograms"
+            class="program-nav-item"
+            [class.active]="prog.id === program.id"
+          >
             <a [routerLink]="['/new-programs', prog.id]">
               <i class="pi pi-angle-left"></i>
               <span>{{ prog.name }}</span>
@@ -134,5 +156,3 @@
     </aside>
   </div>
 </div>
-
-<app-footer></app-footer>

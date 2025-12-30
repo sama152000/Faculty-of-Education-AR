@@ -1,40 +1,55 @@
-/* ========================================
-   DEAN MESSAGE SECTION
-======================================== */
+:root {
+  --fs-xs: clamp(0.75rem, 0.7rem + 0.3vw, 0.85rem);
+  --fs-sm: clamp(0.85rem, 0.8rem + 0.4vw, 0.95rem);
+  --fs-md: clamp(1rem, 0.95rem + 0.5vw, 1.1rem);
+  --fs-lg: clamp(1.1rem, 1.05rem + 0.6vw, 1.3rem);
+  --fs-xl: clamp(1.3rem, 1.2rem + 0.8vw, 1.6rem);
+}
+
 .dean-message-section {
-  background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 50%, #f8fafc 100%);
+  background: linear-gradient(
+    135deg,
+    var(--bg-light) 0%,
+    var(--bg-white) 50%,
+    #f8fafc 100%
+  );
   position: relative;
   padding: var(--section-padding);
   overflow: hidden;
 }
 
 .dean-message-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -30%;
   right: -20%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(119, 166, 199, 0.06) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(119, 166, 199, 0.06) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   animation: float 25s ease-in-out infinite;
 }
 
 .dean-message-section::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -40%;
   left: -15%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(52, 74, 90, 0.04) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(52, 74, 90, 0.04) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   animation: float 30s ease-in-out infinite reverse;
 }
 
-/* ========================================
-   SECTION HEADER
-======================================== */
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -51,24 +66,47 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
-  font-size: 0.8rem; /* صغرنا الخط بنسبة 10% */
+  font-size: var(--fs-xs);
   font-weight: 600;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 20px rgba(119, 166, 199, 0.3);
   animation: slideInDown 0.8s ease-out;
 }
 
-/* ========================================
-   DEAN MESSAGE CONTAINER
-======================================== */
 .dean-message-container {
   position: relative;
   z-index: 2;
   margin-bottom: 6rem;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--dark-primary-color);
+}
+
+.loading-container i {
+  color: var(--primary-color);
+}
+
+.loading-container p,
+.error-container p {
+  font-size: var(--fs-md);
+  margin: 0;
 }
 
 .dean-card {
@@ -80,34 +118,32 @@
   position: relative;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 20px 40px rgba(119, 166, 199, 0.15),
+  box-shadow: 0 20px 40px rgba(119, 166, 199, 0.15),
     0 8px 16px rgba(0, 0, 0, 0.1);
   animation: slideInUp 1s ease-out 0.6s both;
+  will-change: transform;
 }
 
 .dean-card:hover {
   transform: translateY(-8px);
-  box-shadow: 
-    0 32px 64px rgba(119, 166, 199, 0.2),
+  box-shadow: 0 32px 64px rgba(119, 166, 199, 0.2),
     0 16px 32px rgba(0, 0, 0, 0.15);
   border-color: rgba(119, 166, 199, 0.3);
 }
 
 .dean-card::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto 0;
   height: 5px;
-  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   border-radius: 32px 32px 0 0;
 }
 
-/* ========================================
-   DEAN CONTENT
-======================================== */
 .dean-content {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -130,32 +166,26 @@
 }
 
 .dean-photo {
-  width: 250px; /* كبرنا الصورة من 180px إلى 240px */
-  height: 250px;
+  width: clamp(160px, 20vw, 250px);
+  height: clamp(160px, 20vw, 250px);
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
-  box-shadow: 
-    0 12px 32px rgba(119, 166, 199, 0.3),
+  box-shadow: 0 12px 32px rgba(119, 166, 199, 0.3),
     0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease;
-    margin-bottom: 1.5rem;
-
+  margin-bottom: 1.5rem;
 }
 
 .dean-card:hover .dean-photo {
   transform: scale(1.05);
-  box-shadow: 
-    0 20px 48px rgba(119, 166, 199, 0.4),
+  box-shadow: 0 20px 48px rgba(119, 166, 199, 0.4),
     0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .photo-frame {
   position: absolute;
-  top: -10px; /* ضبطنا الإطار مع حجم الصورة الجديد */
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
+  inset: clamp(-8px, -1vw, -10px);
   border: 2px solid var(--primary-color);
   border-radius: 50%;
   opacity: 0;
@@ -172,7 +202,7 @@
 }
 
 .dean-name {
-  font-size: 1.3rem; /* صغرنا من 1.5rem إلى 1.3rem */
+  font-size: var(--fs-lg);
   font-weight: 700;
   color: var(--dark-primary-color);
   margin-bottom: 0.5rem;
@@ -180,7 +210,7 @@
 }
 
 .dean-title {
-  font-size: 0.9rem; /* صغرنا من 1rem إلى 0.9rem */
+  font-size: var(--fs-sm);
   color: #64748b;
   margin-bottom: 1rem;
   line-height: 1.4;
@@ -190,18 +220,19 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  font-size: 0.8rem; /* صغرنا من 0.875rem */
+  font-size: var(--fs-xs);
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(119, 166, 199, 0.3);
 }
 
-/* ========================================
-   MESSAGE CONTENT
-======================================== */
 .message-content {
   display: flex;
   flex-direction: column;
@@ -210,7 +241,7 @@
 
 .message-text {
   line-height: 1.8;
-  font-size: 1rem; /* صغرنا من 1.1rem إلى 1rem */
+  font-size: var(--fs-md);
   color: #475569;
 }
 
@@ -221,19 +252,8 @@
   padding-left: 1rem;
 }
 
-.message-paragraph::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  width: 4px;
-  height: 4px;
-  background: var(--primary-color);
-  border-radius: 50%;
-}
-
 .message-paragraph:first-child {
-  font-size: 1.1rem; /* صغرنا من 1.2rem إلى 1.1rem */
+  font-size: clamp(1rem, 0.95rem + 0.6vw, 1.2rem);
   font-weight: 500;
   color: var(--dark-primary-color);
 }
@@ -256,30 +276,36 @@
 }
 
 .signature-name {
-  font-size: 1.1rem; /* صغرنا من 1.25rem إلى 1.1rem */
+  font-size: var(--fs-md);
   font-weight: 700;
   color: var(--dark-primary-color);
   margin-bottom: 0.25rem;
 }
 
 .signature-title {
-  font-size: 0.9rem; /* صغرنا من 1rem إلى 0.9rem */
+  font-size: var(--fs-sm);
   color: #64748b;
   font-style: italic;
   margin: 0;
 }
 
-/* ========================================
-   ANIMATIONS
-======================================== */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes slideInDown {
@@ -304,80 +330,21 @@
   }
 }
 
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
 @media (max-width: 1024px) {
   .dean-content {
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
   }
-  
+
   .dean-profile {
     position: static;
   }
 }
 
-@media (max-width: 768px) {
-  .dean-message-section {
-    padding: 3rem 0;
-  }
-  
-  .dean-card {
-    padding: 2rem;
-    border-radius: 24px;
-  }
-  
-  .dean-photo {
-    width: 200px; /* صورة أكبر في الشاشات المتوسطة */
-    height: 200px;
-  }
-  
-  .photo-frame {
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-  }
-  
-  .message-text {
-    font-size: 0.9rem; /* صغرنا الخط */
-  }
-  
-  .message-paragraph:first-child {
-    font-size: 1rem; /* صغرنا الخط */
-  }
-}
-
-@media (max-width: 576px) {
-  .dean-card {
-    padding: 1.5rem;
-    border-radius: 20px;
-  }
-  
-  .dean-photo {
-    width: 160px; /* صورة أكبر في الشاشات الصغيرة */
-    height: 160px;
-  }
-  
-  .dean-name {
-    font-size: 1.1rem; /* صغرنا الخط */
-  }
-  
-  .dean-title {
-    font-size: 0.8rem; /* صغرنا الخط */
-  }
-  
-  .dean-badge {
-    font-size: 0.75rem; /* صغرنا الخط */
-  }
-  
-  .signature-name {
-    font-size: 1rem; /* صغرنا الخط */
-  }
-  
-  .signature-title {
-    font-size: 0.8rem; /* صغرنا الخط */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }

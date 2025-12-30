@@ -1,30 +1,62 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VisionMissionService } from '../../../Services/vision-mission.service';
-import { VisionMission, ObjectiveItem } from '../../../model/vision-mission.model';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
-import { FooterComponent } from "../../shared/footer/footer.component";
+import { FooterComponent } from '../../shared/footer/footer.component';
+import {
+  AboutService,
+  About,
+  Goal,
+} from '../../../Services/real-services/about.service';
 
 @Component({
   selector: 'app-vision-mission',
   standalone: true,
   imports: [CommonModule, PageHeaderComponent, FooterComponent],
   templateUrl: './vision-mission.component.html',
-  styleUrls: ['./vision-mission.component.css']
+  styleUrls: ['./vision-mission.component.css'],
 })
 export class VisionMissionComponent implements OnInit {
-  visionMission!: VisionMission;
-  objectiveItems: ObjectiveItem[] = [];
+  private readonly aboutService = inject(AboutService);
 
-  constructor(private visionMissionService: VisionMissionService) {}
+  // Signals for reactive state management
+  aboutData = signal<About | null>(null);
+  isLoading = signal<boolean>(true);
+  error = signal<string | null>(null);
+
+  // Icons for goals display
+  goalIcons: string[] = [
+    'pi pi-star',
+    'pi pi-users',
+    'pi pi-globe',
+    'pi pi-chart-line',
+    'pi pi-book',
+    'pi pi-heart',
+  ];
 
   ngOnInit(): void {
-    this.visionMissionService.getVisionMission().subscribe(data => {
-      this.visionMission = data;
-    });
+    this.loadAboutData();
+  }
 
-    this.visionMissionService.getObjectiveItems().subscribe(items => {
-      this.objectiveItems = items;
+  private loadAboutData(): void {
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    this.aboutService.getAboutUniversity().subscribe({
+      next: (data) => {
+        if (data) {
+          this.aboutData.set(data);
+        }
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.error.set('حدث خطأ في تحميل البيانات');
+        this.isLoading.set(false);
+        console.error('Error loading about data:', err);
+      },
     });
+  }
+
+  getGoalIcon(index: number): string {
+    return this.goalIcons[index % this.goalIcons.length] ?? 'pi pi-star';
   }
 }

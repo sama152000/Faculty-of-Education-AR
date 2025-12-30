@@ -121,7 +121,8 @@ export class AboutService {
             const aboutUniversity = response.data.find(
               (page) =>
                 page.pageNameEn?.toLowerCase() === 'about university' ||
-                page.pageName === 'عن الجامعة'
+                page.pageName === 'عن الجامعة' ||
+                page.pageType === 'AboutUniversity'
             );
             observer.next(aboutUniversity || null);
             observer.complete();

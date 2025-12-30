@@ -1,21 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './Pages/shared/navbar/navbar.component';
+import { FooterComponent } from './Pages/shared/footer/footer.component';
 
 @Component({
   selector: 'app-Faculty-of-education',
   templateUrl: './Faculty-of-education.component.html',
   styleUrls: ['./Faculty-of-education.component.css'],
-  imports: [ 
-    RouterOutlet,
-    NavbarComponent
-    ]
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
 })
 export class FacultyOfEducationComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

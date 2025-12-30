@@ -1,56 +1,74 @@
 <div class="history-section col-md-12">
   <app-page-header
     [title]="'تاريخ الكلية'"
-    [breadcrumbs]="[{ label: 'عن الكلية', url: '/about-us' }, { label: 'تاريخ الكلية' }]">
+    [breadcrumbs]="[
+      { label: 'عن الكلية', url: '/about-us' },
+      { label: 'تاريخ الكلية' }
+    ]"
+  >
   </app-page-header>
-  <div class="history-header col-md-12">
-  </div>
 
+  <div class="history-header col-md-12"></div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="loading-container">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    <p>جاري التحميل...</p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+  <div class="error-container">
+    <i
+      class="pi pi-exclamation-triangle"
+      style="font-size: 2rem; color: #e74c3c"
+    ></i>
+    <p>{{ error() }}</p>
+  </div>
+  }
+
+  <!-- Content -->
+  @if (!isLoading() && !error() && aboutData()) {
   <div class="history-timeline col-md-12">
     <div class="timeline-item">
       <div class="timeline-content col-md-12">
         <div class="timeline-card">
           <h4 class="timeline-title">التأسيس</h4>
-          <p class="timeline-description">{{ facultyHistory.description }}</p>
-          
-          <div class="history-details">
-            <div class="detail-item">
-              <i class="pi pi-file"></i>
-              <span><strong>القرار:</strong> {{ facultyHistory.decree }}</span>
-            </div>
-            <div class="detail-item">
-              <i class="pi pi-calendar"></i>
-              <span><strong>التاريخ:</strong> {{ facultyHistory.establishmentDate }}</span>
-            </div>
-            <div class="detail-item">
-              <i class="pi pi-graduation-cap"></i>
-              <span><strong>العام الدراسي:</strong> {{ facultyHistory.academicYear }}</span>
-            </div>
-          </div>
 
+          <!-- History Content -->
+          @if (aboutData()?.history) {
+          <p class="timeline-description" dir="rtl">
+            {{ aboutData()?.history }}
+          </p>
+          }
+
+          <!-- Main Content -->
+          @if (aboutData()?.content) {
+          <div class="content-section">
+            <h5 class="content-title">نبذة عن الكلية</h5>
+            <p class="content-text" dir="rtl">{{ aboutData()?.content }}</p>
+          </div>
+          }
+
+          <!-- Goals Section -->
+          @if (aboutData()?.goals && aboutData()!.goals.length > 0) {
           <div class="programs-section">
-            <h5 class="programs-title">البرامج الأكاديمية</h5>
+            <h5 class="programs-title">الأهداف</h5>
             <div class="programs-list">
-              <div class="program-item" *ngFor="let program of facultyHistory.programs">
+              @for (goal of aboutData()?.goals; track goal.id) {
+              <div class="program-item">
                 <i class="pi pi-check-circle"></i>
-                <span>{{ program }}</span>
+                <span>{{ goal.goalName }}</span>
               </div>
+              }
             </div>
           </div>
-
-          <div class="facilities-section">
-            <h5 class="facilities-title">المرافق الحديثة</h5>
-            <div class="facilities-grid">
-              <div class="facility-item" *ngFor="let facility of facultyHistory.facilities">
-                <i class="pi pi-verified"></i>
-                <span>{{ facility }}</span>
-              </div>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>
   </div>
-
+  }
 </div>
-  <app-footer></app-footer>

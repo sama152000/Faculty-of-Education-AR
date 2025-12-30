@@ -1,19 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ContactService } from '../../Services/contact.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
-import { FooterComponent } from '../shared/footer/footer.component';
+import {
+  ContactsService,
+  Contact,
+  SocialMediaLink,
+} from '../../Services/real-services/contacts.service';
 
 @Component({
   selector: 'app-contact-us',
   standalone: true,
-  imports: [CommonModule, FormsModule, PageHeaderComponent, FooterComponent],
+  imports: [CommonModule, FormsModule, PageHeaderComponent],
   templateUrl: './contact-us.component.html',
   styleUrls: ['./contact-us.component.css'],
 })
 export class ContactUsComponent implements OnInit {
-  contactInfo!: any;
+  private readonly contactsService = inject(ContactsService);
+  private readonly sanitizer = inject(DomSanitizer);
+
+  // Signals for reactive state management
+  contactInfo = signal<Contact | null>(null);
+  isLoading = signal<boolean>(true);
+  error = signal<string | null>(null);
+
+  // Computed signal for social media links
+  socialMediaLinks = computed<SocialMediaLink[]>(() => {
+    const contact = this.contactInfo();
+    if (!contact) return [];
+
+    const links: SocialMediaLink[] = [];
+
+    if (contact.facebook && contact.facebook !== '#') {
+      links.push({
+        platform: 'فيسبوك',
+        url: contact.facebook,
+        icon: 'pi pi-facebook',
+      });
+    }
+    if (contact.twitter && contact.twitter !== '#') {
+      links.push({
+        platform: 'تويتر',
+        url: contact.twitter,
+        icon: 'pi pi-twitter',
+      });
+    }
+    if (contact.instagram && contact.instagram !== '#') {
+      links.push({
+        platform: 'انستجرام',
+        url: contact.instagram,
+        icon: 'pi pi-instagram',
+      });
+    }
+    if (contact.linkedIn && contact.linkedIn !== '#') {
+      links.push({
+        platform: 'لينكدإن',
+        url: contact.linkedIn,
+        icon: 'pi pi-linkedin',
+      });
+    }
+    if (contact.youTube && contact.youTube !== '#') {
+      links.push({
+        platform: 'يوتيوب',
+        url: contact.youTube,
+        icon: 'pi pi-youtube',
+      });
+    }
+    if (contact.whatsApp && contact.whatsApp !== '#') {
+      links.push({
+        platform: 'واتساب',
+        url: contact.whatsApp,
+        icon: 'pi pi-whatsapp',
+      });
+    }
+
+    return links;
+  });
+
+  // Computed signal for safe map URL
+  mapUrl = computed<SafeResourceUrl | null>(() => {
+    const contact = this.contactInfo();
+    if (!contact?.mapLocation || contact.mapLocation === '#') return null;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(contact.mapLocation);
+  });
 
   // Contact form data
   contactForm = {
@@ -26,30 +96,38 @@ export class ContactUsComponent implements OnInit {
   isSubmitting = false;
   submitSuccess = false;
 
-  constructor(private contactService: ContactService) {}
-
   ngOnInit(): void {
-    this.contactService.getContactInfo().subscribe((info) => {
-      this.contactInfo = info;
+    this.loadContactInfo();
+  }
+
+  private loadContactInfo(): void {
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    this.contactsService.getAllContacts().subscribe({
+      next: (response) => {
+        if (response.data && response.data.length > 0) {
+          this.contactInfo.set(response.data[0]);
+        }
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.error.set('حدث خطأ في تحميل بيانات الاتصال');
+        this.isLoading.set(false);
+        console.error('Error loading contact info:', err);
+      },
     });
   }
 
   onSubmit(): void {
     if (this.isValidForm()) {
       this.isSubmitting = true;
-
-      this.contactService.sendMessage(this.contactForm).subscribe({
-        next: (success) => {
-          if (success) {
-            this.submitSuccess = true;
-            this.resetForm();
-          }
-          this.isSubmitting = false;
-        },
-        error: () => {
-          this.isSubmitting = false;
-        },
-      });
+      // Simulate form submission - you can implement actual submission logic here
+      setTimeout(() => {
+        this.submitSuccess = true;
+        this.resetForm();
+        this.isSubmitting = false;
+      }, 1500);
     }
   }
 
@@ -76,8 +154,8 @@ export class ContactUsComponent implements OnInit {
   }
 
   copyToClipboard(text: string): void {
+    if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
-      // Could show a toast notification here
       console.log('Copied to clipboard:', text);
     });
   }

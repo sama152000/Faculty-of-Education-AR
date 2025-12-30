@@ -2,7 +2,12 @@
    VISION MISSION SECTION
 ======================================== */
 .vision-mission-section {
-  background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 50%, #f8fafc 100%);
+  background: linear-gradient(
+    135deg,
+    var(--bg-light) 0%,
+    var(--bg-white) 50%,
+    #f8fafc 100%
+  );
   position: relative;
   padding: var(--section-padding);
   overflow: hidden;
@@ -28,7 +33,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
@@ -50,7 +59,11 @@
 .decoration-line {
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   border-radius: 1px;
 }
 
@@ -62,6 +75,81 @@
 /* ========================================
    VISION MISSION GRID
 ======================================== */
+
+/* Loading & Error States */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--dark-primary-color);
+}
+
+.loading-container i {
+  color: var(--primary-color);
+}
+
+.loading-container p,
+.error-container p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Content Intro Section */
+.content-intro {
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.content-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(119, 166, 199, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: slideInUp 0.8s ease-out;
+}
+
+.content-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
+  border-radius: 24px 24px 0 0;
+}
+
+.content-icon {
+  background: linear-gradient(135deg, #64748b, #475569);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 8px 24px rgba(100, 116, 139, 0.3);
+}
+
+.content-icon i {
+  font-size: 2rem;
+  color: white;
+}
+
 .vision-mission-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -80,8 +168,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 20px 40px rgba(119, 166, 199, 0.15),
+  box-shadow: 0 20px 40px rgba(119, 166, 199, 0.15),
     0 8px 16px rgba(0, 0, 0, 0.1);
   animation: slideInUp 1s ease-out both;
 }
@@ -96,25 +183,28 @@
 
 .strategic-card:hover {
   transform: translateY(-12px);
-  box-shadow: 
-    0 32px 64px rgba(119, 166, 199, 0.2),
+  box-shadow: 0 32px 64px rgba(119, 166, 199, 0.2),
     0 16px 32px rgba(0, 0, 0, 0.15);
   border-color: rgba(119, 166, 199, 0.3);
 }
 
 .vision-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   border-radius: 32px 32px 0 0;
 }
 
 .mission-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -142,13 +232,16 @@
   margin: 0 auto 1.5rem;
   position: relative;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 12px 32px rgba(119, 166, 199, 0.4),
+  box-shadow: 0 12px 32px rgba(119, 166, 199, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .vision-icon {
-  background: linear-gradient(90deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
 }
 
 .mission-icon {
@@ -157,8 +250,7 @@
 
 .strategic-card:hover .card-icon {
   transform: rotate(5deg) scale(1.05);
-  box-shadow: 
-    0 20px 48px rgba(119, 166, 199, 0.5),
+  box-shadow: 0 20px 48px rgba(119, 166, 199, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
@@ -298,22 +390,20 @@
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 8px 32px rgba(119, 166, 199, 0.12),
+  box-shadow: 0 8px 32px rgba(119, 166, 199, 0.12),
     0 4px 12px rgba(0, 0, 0, 0.08);
   animation: fadeInUp 0.8s ease-out both;
 }
 
 .objective-card:hover {
   transform: translateY(-8px);
-  box-shadow: 
-    0 20px 48px rgba(119, 166, 199, 0.2),
+  box-shadow: 0 20px 48px rgba(119, 166, 199, 0.2),
     0 8px 20px rgba(0, 0, 0, 0.12);
   border-color: rgba(119, 166, 199, 0.3);
 }
 
 .objective-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -343,7 +433,11 @@
 .objective-icon {
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, var(--primary-color), var(--dark-primary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--dark-primary-color)
+  );
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -381,7 +475,11 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(119, 166, 199, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(119, 166, 199, 0.1) 0%,
+    transparent 70%
+  );
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -418,23 +516,47 @@
    ANIMATIONS
 ======================================== */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 @keyframes sparkle {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-  50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.8;
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.7; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
 }
 
 @keyframes wave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 @keyframes slideInDown {
@@ -477,16 +599,16 @@
   .section-title {
     font-size: 2.5rem;
   }
-  
+
   .objectives-title {
     font-size: 2rem;
   }
-  
+
   .vision-mission-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .objectives-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -496,38 +618,38 @@
   .vision-mission-section {
     padding: 3rem 0;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .objectives-title {
     font-size: 1.75rem;
   }
-  
+
   .strategic-card {
     padding: 2rem;
     border-radius: 24px;
   }
-  
+
   .card-icon {
     width: 80px;
     height: 80px;
   }
-  
+
   .card-icon i {
     font-size: 2rem;
   }
-  
+
   .card-title {
     font-size: 1.75rem;
   }
-  
+
   .objectives-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .objective-card {
     padding: 1.5rem;
   }
@@ -537,47 +659,47 @@
   .section-title {
     font-size: 1.75rem;
   }
-  
+
   .objectives-title {
     font-size: 1.5rem;
   }
-  
+
   .section-subtitle,
   .objectives-subtitle {
     font-size: 1rem;
   }
-  
+
   .strategic-card {
     padding: 1.5rem;
     border-radius: 20px;
   }
-  
+
   .card-icon {
     width: 70px;
     height: 70px;
   }
-  
+
   .card-icon i {
     font-size: 1.75rem;
   }
-  
+
   .card-title {
     font-size: 1.5rem;
   }
-  
+
   .card-text {
     font-size: 1rem;
   }
-  
+
   .objective-card {
     padding: 1.25rem;
   }
-  
+
   .objective-icon {
     width: 60px;
     height: 60px;
   }
-  
+
   .objective-icon i {
     font-size: 1.5rem;
   }

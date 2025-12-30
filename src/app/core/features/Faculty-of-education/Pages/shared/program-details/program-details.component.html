@@ -1,21 +1,28 @@
 <div class="program-details-container col-md-12" *ngIf="program">
-  
   <div class="content-wrapper col-md-12">
-    <div class="main-content col-md-12 ">
-      
+    <div class="main-content col-md-12">
       <app-page-header
         [title]="program.name"
         [breadcrumbs]="[
-          {label: 'البرامج الأكاديمية', url: '/programs'},
-          {label: program.name}
-        ]">
-      </app-page-header>      
+          { label: 'البرامج الأكاديمية', url: '/programs' },
+          { label: program.name }
+        ]"
+      >
+      </app-page-header>
       <div class="image-section">
         <div class="program-image-wrapper">
-          <img [src]="program.images[0]" [alt]="program.name" class="program-main-image" />
+          <img
+            [src]="program.images[0]"
+            [alt]="program.name"
+            class="program-main-image"
+          />
           <div class="image-overlay"></div>
           <div class="image-badge">
-            <p-tag [value]="program.category" severity="info" styleClass="custom-tag"></p-tag>
+            <p-tag
+              [value]="program.category"
+              severity="info"
+              styleClass="custom-tag"
+            ></p-tag>
           </div>
         </div>
       </div>
@@ -62,20 +69,22 @@
 
         <div class="navigation-buttons">
           <p-button
-          icon="pi pi-arrow-left"
-          label="البرنامج التالي"
-          iconPos="right"
-          (onClick)="goToNextProgram()"
-          styleClass="p-button-primary"
-          [style]="{'flex': '1'}">
-        </p-button>
-        <p-button
-        label="البرنامج السابق"
-        (onClick)="goToPreviousProgram()"
-        icon="pi pi-arrow-right"
-          styleClass="p-button-outlined"
-          [style]="{'flex': '1'}">
-        </p-button>
+            icon="pi pi-arrow-left"
+            label="البرنامج التالي"
+            iconPos="right"
+            (onClick)="goToNextProgram()"
+            styleClass="p-button-primary"
+            [style]="{ flex: '1' }"
+          >
+          </p-button>
+          <p-button
+            label="البرنامج السابق"
+            (onClick)="goToPreviousProgram()"
+            icon="pi pi-arrow-right"
+            styleClass="p-button-outlined"
+            [style]="{ flex: '1' }"
+          >
+          </p-button>
         </div>
       </p-card>
     </div>
@@ -88,9 +97,11 @@
         </h3>
         <p-divider></p-divider>
         <ul class="programs-navigation-list">
-          <li *ngFor="let prog of allPrograms"
-              class="program-nav-item"
-              [class.active]="prog.id === program.id">
+          <li
+            *ngFor="let prog of allPrograms"
+            class="program-nav-item"
+            [class.active]="prog.id === program.id"
+          >
             <a [routerLink]="['/programs', prog.id]">
               <i class="pi pi-angle-left"></i>
               <span>{{ prog.name }}</span>
@@ -132,5 +143,3 @@
     </aside>
   </div>
 </div>
-
-<app-footer></app-footer>
